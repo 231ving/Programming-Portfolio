@@ -1,0 +1,14 @@
+* Good start on part 1 and 2. Please continue to work at getting all the boxes at the top the same size
+  (so that everything lines up)
+* Nice work getting the various boxes colored correctly. Next time, I would encourage you to look 
+  for a design that requires less "code" in the template.  Here is one idea:  For the keyboard
+  create a Dictionary that maps letters to the correct class.  That way, you don't need so may 
+  "if" statements in the template. Instead you can just pull the desired class values right out of the 
+  dictionary. 
+
+  (Do this once, instead of having an if-else chain.)
+  <span id="letter-{{ char }}" class="{{char_map[char]}}">{{ char.upper() }}</span>
+
+
+  There is no need to refactor the template; but please re-submit the HTML (either in the context
+  of part 1, or part2, your choice)

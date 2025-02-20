@@ -1,0 +1,28 @@
+<%
+    /* This file shows how you can use the Node/.ejs scaffolding for this assignment
+       if you choose.  (You aren't required to use this setup)
+    */
+
+    console.log("Locals:")
+    console.log(locals)
+%>
+
+<html>
+    <head>
+        <link rel='stylesheet' href='wordle_part1.css'>
+    </head>
+<body>
+    <h1>Wordle Demo</h1>
+
+    <p>If you like, you can put your <span class='wordle-name'>Wordle</span> template code in another <code>.ejs</code> file in the <code>view</code>
+        directory.
+    <p>
+
+    <p>The server is currently configured to display <%= maxAttempts %> attempts and the following <%= guesses.length %> guesses: </p>
+    <ul>
+        <% guesses.forEach( (guess) => { %>
+            <li><%= guess %></li>
+        <% }) %>
+    </ul>
+</body>
+</html>
