@@ -1,0 +1,279 @@
+Index: .idea/rpg.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <excludeFolder url=\"file://$MODULE_DIR$/.venv\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/rpg.iml b/.idea/rpg.iml
+--- a/.idea/rpg.iml	(revision 4b718d5f4b8f1f42da6fc30df5970b8fc840c881)
++++ b/.idea/rpg.iml	(date 1707497461386)
+@@ -2,7 +2,8 @@
+ <module type="PYTHON_MODULE" version="4">
+   <component name="NewModuleRootManager">
+     <content url="file://$MODULE_DIR$">
+-      <excludeFolder url="file://$MODULE_DIR$/.venv" />
++      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
++      <sourceFolder url="file://$MODULE_DIR$/rpg" isTestSource="false" />
+     </content>
+     <orderEntry type="inheritedJdk" />
+     <orderEntry type="sourceFolder" forTests="false" />
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"1137f7f5-94a4-406c-ac24-1c75be041bf5\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/modules.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/rpg.iml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/rpg\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/rpg/.gitignore\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/rpg/Classes/Character.py\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/rpg/Classes/Enemy.py\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/rpg/Classes/GameHandler\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/rpg/Classes/Item.py\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/rpg/Classes/Scene.py\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/rpg/Classes/dungeon.py\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/rpg/Classes/enemy_txt/monster_names\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/rpg/Classes/items_txt/item_attributes\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/rpg/Classes/items_txt/item_types\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/rpg/Classes/room_txt/room_names\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/rpg/Gui.py\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/rpg/reference/main.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Example1.jpg\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/GUI.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/README.md\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Spaceship.ico\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/bg.jpg\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/bg2.jpeg\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/character.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/dungeon.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/game.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/item.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/item_attributes\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/item_types\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/main.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/mainGameBG.jpg\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/monster_names\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/printer.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/rpg/Images/Example1.jpg\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/rpg/Images/Example1.jpg\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/rpg/Images/Spaceship.ico\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/rpg/Images/Spaceship.ico\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/rpg/Images/bg.jpg\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/rpg/Images/bg.jpg\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/rpg/Images/bg2.jpeg\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/rpg/Images/bg2.jpeg\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/rpg/Images/mainGameBG.jpg\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/rpg/Images/mainGameBG.jpg\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/rpg/main.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/rpg/main.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/rpg/reference/character.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/rpg/reference/character.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/rpg/reference/game.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/rpg/reference/game.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/rpg/reference/item.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/rpg/reference/item.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/rpg/reference/printer.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/rpg/reference/printer.py\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/rpg\" />\r\n    <option name=\"ROOT_SYNC\" value=\"SYNC\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 7\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2bmxjSwlyAJvIwWriviN7xiaAKK\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,\r\n    &quot;Python.Character.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.Gui.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.character.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.dungeon.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.item.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.main.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;Merging main&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\phuc2\\PycharmProjects\\rpg\\rpg\\Classes\\enemy_txt\" />\r\n      <recent name=\"C:\\Users\\phuc2\\PycharmProjects\\rpg\\rpg\\Classes\\room_txt\" />\r\n      <recent name=\"C:\\Users\\phuc2\\PycharmProjects\\rpg\\rpg\\Classes\\items_txt\" />\r\n      <recent name=\"C:\\Users\\phuc2\\PycharmProjects\\rpg\\rpg\" />\r\n      <recent name=\"C:\\Users\\phuc2\\PycharmProjects\\rpg\\rpg\\Classes\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-python-sdk-5a2391486177-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.13763.11\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"1137f7f5-94a4-406c-ac24-1c75be041bf5\" name=\"Changes\" comment=\"\" />\r\n      <created>1706834189870</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1706834189870</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 4b718d5f4b8f1f42da6fc30df5970b8fc840c881)
++++ b/.idea/workspace.xml	(date 1709350794921)
+@@ -4,63 +4,39 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="1137f7f5-94a4-406c-ac24-1c75be041bf5" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/rpg.iml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/rpg" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/rpg/.gitignore" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/rpg/Classes/Character.py" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/rpg/Classes/Enemy.py" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/rpg/Classes/GameHandler" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/rpg/Classes/Item.py" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/rpg/Classes/Scene.py" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/rpg/Classes/dungeon.py" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/rpg/Classes/enemy_txt/monster_names" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/rpg/Classes/items_txt/item_attributes" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/rpg/Classes/items_txt/item_types" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/rpg/Classes/room_txt/room_names" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/rpg/Gui.py" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/rpg/reference/main.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Example1.jpg" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/GUI.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Spaceship.ico" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/bg.jpg" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/bg2.jpeg" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/character.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/dungeon.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/item.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/item_attributes" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/item_types" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/mainGameBG.jpg" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/monster_names" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/printer.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/rpg/Images/Example1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/Images/Example1.jpg" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/rpg/Images/Spaceship.ico" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/Images/Spaceship.ico" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/rpg/Images/bg.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/Images/bg.jpg" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/rpg/Images/bg2.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/Images/bg2.jpeg" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/rpg/Images/mainGameBG.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/Images/mainGameBG.jpg" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/rpg/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/main.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/rpg/reference/character.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/reference/character.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/rpg/reference/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/reference/game.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/rpg/reference/item.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/reference/item.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/rpg/reference/printer.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/reference/printer.py" afterDir="false" />
++    <list default="true" id="1137f7f5-94a4-406c-ac24-1c75be041bf5" name="Changes" comment="Try merge">
++      <change beforePath="$PROJECT_DIR$/.idea/rpg.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rpg.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
++  </component>
++  <component name="FileTemplateManagerImpl">
++    <option name="RECENT_TEMPLATES">
++      <list>
++        <option value="Python Script" />
++      </list>
++    </option>
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/rpg" />
+     <option name="ROOT_SYNC" value="SYNC" />
++  </component>
++  <component name="GitHubPullRequestSearchHistory">{
++  &quot;lastFilter&quot;: {
++    &quot;state&quot;: &quot;OPEN&quot;,
++    &quot;assignee&quot;: &quot;231ving&quot;
++  }
++}</component>
++  <component name="GithubPullRequestsUISettings">
++    <option name="selectedUrlAndAccountId">
++      <UrlAndAccount>
++        <option name="accountId" value="a56bda9c-df1b-4cad-8369-bf7efd1b35ca" />
++        <option name="url" value="https://github.com/Evickerest/rpg.git" />
++      </UrlAndAccount>
++    </option>
+   </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+@@ -82,27 +58,133 @@
+   <component name="PropertiesComponent">{
+   &quot;keyToString&quot;: {
+     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+-    &quot;Python.Character.executor&quot;: &quot;Run&quot;,
++    &quot;Python tests.Python tests for Item_tests.ItemTests.test_item_assign_stats.executor&quot;: &quot;Run&quot;,
++    &quot;Python tests.Python tests for Item_tests.ItemTests.test_item_stats1.executor&quot;: &quot;Run&quot;,
++    &quot;Python tests.Python tests for Item_tests.ItemTests.test_make_item1.executor&quot;: &quot;Run&quot;,
++    &quot;Python tests.Python tests for Item_tests.Item_Tests.test_load_items.executor&quot;: &quot;Run&quot;,
++    &quot;Python tests.Python tests in Item_tests.py.executor&quot;: &quot;Run&quot;,
++    &quot;Python.Character.executor&quot;: &quot;Debug&quot;,
++    &quot;Python.CharacterGui.executor&quot;: &quot;Run&quot;,
++    &quot;Python.Character_tests.executor&quot;: &quot;Run&quot;,
++    &quot;Python.FightGUI.executor&quot;: &quot;Run&quot;,
++    &quot;Python.FightGUI_tests.executor&quot;: &quot;Run&quot;,
+     &quot;Python.Gui.executor&quot;: &quot;Run&quot;,
++    &quot;Python.InventoryGui.executor&quot;: &quot;Run&quot;,
++    &quot;Python.Item.executor&quot;: &quot;Run&quot;,
+     &quot;Python.character.executor&quot;: &quot;Run&quot;,
+     &quot;Python.dungeon.executor&quot;: &quot;Run&quot;,
++    &quot;Python.dungeon_tests.executor&quot;: &quot;Run&quot;,
+     &quot;Python.item.executor&quot;: &quot;Run&quot;,
+     &quot;Python.main.executor&quot;: &quot;Run&quot;,
+     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;Merging main&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
++    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/phuc2/PycharmProjects/rpg&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;
+   }
+ }</component>
+   <component name="RecentsManager">
+     <key name="MoveFile.RECENT_KEYS">
++      <recent name="C:\Users\phuc2\PycharmProjects\rpg\rpg" />
++      <recent name="C:\Users\phuc2\PycharmProjects\rpg\rpg\Classes" />
+       <recent name="C:\Users\phuc2\PycharmProjects\rpg\rpg\Classes\enemy_txt" />
+       <recent name="C:\Users\phuc2\PycharmProjects\rpg\rpg\Classes\room_txt" />
+       <recent name="C:\Users\phuc2\PycharmProjects\rpg\rpg\Classes\items_txt" />
+-      <recent name="C:\Users\phuc2\PycharmProjects\rpg\rpg" />
+-      <recent name="C:\Users\phuc2\PycharmProjects\rpg\rpg\Classes" />
+     </key>
+   </component>
++  <component name="RunManager" selected="Python.main">
++    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
++      <module name="rpg" />
++      <option name="ENV_FILES" value="" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <envs>
++        <env name="PYTHONUNBUFFERED" value="1" />
++      </envs>
++      <option name="SDK_HOME" value="" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/rpg" />
++      <option name="IS_MODULE_SDK" value="true" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/rpg/main.py" />
++      <option name="PARAMETERS" value="" />
++      <option name="SHOW_COMMAND_LINE" value="false" />
++      <option name="EMULATE_TERMINAL" value="false" />
++      <option name="MODULE_MODE" value="false" />
++      <option name="REDIRECT_INPUT" value="false" />
++      <option name="INPUT_FILE" value="" />
++      <method v="2" />
++    </configuration>
++    <configuration name="Python tests for Item_tests.ItemTests.test_item_assign_stats" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
++      <module name="rpg" />
++      <option name="ENV_FILES" value="" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <option name="SDK_HOME" value="" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/rpg" />
++      <option name="IS_MODULE_SDK" value="true" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <option name="_new_additionalArguments" value="&quot;&quot;" />
++      <option name="_new_target" value="&quot;Item_tests.ItemTests.test_item_assign_stats&quot;" />
++      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
++      <method v="2" />
++    </configuration>
++    <configuration name="Python tests for Item_tests.ItemTests.test_item_stats1" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
++      <module name="rpg" />
++      <option name="ENV_FILES" value="" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <option name="SDK_HOME" value="" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/rpg" />
++      <option name="IS_MODULE_SDK" value="true" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <option name="_new_additionalArguments" value="&quot;&quot;" />
++      <option name="_new_target" value="&quot;Item_tests.ItemTests.test_item_stats1&quot;" />
++      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
++      <method v="2" />
++    </configuration>
++    <configuration name="Python tests for Item_tests.ItemTests.test_make_item1" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
++      <module name="rpg" />
++      <option name="ENV_FILES" value="" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <option name="SDK_HOME" value="" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/rpg" />
++      <option name="IS_MODULE_SDK" value="true" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <option name="_new_additionalArguments" value="&quot;&quot;" />
++      <option name="_new_target" value="&quot;Item_tests.ItemTests.test_make_item1&quot;" />
++      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
++      <method v="2" />
++    </configuration>
++    <configuration name="Python tests for Item_tests.Item_Tests.test_load_items" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
++      <module name="rpg" />
++      <option name="ENV_FILES" value="" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <option name="SDK_HOME" value="" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/rpg" />
++      <option name="IS_MODULE_SDK" value="true" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <option name="_new_additionalArguments" value="&quot;&quot;" />
++      <option name="_new_target" value="&quot;Item_tests.Item_Tests.test_load_items&quot;" />
++      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
++      <method v="2" />
++    </configuration>
++    <recent_temporary>
++      <list>
++        <item itemvalue="Python.main" />
++        <item itemvalue="Python tests.Python tests for Item_tests.ItemTests.test_item_assign_stats" />
++        <item itemvalue="Python tests.Python tests for Item_tests.ItemTests.test_item_stats1" />
++        <item itemvalue="Python tests.Python tests for Item_tests.ItemTests.test_make_item1" />
++        <item itemvalue="Python tests.Python tests for Item_tests.Item_Tests.test_load_items" />
++      </list>
++    </recent_temporary>
++  </component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+@@ -121,7 +203,20 @@
+     </task>
+     <servers />
+   </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
+   <component name="VcsManagerConfiguration">
+     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
++    <MESSAGE value="Try merge" />
++    <option name="LAST_COMMIT_MESSAGE" value="Try merge" />
+   </component>
+ </project>
+\ No newline at end of file

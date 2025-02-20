@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>rpg.Classes.Map.map API documentation</title>
+<meta name="description" content="Module for the Map class." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>rpg.Classes.Map.map</code></h1>
+</header>
+<section id="section-intro">
+<p>Module for the Map class.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Module for the Map class.
+&#34;&#34;&#34;
+
+import csv
+import random
+from Classes.Map.edge import Edge
+from Classes.Map.mapconstants import MapConstants
+from Classes.Rooms.start_room import StartRoom
+
+# Manages the rooms and room connections
+
+
+class Map:
+    &#34;&#34;&#34;Contains multiple Room instances and connects them together.
+    &#34;&#34;&#34;
+    def __init__(self):
+        &#34;&#34;&#34;Creates the Map instance.
+        &#34;&#34;&#34;
+        self.rooms = None
+        self.current_room = None
+        self.edges = []
+        self.start_room = StartRoom()
+
+        self.generate_map()
+
+    def generate_map(self):
+        &#34;&#34;&#34;Method to generate the map.
+        &#34;&#34;&#34;
+        self.generate_random_rooms()
+        self.connect_every_room_together()
+        self.prims_algorithm()
+        self.set_current_room(self.start_room)
+        self.assign_random_images()
+        # self.printMap()
+
+    def get_current_room(self):
+        &#34;&#34;&#34;Getter for the current room of the map.
+        Returns:
+            current_room (Room): The Room the player is in.
+        &#34;&#34;&#34;
+        return self.current_room
+
+    def set_current_room(self, room):
+        &#34;&#34;&#34;Setter for the current room of the map.
+        Args:
+            room (Room): The Room instance to set as the currentRoom.
+        &#34;&#34;&#34;
+        self.current_room = room
+
+    def generate_random_rooms(self):
+        &#34;&#34;&#34;Method to generate random rooms.
+        &#34;&#34;&#34;
+        self.rooms = []
+
+        counter = 1
+        # Loop through each room type
+        for room_type in MapConstants.ROOM_TYPES:
+            # Loop for the desired number of rooms
+            for _ in range(
+                    MapConstants.ROOM_TYPES[room_type][&#34;desired_number&#34;]):
+                random_x = random.random()
+                random_y = random.random()
+
+                # Create room and set coordinates
+                room = MapConstants.ROOM_TYPES[room_type][&#34;room&#34;]()
+                # room.image = randomImage()
+
+                room.number = str(counter)
+                counter += 1
+
+                room.set_coordinates(random_x, random_y)
+
+                self.rooms.append(room)
+
+    # Create an edge between all possible pairs of rooms
+    def connect_every_room_together(self):
+        &#34;&#34;&#34;Method to create edges between rooms.
+        &#34;&#34;&#34;
+        for room in self.rooms:
+            for other_room in self.rooms:
+                if room != other_room:
+                    room.edges.append(Edge(room, other_room))
+
+    # Implementation of Prim&#39;s Algorithm
+    # Takes a graph of nodes (rooms) and edges, and constructs a minimum
+    # spanning tree. Downside is that a mst doesn&#39;t produce cycles, so
+    # additional edges will have to be added in.
+    def prims_algorithm(self):
+        &#34;&#34;&#34;Method to create a minimum spanning tree to connect all
+         rooms together.
+        &#34;&#34;&#34;
+        seen_rooms = [self.rooms[0]]
+        default_edge = Edge(self.rooms[0], self.rooms[1])
+        mst = []
+
+        while len(seen_rooms) &lt; MapConstants.TOTAL_ROOMS:
+
+            available_edges = []
+            for seenroom in seen_rooms:
+                for edge in seenroom.edges:
+
+                    if (edge.rooms[0] in seen_rooms and edge.rooms[1]
+                            not in seen_rooms):
+                        available_edges.append(edge)
+
+            minimum_edge = min(available_edges, key=lambda edge: edge.weight,
+                               default=default_edge)
+            seen_rooms.append(minimum_edge.rooms[1])
+            mst.append(minimum_edge)
+
+            # Throw random edges in
+            while (random.random() &lt; MapConstants.CHANCE_FOR_NEW_EDGE
+                   and len(available_edges) != 0):
+
+                random_edge = random.choice(available_edges)
+                # Max of 6 room connections per room
+                if (len(random_edge.rooms[0].get_adjacent_rooms()) &lt; 6 and
+                        len(random_edge.rooms[1].get_adjacent_rooms()) &lt; 6):
+                    mst.append(random_edge)
+
+        # From what was created from Prim&#39;s algorithm, create adjacency between
+        # rooms.
+        # Edges and adjacency are kinda redundant tbh
+        for edge in mst:
+            edge.rooms[0].create_adjacency(edge.rooms[1])
+
+        # Create Start room
+        self.start_room.add_adjacent_room(self.rooms[0])
+        self.start_room.cleared = True
+
+    def assign_random_images(self):
+        &#34;&#34;&#34;Method to assign an image path to all rooms in the map.
+        &#34;&#34;&#34;
+        from Classes.game_handler import GameHandler
+        # To import the Level counter from GameHandler
+        self.lvl_counter = GameHandler.counter
+
+        button_images1 = []
+        button_images2 = []
+        button_images3 = []
+
+        names = []
+        # Text File created with button names(Room names).
+        with open(&#39;Names/ButtonNames.txt&#39;,
+                  &#39;r&#39;, encoding=&#34;utf-8&#34;) as f:
+            reader = csv.reader(f)
+            for row in reader:
+                names.extend(row)
+
+        button_images1 = names[:20]  # There are 20 Possible Button names
+        button_images2 = names[20:44]
+        # From the 20th to the 45th position extracted for Round 2.
+        button_images3 = names[44:]
+
+        if self.lvl_counter == 1:
+            random.shuffle(button_images1)
+            for room in self.rooms:
+                room.set_image_path(f&#34;Images/LevelOneMap/{button_images1.pop()}.jpg&#34;)
+
+        elif self.lvl_counter == 2:
+            random.shuffle(button_images2)
+            for room in self.rooms:
+                room.set_image_path(f&#34;Images/LevelTwoMap/{button_images2.pop()}.jpg&#34;)
+
+        elif self.lvl_counter == 3:
+            random.shuffle(button_images3)
+            for room in self.rooms:
+                room.set_image_path(f&#34;Images/Level3/LevelThreeMap/{button_images3.pop()}.jpg&#34;)
+
+    def print_map(self):
+        &#34;&#34;&#34;Method to print all the rooms in the map and their adjacent rooms.
+        &#34;&#34;&#34;
+        print(f&#34;{self.start_room} is adjacent to:&#34;
+              f&#34; {self.start_room.get_adjacent_rooms()}\n\n&#34;)
+        for room in self.rooms:
+            print(f&#34;{room} is adjacent to: {room.get_adjacent_rooms()}\n\n&#34;)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="rpg.Classes.Map.map.Map"><code class="flex name class">
+<span>class <span class="ident">Map</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Contains multiple Room instances and connects them together.</p>
+<p>Creates the Map instance.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Map:
+    &#34;&#34;&#34;Contains multiple Room instances and connects them together.
+    &#34;&#34;&#34;
+    def __init__(self):
+        &#34;&#34;&#34;Creates the Map instance.
+        &#34;&#34;&#34;
+        self.rooms = None
+        self.current_room = None
+        self.edges = []
+        self.start_room = StartRoom()
+
+        self.generate_map()
+
+    def generate_map(self):
+        &#34;&#34;&#34;Method to generate the map.
+        &#34;&#34;&#34;
+        self.generate_random_rooms()
+        self.connect_every_room_together()
+        self.prims_algorithm()
+        self.set_current_room(self.start_room)
+        self.assign_random_images()
+        # self.printMap()
+
+    def get_current_room(self):
+        &#34;&#34;&#34;Getter for the current room of the map.
+        Returns:
+            current_room (Room): The Room the player is in.
+        &#34;&#34;&#34;
+        return self.current_room
+
+    def set_current_room(self, room):
+        &#34;&#34;&#34;Setter for the current room of the map.
+        Args:
+            room (Room): The Room instance to set as the currentRoom.
+        &#34;&#34;&#34;
+        self.current_room = room
+
+    def generate_random_rooms(self):
+        &#34;&#34;&#34;Method to generate random rooms.
+        &#34;&#34;&#34;
+        self.rooms = []
+
+        counter = 1
+        # Loop through each room type
+        for room_type in MapConstants.ROOM_TYPES:
+            # Loop for the desired number of rooms
+            for _ in range(
+                    MapConstants.ROOM_TYPES[room_type][&#34;desired_number&#34;]):
+                random_x = random.random()
+                random_y = random.random()
+
+                # Create room and set coordinates
+                room = MapConstants.ROOM_TYPES[room_type][&#34;room&#34;]()
+                # room.image = randomImage()
+
+                room.number = str(counter)
+                counter += 1
+
+                room.set_coordinates(random_x, random_y)
+
+                self.rooms.append(room)
+
+    # Create an edge between all possible pairs of rooms
+    def connect_every_room_together(self):
+        &#34;&#34;&#34;Method to create edges between rooms.
+        &#34;&#34;&#34;
+        for room in self.rooms:
+            for other_room in self.rooms:
+                if room != other_room:
+                    room.edges.append(Edge(room, other_room))
+
+    # Implementation of Prim&#39;s Algorithm
+    # Takes a graph of nodes (rooms) and edges, and constructs a minimum
+    # spanning tree. Downside is that a mst doesn&#39;t produce cycles, so
+    # additional edges will have to be added in.
+    def prims_algorithm(self):
+        &#34;&#34;&#34;Method to create a minimum spanning tree to connect all
+         rooms together.
+        &#34;&#34;&#34;
+        seen_rooms = [self.rooms[0]]
+        default_edge = Edge(self.rooms[0], self.rooms[1])
+        mst = []
+
+        while len(seen_rooms) &lt; MapConstants.TOTAL_ROOMS:
+
+            available_edges = []
+            for seenroom in seen_rooms:
+                for edge in seenroom.edges:
+
+                    if (edge.rooms[0] in seen_rooms and edge.rooms[1]
+                            not in seen_rooms):
+                        available_edges.append(edge)
+
+            minimum_edge = min(available_edges, key=lambda edge: edge.weight,
+                               default=default_edge)
+            seen_rooms.append(minimum_edge.rooms[1])
+            mst.append(minimum_edge)
+
+            # Throw random edges in
+            while (random.random() &lt; MapConstants.CHANCE_FOR_NEW_EDGE
+                   and len(available_edges) != 0):
+
+                random_edge = random.choice(available_edges)
+                # Max of 6 room connections per room
+                if (len(random_edge.rooms[0].get_adjacent_rooms()) &lt; 6 and
+                        len(random_edge.rooms[1].get_adjacent_rooms()) &lt; 6):
+                    mst.append(random_edge)
+
+        # From what was created from Prim&#39;s algorithm, create adjacency between
+        # rooms.
+        # Edges and adjacency are kinda redundant tbh
+        for edge in mst:
+            edge.rooms[0].create_adjacency(edge.rooms[1])
+
+        # Create Start room
+        self.start_room.add_adjacent_room(self.rooms[0])
+        self.start_room.cleared = True
+
+    def assign_random_images(self):
+        &#34;&#34;&#34;Method to assign an image path to all rooms in the map.
+        &#34;&#34;&#34;
+        from Classes.game_handler import GameHandler
+        # To import the Level counter from GameHandler
+        self.lvl_counter = GameHandler.counter
+
+        button_images1 = []
+        button_images2 = []
+        button_images3 = []
+
+        names = []
+        # Text File created with button names(Room names).
+        with open(&#39;Names/ButtonNames.txt&#39;,
+                  &#39;r&#39;, encoding=&#34;utf-8&#34;) as f:
+            reader = csv.reader(f)
+            for row in reader:
+                names.extend(row)
+
+        button_images1 = names[:20]  # There are 20 Possible Button names
+        button_images2 = names[20:44]
+        # From the 20th to the 45th position extracted for Round 2.
+        button_images3 = names[44:]
+
+        if self.lvl_counter == 1:
+            random.shuffle(button_images1)
+            for room in self.rooms:
+                room.set_image_path(f&#34;Images/LevelOneMap/{button_images1.pop()}.jpg&#34;)
+
+        elif self.lvl_counter == 2:
+            random.shuffle(button_images2)
+            for room in self.rooms:
+                room.set_image_path(f&#34;Images/LevelTwoMap/{button_images2.pop()}.jpg&#34;)
+
+        elif self.lvl_counter == 3:
+            random.shuffle(button_images3)
+            for room in self.rooms:
+                room.set_image_path(f&#34;Images/Level3/LevelThreeMap/{button_images3.pop()}.jpg&#34;)
+
+    def print_map(self):
+        &#34;&#34;&#34;Method to print all the rooms in the map and their adjacent rooms.
+        &#34;&#34;&#34;
+        print(f&#34;{self.start_room} is adjacent to:&#34;
+              f&#34; {self.start_room.get_adjacent_rooms()}\n\n&#34;)
+        for room in self.rooms:
+            print(f&#34;{room} is adjacent to: {room.get_adjacent_rooms()}\n\n&#34;)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="rpg.Classes.Map.map.Map.assign_random_images"><code class="name flex">
+<span>def <span class="ident">assign_random_images</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to assign an image path to all rooms in the map.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def assign_random_images(self):
+    &#34;&#34;&#34;Method to assign an image path to all rooms in the map.
+    &#34;&#34;&#34;
+    from Classes.game_handler import GameHandler
+    # To import the Level counter from GameHandler
+    self.lvl_counter = GameHandler.counter
+
+    button_images1 = []
+    button_images2 = []
+    button_images3 = []
+
+    names = []
+    # Text File created with button names(Room names).
+    with open(&#39;Names/ButtonNames.txt&#39;,
+              &#39;r&#39;, encoding=&#34;utf-8&#34;) as f:
+        reader = csv.reader(f)
+        for row in reader:
+            names.extend(row)
+
+    button_images1 = names[:20]  # There are 20 Possible Button names
+    button_images2 = names[20:44]
+    # From the 20th to the 45th position extracted for Round 2.
+    button_images3 = names[44:]
+
+    if self.lvl_counter == 1:
+        random.shuffle(button_images1)
+        for room in self.rooms:
+            room.set_image_path(f&#34;Images/LevelOneMap/{button_images1.pop()}.jpg&#34;)
+
+    elif self.lvl_counter == 2:
+        random.shuffle(button_images2)
+        for room in self.rooms:
+            room.set_image_path(f&#34;Images/LevelTwoMap/{button_images2.pop()}.jpg&#34;)
+
+    elif self.lvl_counter == 3:
+        random.shuffle(button_images3)
+        for room in self.rooms:
+            room.set_image_path(f&#34;Images/Level3/LevelThreeMap/{button_images3.pop()}.jpg&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.Map.map.Map.connect_every_room_together"><code class="name flex">
+<span>def <span class="ident">connect_every_room_together</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to create edges between rooms.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def connect_every_room_together(self):
+    &#34;&#34;&#34;Method to create edges between rooms.
+    &#34;&#34;&#34;
+    for room in self.rooms:
+        for other_room in self.rooms:
+            if room != other_room:
+                room.edges.append(Edge(room, other_room))</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.Map.map.Map.generate_map"><code class="name flex">
+<span>def <span class="ident">generate_map</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to generate the map.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_map(self):
+    &#34;&#34;&#34;Method to generate the map.
+    &#34;&#34;&#34;
+    self.generate_random_rooms()
+    self.connect_every_room_together()
+    self.prims_algorithm()
+    self.set_current_room(self.start_room)
+    self.assign_random_images()
+    # self.printMap()</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.Map.map.Map.generate_random_rooms"><code class="name flex">
+<span>def <span class="ident">generate_random_rooms</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to generate random rooms.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_random_rooms(self):
+    &#34;&#34;&#34;Method to generate random rooms.
+    &#34;&#34;&#34;
+    self.rooms = []
+
+    counter = 1
+    # Loop through each room type
+    for room_type in MapConstants.ROOM_TYPES:
+        # Loop for the desired number of rooms
+        for _ in range(
+                MapConstants.ROOM_TYPES[room_type][&#34;desired_number&#34;]):
+            random_x = random.random()
+            random_y = random.random()
+
+            # Create room and set coordinates
+            room = MapConstants.ROOM_TYPES[room_type][&#34;room&#34;]()
+            # room.image = randomImage()
+
+            room.number = str(counter)
+            counter += 1
+
+            room.set_coordinates(random_x, random_y)
+
+            self.rooms.append(room)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.Map.map.Map.get_current_room"><code class="name flex">
+<span>def <span class="ident">get_current_room</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Getter for the current room of the map.</p>
+<h2 id="returns">Returns</h2>
+<p>current_room (Room): The Room the player is in.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_current_room(self):
+    &#34;&#34;&#34;Getter for the current room of the map.
+    Returns:
+        current_room (Room): The Room the player is in.
+    &#34;&#34;&#34;
+    return self.current_room</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.Map.map.Map.prims_algorithm"><code class="name flex">
+<span>def <span class="ident">prims_algorithm</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to create a minimum spanning tree to connect all
+rooms together.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def prims_algorithm(self):
+    &#34;&#34;&#34;Method to create a minimum spanning tree to connect all
+     rooms together.
+    &#34;&#34;&#34;
+    seen_rooms = [self.rooms[0]]
+    default_edge = Edge(self.rooms[0], self.rooms[1])
+    mst = []
+
+    while len(seen_rooms) &lt; MapConstants.TOTAL_ROOMS:
+
+        available_edges = []
+        for seenroom in seen_rooms:
+            for edge in seenroom.edges:
+
+                if (edge.rooms[0] in seen_rooms and edge.rooms[1]
+                        not in seen_rooms):
+                    available_edges.append(edge)
+
+        minimum_edge = min(available_edges, key=lambda edge: edge.weight,
+                           default=default_edge)
+        seen_rooms.append(minimum_edge.rooms[1])
+        mst.append(minimum_edge)
+
+        # Throw random edges in
+        while (random.random() &lt; MapConstants.CHANCE_FOR_NEW_EDGE
+               and len(available_edges) != 0):
+
+            random_edge = random.choice(available_edges)
+            # Max of 6 room connections per room
+            if (len(random_edge.rooms[0].get_adjacent_rooms()) &lt; 6 and
+                    len(random_edge.rooms[1].get_adjacent_rooms()) &lt; 6):
+                mst.append(random_edge)
+
+    # From what was created from Prim&#39;s algorithm, create adjacency between
+    # rooms.
+    # Edges and adjacency are kinda redundant tbh
+    for edge in mst:
+        edge.rooms[0].create_adjacency(edge.rooms[1])
+
+    # Create Start room
+    self.start_room.add_adjacent_room(self.rooms[0])
+    self.start_room.cleared = True</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.Map.map.Map.print_map"><code class="name flex">
+<span>def <span class="ident">print_map</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to print all the rooms in the map and their adjacent rooms.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_map(self):
+    &#34;&#34;&#34;Method to print all the rooms in the map and their adjacent rooms.
+    &#34;&#34;&#34;
+    print(f&#34;{self.start_room} is adjacent to:&#34;
+          f&#34; {self.start_room.get_adjacent_rooms()}\n\n&#34;)
+    for room in self.rooms:
+        print(f&#34;{room} is adjacent to: {room.get_adjacent_rooms()}\n\n&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.Map.map.Map.set_current_room"><code class="name flex">
+<span>def <span class="ident">set_current_room</span></span>(<span>self, room)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Setter for the current room of the map.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>room</code></strong> :&ensp;<code>Room</code></dt>
+<dd>The Room instance to set as the currentRoom.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_current_room(self, room):
+    &#34;&#34;&#34;Setter for the current room of the map.
+    Args:
+        room (Room): The Room instance to set as the currentRoom.
+    &#34;&#34;&#34;
+    self.current_room = room</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="rpg.Classes.Map" href="index.html">rpg.Classes.Map</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="rpg.Classes.Map.map.Map" href="#rpg.Classes.Map.map.Map">Map</a></code></h4>
+<ul class="">
+<li><code><a title="rpg.Classes.Map.map.Map.assign_random_images" href="#rpg.Classes.Map.map.Map.assign_random_images">assign_random_images</a></code></li>
+<li><code><a title="rpg.Classes.Map.map.Map.connect_every_room_together" href="#rpg.Classes.Map.map.Map.connect_every_room_together">connect_every_room_together</a></code></li>
+<li><code><a title="rpg.Classes.Map.map.Map.generate_map" href="#rpg.Classes.Map.map.Map.generate_map">generate_map</a></code></li>
+<li><code><a title="rpg.Classes.Map.map.Map.generate_random_rooms" href="#rpg.Classes.Map.map.Map.generate_random_rooms">generate_random_rooms</a></code></li>
+<li><code><a title="rpg.Classes.Map.map.Map.get_current_room" href="#rpg.Classes.Map.map.Map.get_current_room">get_current_room</a></code></li>
+<li><code><a title="rpg.Classes.Map.map.Map.prims_algorithm" href="#rpg.Classes.Map.map.Map.prims_algorithm">prims_algorithm</a></code></li>
+<li><code><a title="rpg.Classes.Map.map.Map.print_map" href="#rpg.Classes.Map.map.Map.print_map">print_map</a></code></li>
+<li><code><a title="rpg.Classes.Map.map.Map.set_current_room" href="#rpg.Classes.Map.map.Map.set_current_room">set_current_room</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

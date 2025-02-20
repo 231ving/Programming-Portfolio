@@ -1,0 +1,3949 @@
+Index: main.py
+===================================================================
+diff --git a/main.py b/main.py
+deleted file mode 100644
+--- a/main.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,4 +0,0 @@
+-from Classes.GameHandler import GameHandler
+-
+-if __name__ == "__main__":
+-    GameHandler()
+Index: Classes/GUI/MainGui.py
+===================================================================
+diff --git a/Classes/GUI/MainGui.py b/Classes/GUI/MainGui.py
+deleted file mode 100644
+--- a/Classes/GUI/MainGui.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,324 +0,0 @@
+-import random
+-import tkinter as tk
+-# from tkinter import ttk
+-import tkinter as ttk
+-from PIL import ImageTk, Image
+-from Classes.GUI.CharacterGui import CharacterGUI
+-from Classes.GUI.InventoryGui import InventoryGUI
+-from Classes.GUI.FightGUI import FightGUI
+-from Classes.GUI.ShopGUI import ShopGUI
+-
+-from Classes.Rooms.Room import *
+-from Images import *
+-from Classes.TextPrinter import *
+-
+-
+-class MainGUI(tk.Tk):
+-
+-    # Default size of the window.
+-    def __init__(self, player, gameHandler):
+-        super().__init__()
+-        self.title("Spaceship Game")
+-        self.geometry('1300x900')  # Window size is provided by user.
+-        self.minsize(800, 500)  # Minimum size of the window, can be maximized.
+-        self.iconbitmap('Images/SpaceShip.ico')
+-        self.width = self.winfo_width()
+-        self.height = self.winfo_height()
+-        self.screenWidth = 1300
+-        self.screenHeight = 900
+-
+-
+-        self.player = player
+-        self.name = None
+-        self.gameHandler = gameHandler
+-        self.gameHandler.setGUI(self)
+-        self.displayed_buttons = []
+-        self.ready = True
+-   
+-        self.createIntroScreen1()
+-        self.mainloop()
+-
+-
+-    def createIntroScreen1(self):
+-        self.original_image = Image.open('Images/bg2.jpeg').resize((self.screenWidth, self.screenHeight))
+-        self.bg = ImageTk.PhotoImage(self.original_image)
+-
+-        self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
+-        self.bg_canvas.pack(fill='both', expand=True)
+-        self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
+-
+-        self.bg_canvas.create_text(400, 250, text="Are You Ready for a New Adventure?",
+-                                   font="Time_New_Roman 30", fill='white', anchor="center", tags="MainMenu_Text")
+-        self.user_name = tk.Label(self, text='User Name:', font='Time_New_Roman 15')
+-        self.user_name_window = self.bg_canvas.create_window(30, 100, anchor='sw', window=self.user_name,
+-                                                             tags="Login_Text")
+-
+-        self.user_name_entry = tk.Entry(self, font='Time_New_Roman 20')
+-        self.bg_canvas.create_window(150, 100, anchor='sw', window=self.user_name_entry,
+-                                     tags="Login Button")
+-
+-        self.start_button = tk.Button(self, text="Start", font="Time_New_Roman 20", command=self.createIntroScreen2)
+-        self.start_button_window = self.bg_canvas.create_window(30, 200, anchor='sw', window=self.start_button,
+-                                                                tags="Start_Button")
+-
+-        self.exit_button = tk.Button(self, text="Exit", font="Time_New_Roman 20", command=self.destroy)
+-        self.exit_button_window = self.bg_canvas.create_window(self.width - 100, self.height - 100,
+-                                                               anchor='sw', window=self.exit_button)
+-        
+-    def createIntroScreen2(self):
+-        self.name = "Default"
+-        if self.user_name_entry.get():
+-            self.name = self.user_name_entry.get()
+-            self.player.changeName(self.name)
+-
+-        self.bg_canvas.destroy()
+-        self.original_image = Image.open('Images/bg.jpg').resize((self.screenWidth, self.screenHeight))
+-        self.bg = ImageTk.PhotoImage(self.original_image)
+-
+-        # Make text printer object
+-        self.textPrinter = TextPrinter(self)
+-
+-        self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
+-        self.bg_canvas.pack(fill='both', expand=True)
+-        self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
+-        self.bg_canvas.create_text(self.width/2, self.height-600, font=20, width=self.width, fill="white",
+-                                   text="You are a newly recruited Space Janitor sent"
+-                                   " out to salvage the numerous asteroids and ship wrecks that pollute space."
+-                                        f"\n\n Welcome, {self.name} to being a Space Janitor."
+-                                        "\nRise to the top.", tags="intro")
+-        self.next_text = tk.Button(self, font=5, text="Click here to Continue", command=self.createIntroScreen3)
+-        self.bg_canvas.create_window(self.width/2, self.height-100, anchor='center', window=self.next_text)
+-
+-    def createIntroScreen3(self):
+-        self.bg_canvas.delete("intro")
+-        self.next_text.config(width=50, text="Start Game", command=self.createMainGUI)
+-        self.bg_canvas.create_text(self.width / 2 - 100, self.height - 500, font=25, fill="white", justify="center",
+-                                   text=self.player.name + "'s Stats" +
+-                                   "\n\nHealth: " + str(self.player.stats["Health"]) +
+-                                   "/" + str(self.player.stats["Max Health"]) +
+-                                   "\n\nStr: " + str(self.player.stats["Strength"]) +
+-                                   "\n\nDex: " + str(self.player.stats["Dexterity"]) +
+-                                   "\n\nVit: " + str(self.player.stats["Vitality"]) +
+-                                   "\n\nInt: " + str(self.player.stats["Intelligence"]) +
+-                                   "\n\nFree Points: " + str(self.player.stats["Stat Points"]) +
+-                                   "\n\nMin: 3, Max: 12", tags="stats")
+-
+-        str_down = tk.Button(self, font=5, width=1, height=1, text="-",
+-                             command=lambda: self.update_init_stats("Strength", -1))
+-        self.bg_canvas.create_window(self.width / 2 - 30, self.height - 575, anchor='center',
+-                                     window=str_down)
+-        str_up = tk.Button(self, font=5, width=1, height=1, text="+",
+-                           command=lambda: self.update_init_stats("Strength", 1))
+-        self.bg_canvas.create_window(self.width / 2, self.height - 575, anchor='center',
+-                                     window=str_up)
+-
+-        dex_down = tk.Button(self, font=5, width=1, height=1, text="-",
+-                             command=lambda: self.update_init_stats("Dexterity", -1))
+-        self.bg_canvas.create_window(self.width / 2 - 30, self.height - 525, anchor='center',
+-                                     window=dex_down)
+-        dex_up = tk.Button(self, font=5, width=1, height=1, text="+",
+-                           command=lambda: self.update_init_stats("Dexterity", 1))
+-        self.bg_canvas.create_window(self.width / 2, self.height - 525, anchor='center',
+-                                     window=dex_up)
+-
+-        vit_down = tk.Button(self, font=5, width=1, height=1, text="-",
+-                             command=lambda: self.update_init_stats("Vitality", -1))
+-        self.bg_canvas.create_window(self.width / 2 - 30, self.height - 475, anchor='center',
+-                                     window=vit_down)
+-        vit_up = tk.Button(self, font=5, width=1, height=1, text="+",
+-                           command=lambda: self.update_init_stats("Vitality", 1))
+-        self.bg_canvas.create_window(self.width / 2, self.height - 475, anchor='center',
+-                                     window=vit_up)
+-
+-        int_down = tk.Button(self, font=5, width=1, height=1, text="-",
+-                             command=lambda: self.update_init_stats("Intelligence", -1))
+-        self.bg_canvas.create_window(self.width / 2 - 30, self.height - 425, anchor='center',
+-                                     window=int_down)
+-        int_up = tk.Button(self, font=5, width=1, height=1, text="+",
+-                           command=lambda: self.update_init_stats("Intelligence", 1))
+-        self.bg_canvas.create_window(self.width / 2, self.height - 425, anchor='center',
+-                                     window=int_up)
+-        
+-    def update_init_stats(self, stat: str, amount: int):
+-        if amount == -1:
+-            if self.player.stats[stat] > 3:
+-                self.player.stats[stat] += amount
+-                self.player.stats["Stat Points"] += -amount
+-        elif self.player.stats["Stat Points"] >= 1:
+-            if self.player.stats[stat] < 12:
+-                self.player.upgradeStats(stat, amount)
+-        self.player.stats["Health"] = self.player.stats["Max Health"]
+-        self.player.updateMaxHealth()
+-        self.bg_canvas.delete("stats")
+-        self.bg_canvas.create_text(self.width / 2 - 100, self.height - 500, font=25, fill="white", justify="center",
+-                                   text=self.player.name + "'s Stats" +
+-                                   "\n\nHealth: " + str(self.player.stats["Health"]) +
+-                                   "/" + str(self.player.stats["Max Health"]) +
+-                                   "\n\nStr: " + str(self.player.stats["Strength"]) +
+-                                   "\n\nDex: " + str(self.player.stats["Dexterity"]) +
+-                                   "\n\nVit: " + str(self.player.stats["Vitality"]) +
+-                                   "\n\nInt: " + str(self.player.stats["Intelligence"]) +
+-                                   "\n\nFree Points: " + str(self.player.stats["Stat Points"]) +
+-                                   "\n\nMin: 3, Max: 12", tags="stats")
+-
+-    def createMainGUI(self):
+-         # Clear previous window
+-        self.bg_canvas.destroy()
+-
+-        # Create Map Background
+-        self.background_image = Image.open('Images/HallWay.png').resize((self.screenWidth, self.screenHeight))
+-        self.backg = ImageTk.PhotoImage(self.background_image)
+-
+-
+-        self.original_image = Image.open('Images/mainGameBG.jpg').resize((300, 300))
+-        self.bg = ImageTk.PhotoImage(self.original_image)
+-
+-        # Create Menu Background
+-        menu_image = Image.open('Images/info_bg.png').resize((300, 300))
+-        self.menu_bg = ImageTk.PhotoImage(menu_image)
+-
+-        # Create background
+-        # self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
+-        # self.bg_canvas.configure(bg='#34557A')                #Delete later
+-        self.bg_canvas = tk.Canvas(self, width=self.screenWidth, height=self.screenHeight)
+-        self.bg_canvas.pack(fill='both', expand=True)
+-        self.bg_canvas.create_image(0, 0, image=self.backg, anchor='nw')
+-        
+-        # Create Canvas and Images
+-        self.bg_canvas.create_image(self.screenWidth - 1280 , self.screenWidth - 1280, image=self.bg, anchor='nw')
+-        self.bg_canvas.create_image(self.screenWidth - 1280 , (self.screenHeight / 2) + 130, image=self.menu_bg, anchor='nw')
+-
+-        self.start_game()
+-
+-    def start_game(self):
+-         # Character Detail Button
+-        char_screen_button = tk.Button(self, font=5, height=2, text="Character\nDetails",
+-                                       command=lambda: self.openCharacterGUI())
+-        self.bg_canvas.create_window(self.screenWidth - 1260, self.screenHeight - 400,
+-                                     anchor='nw',window=char_screen_button, tags="Char_Screen")
+-
+-        # Inventory Detail Button
+-        inv_screen_button = tk.Button(self, font=5, height=2, text="Inventory\nDetails",
+-                                      command=lambda: self.openInventoryGUI())
+-        self.bg_canvas.create_window(self.screenWidth - 1100, self.screenHeight - 400,
+-                                     anchor='nw',window=inv_screen_button, tags="Inv_Screen")
+-
+-        # Test FightGUI - Delete once usable
+-        # fight_room = Dungeon("Fight Room", "None")
+-        # fight_room.type = "combat"
+-        # fight_room.generate(self.player.stats["Level"])
+-        # fight_button = tk.Button(self, font=5, height=3, text="Test Combat Screen",
+-        #                          command=lambda: FightGUI(fight_room, self.player))
+-        # self.bg_canvas.create_window(400, 475, anchor='nw', window=fight_button, tags="fight")
+-
+-        # Exit Button
+-        self.exit_button = tk.Button(self, text="Exit", font="Time_New_Roman 20", command=self.destroy)
+-        self.exit_button_window = self.bg_canvas.create_window(self.screenWidth - 90, self.screenHeight - 20, anchor='sw',window=self.exit_button)
+-        
+-        self.bg_canvas.create_text(500, 350, width=500, font=('Time_New_Roman', 15), fill="#0EA4A1", justify="left", anchor="w",
+-                                text="\nYou are ready to start cleaning up the wreckage."
+-                                    " Which wreckage should you visit first?"
+-                                    " Choose a location on the map.\n", tags="game_text")
+-        
+-        self.map = self.gameHandler.getMap()
+-        self.map.getCurrentRoom().clearRoom(True)
+-        # self.map.printMap()
+-        self.display_buttons()
+-
+-    def display_buttons(self):
+-        # If text is still printing, do not allow input
+-        """ This is apparently causing issues with not making new buttons
+-        if self.textPrinter.isTextReady() is False:
+-            return
+-        """
+-
+-        # Remove previous buttons
+-        self.bg_canvas.delete("button")
+-        offset = 30
+-
+-        for adjacentRoom in self.map.getCurrentRoom().getAdjacentRooms():
+-            callback = lambda room: lambda : self.gameHandler.enterRoom(room)
+-            button = tk.Button(self, font=5, height=1, text=(adjacentRoom.name), command=callback(adjacentRoom))
+-            self.bg_canvas.create_window(50, offset, anchor='nw',window=button,tags="button")
+-            offset += 50
+-
+-
+-    # text_id is the tag of the .create_text object
+-    # Text contains lines to be printed
+-    def animate_text(self, text_id, text):
+-        self.textPrinter.animate_text(text, text_id, tk.END)
+-
+-    def enterChestRoom(self, room):
+-        self.textPrinter.animate_text(f"\nYou have entered {room} which contains a chest.\n",
+-                                      "game_text", tk.END)
+-        self.map = self.gameHandler.getMap()
+-        # self.map.printMap()
+-        self.display_buttons()
+-        print(self.map.getCurrentRoom().getAdjacentRooms())
+-
+-    def enterShopRoom(self, room):
+-        self.textPrinter.animate_text(f"\nYou have entered {room} which contains a shop.\n",
+-                                      "game_text", tk.END)
+-        self.map = self.gameHandler.getMap()
+-        # self.map.printMap()
+-        self.display_buttons()
+-        self.ready = True
+-        print(self.map.getCurrentRoom().getAdjacentRooms())
+-
+-    def enterCombatRoom(self, room):
+-        self.textPrinter.animate_text(f"\nYou have entered {room} which contains combat.\n",
+-                                      "game_text", tk.END)
+-        self.map = self.gameHandler.getMap()
+-        # self.map.printMap()
+-        self.display_buttons()
+-        print(self.map.getCurrentRoom().getAdjacentRooms())
+-
+-    def openInventoryGUI(self):
+-        if self.ready and self.map.getCurrentRoom().getCleared():
+-            self.ready = False
+-            self.map.getCurrentRoom().clearRoom(False)
+-            self.InventoryGUI = InventoryGUI(self.player, self.map.getCurrentRoom(), self)
+-
+-    def openCharacterGUI(self):
+-        if self.ready and self.map.getCurrentRoom().getCleared():
+-            self.ready = False
+-            self.map.getCurrentRoom().clearRoom(False)
+-            CharacterGUI(self.player, self.map.getCurrentRoom(), self)
+-
+-
+-    # def run_room_event(self, room: Dungeon):
+-    #     print("room type", room.type)
+-    #     if room.type == "combat":
+-    #         self.animate_text("\ngame_text", f"\nYou see an enemy in {room.name}. \n\n"
+-    #                           + "Default" + "is charging towards you."
+-    #                           "\n Do you engage or run away? Fight by pressing the Fight Button."
+-    #                           " Flee by pressing the Flee Button.\n")
+-    #         fight_button = tk.Button(self, font=5, height=1, text="Fight",
+-    #                                  command=lambda: FightGUI(room, self.player))
+-    #         self.bg_canvas.create_window(400, 475, anchor='nw', window=fight_button, tags="fight")
+-    #         leave_button = tk.Button(self, font=5, height=1, text="Run Away",
+-    #                                  command=lambda: self.event_finish("fight", "flee"))
+-    #         self.bg_canvas.create_window(500, 475, anchor='nw', window=leave_button, tags="flee")
+-    #     elif room.type == "rest":
+-    #         self.animate_text("game_text", "\nThis is room is restful.\n")
+-    #     elif room.type == "shop":
+-    #         self.animate_text("game_text", f"\nYou see an rickety salvage machine in {room.name}. \n\n"
+-    #                           + "\n Do you take a closer look? Shop by pressing the Shop Button."
+-    #                           " Leave it alone by pressing the Leave Button.\n")
+-    #         shop_button = tk.Button(self, font=5, height=1, text="Shop",
+-    #                                  command=lambda: ShopGUI(room, self.player))
+-    #         self.bg_canvas.create_window(400, 475, anchor='nw', window=shop_button, tags="shop")
+-    #         leave_button = tk.Button(self, font=5, height=1, text="Run Away",
+-    #                                  command=lambda: self.event_finish("shop", "leave"))
+-    #         self.bg_canvas.create_window(500, 475, anchor='nw', window=leave_button, tags="leave")
+-    #     elif room.type == "chest":
+-    #          self.animate_text("game_text", "\nThis is a chest room\n")
+-    #     elif room.type == "empty":
+-    #          self.animate_text("game_text", "\nThis is a boring room\n")
+-    #     elif room.type == "boss":
+-    #          self.animate_text("game_text", "\nYou have encountered a boss\n")
+-    #     else:
+-    #         self.animate_text("game_text", "\nthis is some default text\n")
+-
+-    # def event_finish(self, tag1, *args):
+-    #     self.bg_canvas.delete(tag1, *args)
+\ No newline at end of file
+Index: Classes/Rooms/ChestRoom.py
+===================================================================
+diff --git a/Classes/Rooms/ChestRoom.py b/Classes/Rooms/ChestRoom.py
+deleted file mode 100644
+--- a/Classes/Rooms/ChestRoom.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,13 +0,0 @@
+-import csv
+-from Classes.Rooms.Room import Room
+-from Classes.Item import *
+-
+-
+-class ChestRoom(Room):
+-    def __init__(self):
+-        super().__init__()
+-        self.name = self.generateName("Chest")
+-        self.roomType = "Chest"
+-        self.item = Item(random.choice(Item.ITEMS))
+-
+-        self.text = "You have entered a Chest room. Prepare to open a chest."
+Index: Classes/Map/Edge.py
+===================================================================
+diff --git a/Classes/Map/Edge.py b/Classes/Map/Edge.py
+deleted file mode 100644
+--- a/Classes/Map/Edge.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,11 +0,0 @@
+-import math
+-
+-class Edge:
+-    def __init__(self, room1, room2):
+-        self.rooms = (room1, room2)
+-        self.weight = math.dist(room1.getCoordinates(), room2.getCoordinates())
+-    def getWeight(self):
+-        return self.weight
+-    def __repr__(self):
+-        return f"{self.rooms[0]} <-> {self.rooms[1]} | {self.weight}"
+-                      
+\ No newline at end of file
+Index: Classes/Rooms/ShopRoom.py
+===================================================================
+diff --git a/Classes/Rooms/ShopRoom.py b/Classes/Rooms/ShopRoom.py
+deleted file mode 100644
+--- a/Classes/Rooms/ShopRoom.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,17 +0,0 @@
+-import csv
+-from Classes.Rooms.Room import Room
+-from Classes.Item import *
+-
+-
+-class ShopRoom(Room):
+-    def __init__(self):
+-        super().__init__()
+-        self.name = self.generateName("Shop")
+-        self.roomType = "Shop"
+-        self.items = []
+-
+-        num_items = random.randint(1, 4)
+-        for i in range(1, num_items):
+-            self.items.append(Item(random.choice(Item.ITEMS)))
+-
+-        self.text = "You have entered a Shop room. Prepare to buy items."
+Index: reference/main.py
+===================================================================
+diff --git a/reference/main.py b/reference/main.py
+deleted file mode 100644
+--- a/reference/main.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,4 +0,0 @@
+-from Classes import Gui
+-
+-if __name__ == "__main__":
+-    Gui.Gui("SpaceShip Game", (900, 700))
+Index: Names/ShopRoomNames.txt
+===================================================================
+diff --git a/Names/ShopRoomNames.txt b/Names/ShopRoomNames.txt
+deleted file mode 100644
+--- a/Names/ShopRoomNames.txt	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,1 +0,0 @@
+-Small Shop, Small Vending Machine, 3D Printer, Storage Shed, Shady Merchant, Hacked Armory, Gift Shop
+\ No newline at end of file
+Index: Tests/Character_tests.py
+===================================================================
+diff --git a/Tests/Character_tests.py b/Tests/Character_tests.py
+deleted file mode 100644
+--- a/Tests/Character_tests.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,2 +0,0 @@
+-import unittest
+-from Classes.Character import *
+\ No newline at end of file
+Index: Tests/dungeon_tests.py
+===================================================================
+diff --git a/Tests/dungeon_tests.py b/Tests/dungeon_tests.py
+deleted file mode 100644
+--- a/Tests/dungeon_tests.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,2 +0,0 @@
+-import unittest
+-from Classes.Rooms.Room import *
+\ No newline at end of file
+Index: reference/game.py
+===================================================================
+diff --git a/reference/game.py b/reference/game.py
+deleted file mode 100644
+--- a/reference/game.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,613 +0,0 @@
+-"""
+-A rogue-like text-based adventure game.
+-
+-Phuc Le
+-11/10/2023a
+-Version 3.2
+-"""
+-
+-from typing import Optional, Dict, Callable
+-
+-from character import *
+-from rpg.Classes.dungeon import *
+-from printer import *
+-import time
+-
+-
+-class Game:
+-    """The base Game itself, containing all the different commands.
+-    """
+-    def __init__(self) -> None:
+-        """Constructor for the Game instance.
+-        """
+-        # A list of the characters in the part
+-        self.__party: List[Character] = []
+-        # Current party gold
+-        self.__gold = 0
+-        # Starting dungeon
+-        self.__dungeons = [Dungeon("Dungeon Entrance",
+-                                   "The mouth of a giant cavern."
+-                                   " Danger lurks just past this door.")]
+-        # A reference to the current dungeon
+-        self.__current_location = self.__dungeons[0]
+-        # Add the commands
+-        self.__commands: Dict[str, Callable] = {}
+-        self.__setup_commands()
+-        # Start it up!
+-        self.__print_welcome()
+-
+-    '''
+-    Adds the commands to the command dictionary.  This is a dictionary of strings keys that have
+-    function values.  This allows us to add/remove commands to the game easily by simply writing
+-    a new function and adding a dictionary key.
+-    '''
+-    def __setup_commands(self) -> None:
+-        """Adds the commands to the command dictionary. This is a dictionary
+-         of strings keys that have function values. This allows us to add/remove
+-          commands to the game easily by simply writing a new function and
+-           adding a dictionary key.
+-        """
+-        self.__commands["help"] = self.__show_help
+-        self.__commands["?"] = self.__show_help
+-        self.__commands["advance"] = self.__advance
+-        self.__commands["retreat"] = self.__retreat
+-        self.__commands["attack"] = self.__attack
+-        self.__commands["heal"] = self.__heal
+-        self.__commands["party"] = self.__party_stats
+-        self.__commands["stats"] = self.__stats
+-        self.__commands["gold"] = self.__see_gold
+-        self.__commands["take"] = self.__take
+-        self.__commands["inventory"] = self.__player_inventory
+-        self.__commands["equip"] = self.__equip
+-        self.__commands["wear"] = self.__wear
+-        self.__commands["remove"] = self.__remove
+-        self.__commands["drop"] = self.__drop
+-        self.__commands["monsters"] = self.__show_monsters
+-        self.__commands["leave"] = self.__leave_dungeons
+-        self.__commands["exit"] = self.__exit
+-
+-    '''
+-    A priest can heal a single party member for between 0 and 25 health.
+-    '''
+-    def __heal(self, healer: Priest | Bard, player: str, *args) -> None:
+-        """Command to heal a designated player.
+-        Args:
+-            healer (Priest | Bard): The player using the heal ability.
+-            player (str): The name of the character to be healed.
+-        """
+-        # Not a priest? Can't heal then.
+-        if (not isinstance(healer, Priest)) and (not isinstance(healer, Bard)):
+-            Printer.alert(healer.name + " is not a healer!")
+-            return
+-        # Not a valid target?  Return.
+-        target = self.__in_party(player)
+-        if not target:
+-            Printer.alert(player + " is not in the party!")
+-            return
+-        # All checks out.  Call healing method.
+-        amt = healer.heal(target)
+-        if amt:
+-            Printer.alert(healer.name + " heals " + target.name + " for " + str(amt) + "hp!")
+-
+-    '''
+-    End the game, if and only if the party is currently in the starting dungeon.
+-    '''
+-    def __exit(self, *args) -> None:
+-        """End the game, if and only if the party is currently in the starting dungeon.
+-        """
+-        # Not at the exit?  Can't leave.
+-        if self.__current_location != self.__dungeons[0]:
+-            Printer.alert("You cannot exit; you aren't at the dungeon exit!")
+-            return
+-        # Party dead.  Sadness.  Oh well, YOLO.
+-        if len(self.__party) == 0:
+-            Printer.alert("Your party has died in the dungeons.  Alas, there is no one left to mourn you.")
+-        # Good, maybe we got some gold.
+-        else:
+-            Printer.alert("You return with " + str(len(self.__party)) + " members and " + str(self.__gold) + " gold!")
+-            Printer.alert("Well done, brave warriors!")
+-            exit(0)
+-
+-    '''
+-    Flee back through all the prior dungeons to the exit.
+-    '''
+-    def __leave_dungeons(self, *args) -> None:
+-        """Flee back through all the prior dungeons to the exit.
+-        """
+-        while isinstance(self.__current_location.prior, Dungeon) is True:
+-            self.__retreat()
+-        else:
+-            Printer.alert("You are at the entrance.  You must exit to leave.")
+-
+-    '''
+-    Print all monsters in the current location and their information
+-    '''
+-    def __show_monsters(self, *args) -> str:
+-        """Print all monsters in the current location and their information.
+-        """
+-        Printer.info(self.__current_location.__show_monsters__())
+-        for monster in self.__current_location.monsters:
+-            Printer.info(monster.__str__())
+-        return self.__current_location.__show_monsters__()
+-
+-    '''
+-    Given a player and the name of an item, remove the item from usage. If it
+-    is current weapon, or a piece of armor currently being worn, add it to the
+-    inventory.
+-    '''
+-    def __remove(self, player: Character, item_name: str, *args) -> None:
+-        """Given a player and the name of an item, remove the item from usage.
+-         If it is current weapon, or a piece of armor currently being worn,
+-          add it to the inventory.
+-        Args:
+-            player (Character): The character that acting.
+-            item_name (str): The description of the item to remove.
+-        Except:
+-            CharacterOverweightException: When performing this action makes
+-             the player carry too much.
+-        """
+-        try:
+-            _item = self.__find_item(player, item_name)
+-            if _item:
+-                player.inventory().append(_item)
+-                hands = player.in_inventory("Regular barehanded")
+-                if hands:
+-                    player.inventory().remove(hands)
+-            # Don't have that item?  Can't remove it.
+-            else:
+-                Printer.alert(player.name + " isn't using that item.")
+-            if player.inventory_weight > player.max_weight:
+-                raise CharacterOverweightException(player.name + " is carrying too much.", player)
+-        except CharacterOverweightException as ex:
+-            Printer.alert("!!!!!! - " + ex.character.name + " is carrying too much weight! - !!!!!!")
+-
+-    '''
+-    Print the inventory for a given player.
+-    '''
+-    def __player_inventory(self, player: Character, *args) -> None:
+-        """Print the inventory for a given player.
+-        Args:
+-            player (Character): The player whose inventory you want to look at.
+-        """
+-        if not player.inventory():
+-            Printer.info(player.name + " is carrying nothing.\n")
+-            return None
+-        Printer.info(player.name + " is carrying:")
+-        for item in player.inventory():
+-            Printer.info(" " + item.description)
+-
+-    '''
+-    Equipping a weapon adds the weapon's benefits to your stats.
+-    '''
+-    def __equip(self, player: Character, item_name: str, *args) -> None:
+-        """Equipping a weapon adds the weapon's benefits to your stats.
+-        Args:
+-            player (Character): The player whose weapon you want to change.
+-            item_name (str): The description of the item to wield.
+-        Except:
+-            CharacterOverweightException: When performing this action makes
+-             the player carry too much.
+-        """
+-        # Weapon not in inventory?  Can't equip it.
+-        item = player.in_inventory(item_name)
+-        if item:
+-            try:
+-                if isinstance(item, Weapon):
+-                    player.add_inventory(player.weapon)
+-                    player.weapon = item
+-                    player.inventory().remove(item)
+-                    Printer.info("EQUIPPED " + item.description)
+-                    hands = player.in_inventory("Regular barehanded")
+-                    if hands:
+-                        player.inventory().remove(hands)
+-                    if player.inventory_weight > player.max_weight:
+-                        raise CharacterOverweightException(player.name + " is carrying too much.", player)
+-                # Not a weapon?  Can't equip it.
+-                else:
+-                    Printer.alert("That isn't a weapon; you can't wield it.")
+-            except CharacterOverweightException as ex:
+-                Printer.alert("!!!!!! - " + ex.character.name + " is carrying too much weight! - !!!!!!")
+-        # Don't have that item?  Can't equip it.
+-        else:
+-            Printer.alert(player.name + " doesn't have that item in their inventory.")
+-
+-    '''
+-    Wearing armor enhances defensive abilities.
+-    '''
+-    def __wear(self, player: Character, item_name: str, *args) -> None:
+-        """Wearing armor enhances defensive abilities.
+-        Args:
+-            player (Character): The player whose armor you want to change.
+-            item_name (str): The description of the item to wear.
+-        Except:
+-            CharacterOverweightException: When performing this action makes
+-             the player carry too much.
+-        """
+-        try:
+-            item = player.in_inventory(item_name)
+-            if item:
+-                # Item isn't armor?  Can't wear it.
+-                if not isinstance(item, Armor):
+-                    Printer.alert("That is not armor; you can't wear it.")
+-                    return
+-                # Already wearing Item of that type?  Switch it out.
+-                wearing = player.wearing(item.description)
+-                if wearing:
+-                    player.add_inventory(wearing)
+-                    player.inventory().remove(item)
+-                    player.armor.remove(wearing)
+-                    player.armor.append(item)
+-                else:
+-                    for armor in player.armor:
+-                        if armor.type == item.type:
+-                            player.armor.remove(armor)
+-                            player.inventory().append(armor)
+-                    player.armor.append(item)
+-                    player.inventory().remove(item)
+-                Printer.info("NOW WEARING " + item.description)
+-                if player.inventory_weight > player.max_weight:
+-                    raise CharacterOverweightException(player.name + " is carrying too much.", player)
+-            else:
+-                Printer.info("The item " + item_name + " was not found in " + str(player.name) + "'s inventory.")
+-        except CharacterOverweightException as ex:
+-            Printer.alert("!!!!!! - " + ex.character.name + " is carrying too much weight! - !!!!!!")
+-
+-    '''
+-    Checks if Player is wielding or wearing the Item.
+-    '''
+-    def __find_item(self, player: Character, item_name: str, *args) -> Item | None:
+-        """Checks if Player is wielding or wearing the Item.
+-        Args:
+-            player (Character): The player you want to check.
+-            item_name (str): The description of the item to check.
+-        Returns:
+-            item (Item): The Item being worn or wielded.
+-            None: When the Item isn't being worn or wielded.
+-        """
+-        item = None
+-        if player.weapon.description == item_name:
+-            item = player.weapon
+-            player.weapon = Weapon(["weapon", "barehanded", 0, 0, 0])
+-            player.weapon.condition = ["Regular", 1.0]  # Need to change 1.0 to "1.0"
+-        else:
+-            for armor in player.armor:
+-                if armor.description == item_name:
+-                    item = armor
+-                    player.armor.remove(armor)
+-        return item
+-
+-    '''
+-    Remove the Item from the player's inventory (if exists) and add it to
+-    the room inventory.
+-    '''
+-    def __drop(self, player: Character, item_name: str, *args) -> None:
+-        """Remove the Item from the player's inventory (if exists) and add
+-         it to the room inventory.
+-        Args:
+-            player (Character): The player dropping the item.
+-            item_name (str): The description of the item to drop.
+-        """
+-        item = player.in_inventory(item_name)
+-        if item:
+-            self.__current_location.items.append(item)
+-            player.inventory().remove(item)
+-        else:
+-            Printer.alert(player.name + " does not have that item.")
+-
+-    '''
+-    Display player stats.
+-    '''
+-    def __stats(self, player: Character, *args) -> None:
+-        """Display player stats.
+-        Args:
+-            player (Character): The player whose stats you want to see.
+-        """
+-        Printer.info(player)
+-
+-    '''
+-    Move to the next room. If it doesn't exist, make it.
+-    '''
+-    def __advance(self, *args) -> None:
+-        """Move to the next room. If it doesn't exist, make it.
+-        """
+-        if isinstance(self.__current_location.next, Dungeon):
+-            self.__current_location = self.__current_location.next
+-        else:
+-            newDungeon = Dungeon("Dungeon Room", "A dark and eerie place that radiates evil.")
+-            newDungeon.generate()
+-            self.__current_location.next = newDungeon
+-            newDungeon.prior = self.__current_location
+-            self.__current_location = newDungeon
+-        self.__show_monsters()
+-
+-    '''
+-    Go back a room.  If at the entrance, you must exit instead.
+-    '''
+-    def __retreat(self, *args) -> None:
+-        """Go back a room.  If at the entrance, you must exit instead.
+-        """
+-        if isinstance(self.__current_location.prior, Dungeon) is True:
+-            self.__current_location = self.__current_location.prior
+-            print("The party retreats to:\n" + self.__current_location.__str__())
+-            for monster in self.__current_location.monsters:
+-                Printer.info(monster)
+-            self.__monster_attack()
+-        else:
+-            Printer.alert("You are at the entrance.  You must exit to leave.")
+-
+-    '''
+-    Print the amount of gold in the party.
+-    '''
+-    def __see_gold(self, *args) -> None:
+-        """Print the amount of gold in the party.
+-        """
+-        Printer.info("Your party has " + str(self.__gold) + " gold!")
+-
+-    '''
+-    See if the player is in the party.  Return them if they are.
+-    '''
+-    def __in_party(self, player: str, *args) -> Character | None:
+-        """See if the player is in the party.  Return them if they are.
+-        Args:
+-            player(str): The player to check for.
+-        Returns:
+-            warrior (Character | None): Returns the character if they're
+-             present in the party. None if they're not.
+-        """
+-        warrior = None
+-        for character in self.__party:
+-            if character.name == player:
+-                warrior = character
+-                break
+-        return warrior
+-
+-    '''
+-    If the item is in the room, add it to the inventory.
+-    '''
+-    def __take(self, player: Character, target: str, *args) -> None:
+-        """If the item is in the room, add it to the inventory.
+-        Args:
+-            player (Character): The player taking the item.
+-            target (str): The description of the item to take.
+-        Exception:
+-            CharacterOverweightException: When performing this action makes
+-             the player carry too much.
+-        """
+-        try:
+-            item = None
+-            for object in self.__current_location.items:
+-                if object.description == target:
+-                    item = object
+-                    owned_item = player.in_inventory(item.description)
+-                    if owned_item:
+-                        if item.description == owned_item.description:
+-                            Printer.alert("You already have a " + item.description + " in your inventory.")
+-                            return
+-                    player.add_inventory(object)
+-                    self.__current_location.items.remove(object)
+-                    if player.inventory_weight > player.max_weight:
+-                        raise CharacterOverweightException(player.name + " is carrying too much.", player)
+-                    break
+-            if not item:
+-                Printer.info("You must be seeing things.  There is no " + target + " here!")
+-        except CharacterOverweightException as ex:
+-            Printer.alert("!!!!!! - " + ex.character.name + " is carrying too much weight! - !!!!!!")
+-
+-    '''
+-    Attempt to attack the target if it is in the room.
+-    '''
+-    def __attack(self, player: Character, target: str, *args) -> None:
+-        """Attempt to attack the target if it is in the room.
+-        Args:
+-            player (Character): The player performing the attack.
+-            target (str): The description of the monster to attack.
+-        Exception:
+-            MonsterDeathException: When performing this action results in a monster dying.
+-        """
+-        if isinstance(player, Priest):
+-            Printer.info("----- " + player.name + " refuses to break their vow! -----")
+-            return
+-        monster = None
+-        for mon in self.__current_location.monsters:
+-            if mon.name == f'{target}\n' or mon.name == target:
+-                monster = mon
+-        if not monster:
+-            Printer.info("There is no monster called " + target + " in this room!")
+-            return
+-        try:
+-            if player.inventory_weight > player.max_weight:
+-                raise CharacterOverweightException(f"{player.name} can't attack! ", player)
+-            damage = monster.take_damage(player)
+-            Printer.alert("----- " + player.name + " attacks " + monster.name +
+-                          " for " + str(damage) + " damage! -----")
+-            if monster.health <= 0:
+-                raise MonsterDeathException(f"{player.name} dealt a killing blow! ", monster)
+-        except MonsterDeathException as ex:
+-            Printer.alert("!!!!!! - YES! " + ex.monster.name + " HAS FALLEN! - !!!!!!")
+-            Printer.info("From its remains you recover " + str(ex.monster.gold) + " gold!")
+-            self.__gold = self.__gold + ex.monster.gold
+-            for item in ex.monster.inventory():
+-                self.__current_location.items.append(item)
+-            self.__current_location.monsters.remove(ex.monster)
+-        except CharacterOverweightException as ex:
+-            Printer.alert("!!!!!! - " + ex.character.name + " can't attack - !!!!!!")
+-            Printer.info(ex.character.name + "'s inventory is too heavy!")
+-
+-    '''
+-    Now the monsters get to attack.
+-    '''
+-    def __monster_attack(self) -> None:
+-        """The monsters in the room attempt to attack your party.
+-        Exception:
+-            CharacterDeathException: When performing this action results in a player dying.
+-        """
+-        try:
+-            for monster in self.__current_location.monsters:  # Property object is not iterable TypeError
+-                character = random.choice(self.__party)
+-                damage = character.take_damage(monster)
+-                Printer.alert("----- " + monster.name + " attacks " + character.name
+-                              + " for " + str(damage) + " damage! -----")
+-                if character.health <= 0:
+-                    raise CharacterDeathException(f"{character.name} has died! ", character)
+-        except CharacterDeathException as ex:
+-            Printer.alert("!!!!!! - NO! " + ex.character.name + " HAS FALLEN! - !!!!!!")
+-
+-            ex.character.inventory().append(ex.character.weapon)
+-            ex.character.weapon = Weapon(["weapon", "barehanded", 1, 0, 0])
+-            ex.character.weapon.condition = ["Regular", 1.0]  # Need to change 1.0 to "1.0"
+-
+-            hands = ex.character.in_inventory("Regular barehanded")
+-            if hands:
+-                ex.character.inventory().remove(hands)
+-            for item in ex.character.inventory():
+-                self.__current_location.items.append(item)
+-                ex.character.inventory().remove(item)
+-
+-            for armor in ex.character.armor:
+-                self.__current_location.items.append(armor)
+-                ex.character.armor.remove(armor)
+-
+-            self.__party.remove(ex.character)
+-
+-    '''
+-    List all of the commands in the dictionary.
+-    '''
+-    def __show_help(self, *args) -> None:
+-        """Prints off all the commands in the dictionary.
+-        """
+-        Printer.info("\nYour options are:\n")
+-        Printer.info("==========================\n")
+-        for key in self.__commands.keys():
+-            Printer.info("\t" + key)
+-
+-    '''
+-    Start it up.
+-    '''
+-    def __print_welcome(self) -> None:
+-        """The initial start-up message.
+-        """
+-        Printer.dialogue("WELCOME, TRAVELERS!")
+-        Printer.text("You hear the innkeeper say as your weary party enters the inn.")
+-        Printer.text("Many days you have been on the road making your way to this town,")
+-        Printer.text("as you have heard the stories of the precious gold in the nearby")
+-        Printer.text("dungeons.  After a night or two your party should be well-rested,")
+-        Printer.text("and ready to claim what other heroes died trying to earn.")
+-        print()
+-        Printer.text("What the other travelers don't know, is that your party is different.")
+-        Printer.text("For you have spent years discerning just the right makeup for a band")
+-        Printer.text("of warriors, such that you can not only enter the dungeons, but emerge")
+-        Printer.text("again with your sacks full of gold.")
+-        Printer.text("First, you have ")
+-        self.__party.append(self.__choose_player())
+-        Printer.dialogue("Ah yes, " + self.__party[0].quick_info() + "! They are a formidable foe indeed.")
+-        Printer.dialogue("But that's, not all - for I also see ")
+-        self.__party.append(self.__choose_player())
+-        Printer.dialogue(self.__party[1].quick_info() + ". Few have crossed them"
+-                                                        " and lived to tell the tale.  And then there is")
+-        self.__party.append(self.__choose_player())
+-        Printer.dialogue(self.__party[2].quick_info() + ".  A more noble, and"
+-                                                        " more loyal friend you could find nowhere.")
+-        Printer.dialogue("And finally, I notice in the corner")
+-        self.__party.append(self.__choose_player())
+-        Printer.dialogue(self.__party[3].quick_info() +
+-                         ".  Incredible! The legends I have heard of that one shall never")
+-        Printer.dialogue("be forgotten.")
+-        print()
+-        Printer.dialogue("It is late.  Your party should try to sleep...")
+-        for i in range(0, 8):
+-            time.sleep(0.25)
+-            print(".", end='')
+-        print()
+-        Printer.info("You awake well rested.")
+-        self.__party_stats()
+-
+-    '''
+-    Print party statistics.
+-    '''
+-    def __party_stats(self, *args) -> None:
+-        """Print party statistics.
+-        """
+-        Printer.info("The current statistics of our players are as follows: ")
+-        for player in self.__party:
+-            Printer.info(player)
+-
+-    '''
+-    Create the four party members.
+-    '''
+-    def __choose_player(self) -> Character:
+-        """Create the four party members.
+-        Returns:
+-            player (Character): The Character instance that was created.
+-        """
+-        Printer.alert("(What is the name of this player?)")
+-        name = input()
+-        while True:
+-            Printer.info("Choose the class for this player: ")
+-            Printer.info("\t1. Bard - has healing abilities.")
+-            Printer.info("\t2. Tank - has extra defense.")
+-            Printer.info("\t3. DPS - specializes in attacking.")
+-            Printer.info("\t4. Priest - Blesses the party with increased luck.")
+-            Printer.info("")
+-            Printer.alert("Enter your choice (1-4)? ")
+-            try:
+-                cls = int(input())
+-                if cls not in (1, 2, 3, 4):
+-                    Printer.alert("That is not valid input.")
+-                    continue
+-                break
+-            except ValueError:
+-                Printer.alert("That is not valid input.")
+-
+-        player: Optional[Character] = None
+-        if cls == 1:
+-            player = Bard(name)
+-        elif cls == 2:
+-            player = Tank(name)
+-        elif cls == 3:
+-            player = DPT(name)
+-        else:
+-            player = Priest(name)
+-        return player
+-
+-    '''
+-    Play the game.
+-    '''
+-    def play(self) -> None:
+-        """Play the game.
+-        """
+-        while True:
+-            if len(self.__party) == 0:
+-                self.__leave_dungeons()
+-                self.__exit()
+-                exit()
+-            print("Your party is in:\n")
+-
+-            # Printer.alert("Your party is in:\n")
+-            print(self.__current_location)
+-            # Printer.info(self.__current_location)
+-            cmd = input("What would you like to do? (help or ? for commands): ")
+-            toks = cmd.split(' ')
+-            toks = [x.rstrip("\n") for x in toks]
+-            action = toks[0]
+-            player = None
+-            if len(toks) > 1:
+-                action = toks[1]
+-                player = self.__in_party(toks[0])
+-                if not player:
+-                    Printer.alert("Have you hit your head? " + toks[0] + " is not in this party.")
+-                    continue
+-            if action in self.__commands:
+-                self.__commands[action](player, ' '.join(toks[2:]))
+-            else:
+-                Printer.alert("\t>>>>> I don't know what that command means. <<<<<")
+-            self.__monster_attack()
+-
+-
+-def main():
+-    """If the game.py file is run, play the game."""
+-    g = Game()
+-    g.play()
+-
+-
+-if __name__ == '__main__':
+-    main()
+Index: Classes/Character.py
+===================================================================
+diff --git a/Classes/Character.py b/Classes/Character.py
+deleted file mode 100644
+--- a/Classes/Character.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,241 +0,0 @@
+-import random
+-
+-from Classes.Item import *
+-
+-if not Item.ITEMS:
+-    Item.load_items()
+-
+-
+-class Character:
+-    # Stats is a dict
+-    def __init__(self, name, stats=None):
+-        if stats is None:
+-            stats = {"Strength": 5, "Dexterity": 5, "Vitality": 5,
+-                     "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5, "Credits": 0}
+-        self.name = name
+-        self.inventory = []
+-        self.stats = stats
+-        self.stats["Max Health"] = 20 + (5 * (self.stats["Vitality"] + self.stats["Level"]))
+-        self.stats["Health"] = self.stats["Max Health"]
+-        self.attack = 0  # Pull item attack + character strength?
+-        self.defense = 0  # Pull item defense + character vitality?
+-        self.living = True
+-
+-    # Set's character's living status
+-    def setLiving(self, _bool):
+-        self.living = _bool
+-
+-    # Add to the inventory an instance of an item
+-    def addItem(self, item: Item):
+-        self.inventory.append(item)
+-
+-    def dropItem(self, item: Item):
+-        self.inventory.remove(item)
+-
+-    # Upgrade stats by stat and amount
+-    def upgradeStats(self, stat, amount):
+-        if self.stats["Stat Points"] > 0:
+-            self.stats[stat] += amount
+-            self.stats["Stat Points"] -= amount
+-        if stat == "Vitality":
+-            self.updateMaxHealth()
+-            self.updateHealth(5 * amount)
+-
+-    # Levels up and adds unassigned stat points
+-    def lv_up(self):
+-        if self.stats["XP"] >= (self.stats["Level"] * 10):
+-            self.stats["XP"] -= self.stats["Level"] * 10
+-            self.stats["Level"] += 1
+-            self.stats["Stat Points"] += 5
+-
+-    # Recalculates max health
+-    def updateMaxHealth(self):
+-        self.stats["Max Health"] = 20 + (5 * (self.stats["Vitality"] + self.stats["Level"]))
+-        if self.stats["Health"] > self.stats["Max Health"]:
+-            self.stats["Health"] = self.stats["Max Health"]
+-
+-    def updateHealth(self, amount: int):
+-        self.stats["Health"] += amount
+-        if self.stats["Health"] > self.stats["Max Health"]:
+-            self.stats["Health"] = self.stats["Max Health"]
+-
+-    def getDefense(self):
+-        return self.defense
+-
+-    def getAttack(self):
+-        return self.attack
+-
+-    def defend_action(self):
+-        self.defense = int(self.defense * 1.5)
+-
+-
+-class Player(Character):
+-    def __init__(self, name: str, stats: dict):
+-        super().__init__(name, stats)
+-        self.stats["Medkits"] = 5
+-
+-        self.equipment = {}
+-        x = Item(random.choice(Item.ITEMS))
+-        while x.stats["type"] != "Weapon":
+-            x = Item(random.choice(Item.ITEMS))
+-        self.equipment["Weapon"] = x
+-        while x.stats["type"] != "Head":
+-            x = Item(random.choice(Item.ITEMS))
+-        self.equipment["Head"] = x
+-        while x.stats["type"] != "Arms":
+-            x = Item(random.choice(Item.ITEMS))
+-        self.equipment["Arms"] = x
+-        while x.stats["type"] != "Chest":
+-            x = Item(random.choice(Item.ITEMS))
+-        self.equipment["Chest"] = x
+-        while x.stats["type"] != "Legs":
+-            x = Item(random.choice(Item.ITEMS))
+-        self.equipment["Legs"] = x
+-        while x.stats["type"] != "Feet":
+-            x = Item(random.choice(Item.ITEMS))
+-        self.equipment["Feet"] = x
+-        self.updateAttack()
+-        self.updateDefense()
+-
+-    def equipItem(self, item: Item):
+-        if item in self.inventory:
+-            if item.stats["type"] == "Weapon":
+-                if self.equipment["Weapon"].stats["name"] == "None":
+-                    self.equipment["Weapon"] = item
+-                else:
+-                    tmp = self.equipment["Weapon"]
+-                    self.equipment["Weapon"] = item
+-                    self.addItem(tmp)
+-            elif item.stats["type"] == "Head":
+-                if self.equipment["Head"].stats["name"] == "None":
+-                    self.equipment["Head"] = item
+-                else:
+-                    tmp = self.equipment["Head"]
+-                    self.equipment["Head"].stats["name"] = item
+-                    self.addItem(tmp)
+-            elif item.stats["type"] == "Arms":
+-                if self.equipment["Arms"].stats["name"] == "None":
+-                    self.equipment["Arms"] = item
+-                else:
+-                    tmp = self.equipment["Arms"]
+-                    self.equipment["Arms"] = item
+-                    self.addItem(tmp)
+-            elif item.stats["type"] == "Chest":
+-                if self.equipment["Chest"].stats["name"] == "None":
+-                    self.equipment["Chest"] = item
+-                else:
+-                    tmp = self.equipment["Chest"]
+-                    self.equipment["Chest"] = item
+-                    self.addItem(tmp)
+-            elif item.stats["type"] == "Legs":
+-                if self.equipment["Legs"].stats["name"] == "None":
+-                    self.equipment["Legs"] = item
+-                else:
+-                    tmp = self.equipment["Legs"]
+-                    self.equipment["Legs"] = item
+-                    self.addItem(tmp)
+-            elif item.stats["type"] == "Feet":
+-                if self.equipment["Feet"].stats["name"] == "None":
+-                    self.equipment["Feet"] = item
+-                else:
+-                    tmp = self.equipment["Feet"]
+-                    self.equipment["Feet"] = item
+-                    self.addItem(tmp)
+-            self.inventory.remove(item)
+-            self.updateAttack()
+-            self.updateDefense()
+-
+-    def unequipItem(self, item: Item):
+-        if item.stats["type"] == "Weapon":
+-            if item.stats["name"] != "None":
+-                self.addItem(self.equipment["Weapon"])
+-            self.equipment["Weapon"] = Item(["Weapon", "None", 0, 0, 0, 0.8])
+-        elif item.stats["type"] == "Head":
+-            if item.stats["name"] != "None":
+-                self.addItem(self.equipment["Head"])
+-            self.equipment["Head"] = Item(["Head", "None", 0, 0, 0, 0.8])
+-        elif item.stats["type"] == "Arms":
+-            if item.stats["name"] != "None":
+-                self.addItem(self.equipment["Arms"])
+-            self.equipment["Arms"] = Item(["Arms", "None", 0, 0, 0, 0.8])
+-        elif item.stats["type"] == "Chest":
+-            if item.stats["name"] != "None":
+-                self.addItem(self.equipment["Chest"])
+-            self.equipment["Chest"] = Item(["Chest", "None", 0, 0, 0, 0.8])
+-        elif item.stats["type"] == "Legs":
+-            if item.stats["name"] != "None":
+-                self.addItem(self.equipment["Legs"])
+-            self.equipment["Legs"] = Item(["Legs", "None", 0, 0, 0, 0.8])
+-        elif item.stats["type"] == "Feet":
+-            if item.stats["name"] != "None":
+-                self.addItem(self.equipment["Feet"])
+-            self.equipment["Feet"] = Item(["Feet", "None", 0, 0, 0, 0.8])
+-        self.updateAttack()
+-        self.updateDefense()
+-
+-    def use_medkits(self):
+-        if self.med_kits > 0:
+-            self.med_kits = -1
+-            amt = self.stats["Intelligence"] + self.stats["Level"] + 20
+-            tmp = self.stats["Health"] + amt
+-            if tmp >= self.stats["Max Health"]:
+-                amt = self.stats["Max Health"] - self.stats["Health"]
+-                self.stats["Health"] = self.stats["Max Health"]
+-            print(self.name + " used a med kit and healed " + str(amt) + " health.")
+-            return amt
+-        else:
+-            print("No med kits left.")
+-            return 0
+-
+-    @property
+-    def med_kits(self) -> int:
+-        return self.stats["Medkits"]
+-
+-    @med_kits.setter
+-    def med_kits(self, change: int):
+-        self.stats["Medkits"] += change
+-        if self.stats["Medkits"] < 0:
+-            self.__med_kits = 0
+-
+-    def changeName(self, name):
+-        self.name = name
+-
+-    def updateDefense(self):
+-        self.defense = int((self.stats["Vitality"] + self.stats["Level"]) / 5)
+-        for equipment in self.equipment.values():
+-            self.defense += equipment.stats["defense"]
+-
+-    def updateAttack(self):
+-        self.attack = int((self.stats["Strength"] + self.stats["Level"]) / 5)
+-        for equipment in self.equipment.values():
+-            self.attack += equipment.stats["damage"]
+-
+-    def take_damage(self, attacker: Character):
+-        damage = attacker.getAttack()
+-        self.stats["Health"] -= damage
+-
+-
+-class Enemy(Character):
+-    def __init__(self, name, stats: dict, enemy_lv: int):
+-        super().__init__(stats)
+-        self.stats["Level"] = enemy_lv
+-        self.name = name
+-        self.stats["Stat Points"] = self.stats["Level"] * 5
+-        while self.stats["Stat Points"] > 1:
+-            stat = random.choice(['Strength', 'Dexterity', 'Vitality', 'Intelligence'])
+-            self.upgradeStats(stat, 1)
+-        self.updateAttack()
+-        self.updateDefense()
+-
+-    def take_damage(self, attacker: Player):
+-        item = attacker.equipment["Weapon"]
+-        damage = item.getDamageDealt(self) + attacker.getAttack()
+-        if damage < 1:
+-            damage = 1
+-        self.stats["Health"] -= damage
+-
+-    def updateDefense(self):
+-        self.defense = int((self.stats["Vitality"] + self.stats["Level"]) / 5)
+-
+-    def updateAttack(self):
+-        self.attack = int((self.stats["Strength"] + self.stats["Level"]) / 5)
+Index: Tests/Item_tests.py
+===================================================================
+diff --git a/Tests/Item_tests.py b/Tests/Item_tests.py
+deleted file mode 100644
+--- a/Tests/Item_tests.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,64 +0,0 @@
+-# test
+-import random
+-import unittest
+-from Classes.Item import *
+-
+-
+-class ItemTests(unittest.TestCase):
+-
+-    def test_1load_items1(self):
+-        # Items not yet loaded from file
+-        self.assertEqual(Item.ITEMS, [])
+-
+-    def test_2load_items2(self):
+-        # Item list should be empty
+-        self.assertFalse(Item.ITEMS)
+-
+-    def test_3load_items3(self):
+-        # Item list has items
+-        Item.load_items()
+-        self.assertTrue(Item.ITEMS)
+-
+-    def test_4load_items4(self):
+-        # Item list doesn't duplicate
+-        Item.load_items()
+-        x = len(Item.ITEMS)
+-        self.assertEqual(len(Item.ITEMS), x)
+-        Item.load_items()
+-        self.assertEqual(len(Item.ITEMS), x)
+-
+-    def test_5make_item1(self):
+-        x = None
+-        Item.load_items()
+-        self.assertFalse(x)
+-        x = Item(random.choice(Item.ITEMS))
+-        self.assertTrue(x)
+-        self.assertTrue(isinstance(x, Item))
+-
+-    def test_6item_stats1(self):
+-        Item.load_items()
+-        stats = random.choice(Item.ITEMS)
+-        x = Item(stats)
+-        type = stats[0]
+-        name = stats[1]
+-        damage = int(stats[2])
+-        defense = int(stats[3])
+-        value = int(stats[4])
+-        damagepercent = float(stats[5])
+-        self.assertEqual(x.stats["type"], type)
+-        self.assertEqual(x.stats["name"], name)
+-        self.assertEqual(x.stats["damage"], damage)
+-        self.assertEqual(x.stats["defense"], defense)
+-        self.assertEqual(x.stats["value"], value)
+-        self.assertEqual(x.stats["damagePercent"], damagepercent)
+-
+-    def test_7item_assign_stats(self):
+-        Item.load_items()
+-        stats = random.choice(Item.ITEMS)
+-        x = Item(stats)
+-        x.assignStats()
+-        self.assertEqual(x.stats["name"], x.name)
+-        self.assertEqual(x.stats["damage"], x.damage)
+-        self.assertEqual(x.stats["armorBreakPercent"], x.armorBreakPercent)
+-        self.assertEqual(x.stats["critPercent"], x.critPercent)
+-        self.assertEqual(x.stats["damagePercent"], x.damagePercent)
+\ No newline at end of file
+Index: Classes/GUI/CharacterGui.py
+===================================================================
+diff --git a/Classes/GUI/CharacterGui.py b/Classes/GUI/CharacterGui.py
+deleted file mode 100644
+--- a/Classes/GUI/CharacterGui.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,103 +0,0 @@
+-import tkinter as tk
+-from Classes.Character import *
+-from Classes.Rooms.Room import *
+-from Classes.GUI.MainGui import *
+-from PIL import ImageTk, Image
+-
+-
+-class CharacterGUI(tk.Toplevel):
+-    def __init__(self, player: Player, room: Room, gui):
+-        super().__init__()
+-        self.title("Character Screen")
+-        self.geometry(f'{250}x{450}+400+50')
+-        self.width = self.winfo_width()
+-        self.height = self.winfo_height()
+-        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
+-        self.iconbitmap('Images/SpaceShip.ico')
+-        self.width = self.winfo_width()
+-        self.height = self.winfo_height()
+-
+-        self.player = player
+-        self.room = room
+-        self.gui = gui
+-
+-        # Customize screen
+-        self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
+-        self.bg = ImageTk.PhotoImage(self.original_image)
+-
+-        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="#043F5B")
+-        self.bg_canvas.pack(fill='both', expand=True)
+-        self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
+-
+-        self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 10", command=self.destroy)
+-        self.exit_button_window = self.bg_canvas.create_window(self.width / 2 + 60, 80,
+-                                                               anchor='sw', window=self.exit_button)
+-
+-        self.updateCharacterGui()
+-
+-        if self.player.stats["Stat Points"] > 0:
+-            str_up = tk.Button(self, font=5, width=1, height=1, text="+",
+-                               command=lambda: self.stat_button("Strength", 1))
+-            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 315, anchor='center',
+-                                         window=str_up, tags="str_up")
+-
+-            dex_up = tk.Button(self, font=5, width=1, height=1, text="+",
+-                               command=lambda: self.stat_button("Dexterity", 1))
+-            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 265, anchor='center',
+-                                         window=dex_up, tags="dex_up")
+-
+-            vit_up = tk.Button(self, font=5, width=1, height=1, text="+",
+-                               command=lambda: self.stat_button("Vitality", 1))
+-            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 215, anchor='center',
+-                                         window=vit_up, tags="vit_up")
+-
+-            int_up = tk.Button(self, font=5, width=1, height=1, text="+",
+-                               command=lambda: self.stat_button("Intelligence", 1))
+-            self.bg_canvas.create_window(self.width / 2 + 30, self.height - 165, anchor='center',
+-                                         window=int_up, tags="int_up")
+-        if self.player.stats["XP"] >= self.player.stats["Level"] * 10:
+-            level_up = tk.Button(self, font=3, width=5, height=1, text="LV-Up",
+-                               command=lambda: self.level_up())
+-            self.bg_canvas.create_window(self.width / 2 + 60, self.height - 85, anchor='center',
+-                                         window=level_up, tags="level_up")
+-
+-        self.mainloop()
+-
+-    def stat_button(self, stat: str, amount: int):
+-        if self.player.stats["Stat Points"] > 0:
+-            self.player.upgradeStats(stat, amount)
+-        if stat == "Vitality":
+-            self.player.updateMaxHealth()
+-            self.player.stats["Health"] = self.player.stats["Max Health"]
+-            self.player.updateDefense()
+-        if stat == "Strength":
+-            self.player.updateAttack()
+-        self.updateCharacterGui()
+-
+-    def level_up(self):
+-        self.player.lv_up()
+-        if self.player.stats["XP"] < self.player.stats["Level"] * 10:
+-            self.bg_canvas.delete("level_up")
+-        self.updateCharacterGui()
+-
+-    def updateCharacterGui(self):
+-        self.bg_canvas.delete("stats")
+-        self.bg_canvas.create_text(self.width / 2 - 30, self.height - 220, font=10, fill="#ff0d1d", justify="center",
+-                                   text=self.player.name + "'s Stats" +
+-                                   "\n\nHealth: " + str(self.player.stats["Health"]) +
+-                                   "/" + str(self.player.stats["Max Health"]) +
+-                                   "\n\nStr: " + str(self.player.stats["Strength"]) +
+-                                   "\n\nDex: " + str(self.player.stats["Dexterity"]) +
+-                                   "\n\nVit: " + str(self.player.stats["Vitality"]) +
+-                                   "\n\nInt: " + str(self.player.stats["Intelligence"]) +
+-                                   "\n\nFree Points: " + str(self.player.stats["Stat Points"]) +
+-                                   "\n\nLevel: " + str(self.player.stats["Level"]) +
+-                                   "\n\nXP: " + str(self.player.stats["XP"]) +
+-                                   "/" + str(self.player.stats["Level"] * 10), tags="stats")
+-        if self.player.stats["Stat Points"] == 0:
+-            self.bg_canvas.delete("str_up", "dex_up", "vit_up", "int_up")
+-
+-    def destroy(self):
+-        self.room.clearRoom(True)
+-        self.gui.ready = True
+-        super().destroy()
+Index: Classes/Rooms/Room.py
+===================================================================
+diff --git a/Classes/Rooms/Room.py b/Classes/Rooms/Room.py
+deleted file mode 100644
+--- a/Classes/Rooms/Room.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,53 +0,0 @@
+-import csv
+-import random
+-
+-
+-class Room:
+-    def __init__(self):
+-        self.adjacentRooms = []
+-        self.isCurrentlyEntered = False
+-        self.hasEntered  = False
+-        self.cleared = False
+-
+-        self.edges = []
+-        self.posX = None
+-        self.posY = None
+-
+-    def setCoordinates(self, posX, posY):
+-        self.posX = posX
+-        self.posY = posY
+-
+-    def getCoordinates(self):
+-        return [self.posX,self.posY]
+-
+-    def clearRoom(self, status: bool):
+-        self.cleared = status
+-
+-    def getCleared(self):
+-        return self.cleared
+-
+-    def createAdjacency(self, otherRoom):
+-        if otherRoom not in self.adjacentRooms:
+-            self.adjacentRooms.append(otherRoom)
+-        if self not in otherRoom.getAdjacentRooms():
+-            otherRoom.addAdjacentRoom(self)
+-
+-    def addAdjacentRoom(self, otherRoom):
+-        self.adjacentRooms.append(otherRoom)
+-
+-    def getAdjacentRooms(self):
+-        return self.adjacentRooms
+-    
+-    def generateName(self, roomType):
+-        names = []
+-        with open(f'Names/{roomType}RoomNames.txt', 'r') as f:
+-            reader = csv.reader(f)
+-            for row in reader:
+-                names.append(row)
+-        return random.choice(*names)
+-    
+-    def __repr__(self):
+-        return self.name
+-    
+-    def __eq__(self, other):
+-        return self.posX == other.posX and self.posY == other.posY
+Index: Classes/GUI/ShopGUI.py
+===================================================================
+diff --git a/Classes/GUI/ShopGUI.py b/Classes/GUI/ShopGUI.py
+deleted file mode 100644
+--- a/Classes/GUI/ShopGUI.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,185 +0,0 @@
+-import tkinter as tk
+-from Classes.Character import *
+-from Classes.Rooms.ShopRoom import *
+-from PIL import ImageTk, Image
+-import random
+-
+-
+-class ShopGUI(tk.Toplevel):
+-    def __init__(self, room: ShopRoom, player: Player):
+-        super().__init__()
+-        self.title("Shop Inventory")
+-        self.geometry(f'{900}x{600}+400+50')
+-        self.width = self.winfo_width()
+-        self.height = self.winfo_height()
+-        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
+-        self.iconbitmap('Images/SpaceShip.ico')
+-        self.width = self.winfo_width()
+-        self.height = self.winfo_height()
+-
+-        self.player = player
+-        self.shop = room
+-
+-        self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
+-        self.bg = ImageTk.PhotoImage(self.original_image)
+-
+-        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="black")
+-        self.bg_canvas.pack(fill='both', expand=True)
+-        self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
+-
+-        self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 8", command=self.destroy)
+-        self.exit_button_window = self.bg_canvas.create_window(self.width - 60, 580,
+-                                                               anchor='sw', window=self.exit_button)
+-
+-        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=8, fill="blue", justify="center",
+-                                   text=self.player.name + "'s Equipment", tags="equipment_title")
+-        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 580, font=8, fill="blue", justify="center",
+-                                   text=self.player.name + "'s Inventory", tags="inventory_title")
+-        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 580, font=8, fill="blue", justify="center",
+-                                   text=self.shop.name + "'s Shop", tags="shop_title")
+-
+-        self.unequip_button = tk.Button(self, text='Unequip Entered Item\nFrom Equipment',
+-                                        font='Time_New_Roman 8', command=lambda: self.removeEquippedItem())
+-        self.unequip_button_window = self.bg_canvas.create_window(50, 400, anchor='sw',
+-                                                                  window=self.unequip_button, tags="unequip_button")
+-
+-        self.equip_button = tk.Button(self, text='Equip Entered Item\nFrom Inventory',
+-                                      font='Time_New_Roman 8', command=lambda: self.equipItemInventory())
+-        self.equip_button_window = self.bg_canvas.create_window(250, 400, anchor='sw',
+-                                                                window=self.equip_button, tags="equip_button")
+-
+-        self.purchase_button = tk.Button(self, text='Purchase Entered Item\nFrom Shop',
+-                                         font='Time_New_Roman 8', command=lambda: self.BuyItemFromShop())
+-        self.purchase_button_window = self.bg_canvas.create_window(450, 400, anchor='sw',
+-                                                                   window=self.purchase_button, tags="buy_button")
+-
+-        self.sell_button = tk.Button(self, text='Sell Entered Item\nFrom Inventory',
+-                                     font='Time_New_Roman 8', command=lambda: self.sellItemInventory())
+-        self.sell_button_window = self.bg_canvas.create_window(650, 400, anchor='sw',
+-                                                               window=self.sell_button, tags="sell_button")
+-
+-        self.item_entry_text = tk.Label(self, text='Enter Item Below To Start', font='Time_New_Roman 10')
+-        self.item_entry_text = self.bg_canvas.create_window(self.width / 2 - 100, 450, anchor='sw',
+-                                                            window=self.item_entry_text, tags="item_entry_text")
+-        self.item_entry_box = tk.Entry(self, font='Time_New_Roman 8')
+-        self.bg_canvas.create_window(self.width / 2 - 100, 480, anchor='sw',
+-                                     window=self.item_entry_box, tags="item_entry")
+-
+-        self.updateShopGui()
+-        self.mainloop()
+-
+-    def equipment_grid(self):
+-        self.bg_canvas.delete("equipment")
+-        if self.player.equipment:
+-            self.bg_canvas.create_text(self.width / 2 - 250, self.height - 450, font=8, fill="blue", justify="center",
+-                                       text="\nHead Armor: " + str(self.player.equipment["Head"].stats["name"])
+-                                       + ": +" + str(self.player.equipment["Head"].stats["defense"]) + " Defense"
+-                                       + "\nArm Armor: " + str(self.player.equipment["Arms"].stats["name"])
+-                                       + ": +" + str(self.player.equipment["Arms"].stats["defense"]) + " Defense"
+-                                       + "\nChest Armor: " + str(self.player.equipment["Chest"].stats["name"])
+-                                       + ": +" + str(self.player.equipment["Chest"].stats["defense"]) + " Defense"
+-                                       + "\nLeg Armor: " + str(self.player.equipment["Legs"].stats["name"])
+-                                       + ": +" + str(self.player.equipment["Legs"].stats["defense"]) + " Defense"
+-                                       + "\nFoot Armor: " + str(self.player.equipment["Feet"].stats["name"])
+-                                       + ": +" + str(self.player.equipment["Feet"].stats["defense"]) + " Defense"
+-                                       + "\nWeapon: " + str(self.player.equipment["Weapon"].stats["name"])
+-                                       + ": +" + str(self.player.equipment["Weapon"].stats["damage"]) + " Damage"
+-                                       + "\n\nTotal Attack: " + str(self.player.getAttack())
+-                                       + "\nTotal Defense: " + str(self.player.getDefense())
+-                                       + "\nCredits: " + str(self.player.stats["Credits"]), tags="equipment")
+-
+-    def inventory_grid(self):
+-        self.bg_canvas.delete("inventory")
+-        self.inventory_text = ""
+-        if len(self.player.inventory) > 0:
+-            for item in self.player.inventory:
+-                if item.stats["type"] == "Weapon":
+-                    self.inventory_text += ("\n\n" + str(item.stats["name"]) + ": +"
+-                                            + str(item.stats["damage"]) + " Damage"
+-                                            + "\nValue: " + str(item.stats["value"]))
+-                else:
+-                    self.inventory_text += ("\n\n" + str(item.stats["name"]) + ": +"
+-                                            + str(item.stats["defense"]) + " Defense"
+-                                            + "\nValue: " + str(item.stats["value"]))
+-        else:
+-            self.inventory_text = "Your Inventory\nIs Empty"
+-        self.bg_canvas.create_text(self.width / 2 + 20, self.height - 450, font=8, fill="blue", justify="center",
+-                                   text=self.inventory_text, tags="inventory")
+-
+-    def shop_grid(self):
+-        self.bg_canvas.delete("shop")
+-        self.shop_text = ""
+-        if len(self.shop.items) > 0:
+-            for item in self.shop.items:
+-                if item.stats["type"] == "Weapon":
+-                    self.shop_text += ("\n" + str(item.stats["name"]) + ": +"
+-                                       + str(item.stats["damage"]) + " Damage"
+-                                       + "\nValue: " + str(item.stats["value"]))
+-                else:
+-                    self.shop_text += ("\n" + str(item.stats["name"]) + ": +"
+-                                       + str(item.stats["defense"]) + " Defense"
+-                                       + "\nValue: " + str(item.stats["value"]))
+-        else:
+-            self.shop_text = "The Shop Is Empty"
+-        self.bg_canvas.create_text(self.width / 2 + 270, self.height - 450, font=8, fill="blue", justify="center",
+-                                   text=self.shop_text, tags="shop")
+-
+-    def updateShopGui(self):
+-        self.equipment_grid()
+-        self.inventory_grid()
+-        self.shop_grid()
+-
+-    def equipItemInventory(self):
+-        self.read_entry_box()
+-        if self.read_entry_box() is not None:
+-            item_to_equip = self.item_entry
+-            for item in self.player.inventory:
+-                if item.stats["name"] == item_to_equip:
+-                    self.player.equipItem(item)
+-                    self.player.updateDefense()
+-                    self.player.updateAttack()
+-                    self.updateShopGui()
+-
+-    def removeEquippedItem(self):
+-        self.read_entry_box()
+-        if self.read_entry_box() is not None:
+-            item_to_remove = self.item_entry
+-            for item in self.player.equipment.values():
+-                if item.stats["name"] == item_to_remove:
+-                    self.player.unequipItem(item)
+-                    self.player.updateDefense()
+-                    self.player.updateAttack()
+-                    self.updateShopGui()
+-
+-    def BuyItemFromShop(self):
+-        self.read_entry_box()
+-        if self.read_entry_box() is not None:
+-            item_to_buy = self.item_entry
+-            for item in self.shop.items:
+-                if item.stats["name"] == item_to_buy:
+-                    if self.player.stats["Credits"] >= item.stats["value"]:
+-                        self.player.addItem(item)
+-                        self.shop.items.remove(item)
+-                        self.player.stats["Credits"] -= item.stats["value"]
+-                        self.updateShopGui()
+-
+-    def sellItemInventory(self):
+-        self.read_entry_box()
+-        if self.read_entry_box() is not None:
+-            item_to_sell = self.item_entry
+-            for item in self.player.inventory:
+-                if item.stats["name"] == item_to_sell:
+-                    self.player.dropItem(item)
+-                    self.player.stats["Credits"] += item.stats["value"]
+-                    self.shop.items.append(item)
+-                    self.updateShopGui()
+-
+-    def read_entry_box(self) -> None | str:
+-        self.item_entry = None
+-        if self.item_entry_box.get():
+-            self.item_entry = self.item_entry_box.get()
+-        return self.item_entry
+-
+-    def destroy(self):
+-        self.shop.clearRoom(True)
+-        super().destroy()
+Index: Classes/GUI/ChestGUI.py
+===================================================================
+diff --git a/Classes/GUI/ChestGUI.py b/Classes/GUI/ChestGUI.py
+deleted file mode 100644
+--- a/Classes/GUI/ChestGUI.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,56 +0,0 @@
+-import tkinter as tk
+-from Classes.Character import *
+-from Classes.Rooms.ChestRoom import ChestRoom
+-from PIL import ImageTk, Image
+-
+-
+-class ChestGUI(tk.Toplevel):
+-    def __init__(self, room: ChestRoom, player: Player):
+-        super().__init__()
+-        self.title("Chest Screen")
+-        self.geometry(f'{300}x{400}+400+50')
+-        self.width = self.winfo_width()
+-        self.height = self.winfo_height()
+-        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
+-        self.iconbitmap('Images/SpaceShip.ico')
+-        self.width = self.winfo_width()
+-        self.height = self.winfo_height()
+-
+-        self.player = player
+-        self.room = room
+-
+-        self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
+-        self.bg = ImageTk.PhotoImage(self.original_image)
+-
+-        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="#043F5B")
+-        self.bg_canvas.pack(fill='both', expand=True)
+-        self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
+-
+-        if self.room.item:
+-            self.loot_button = tk.Button(self, text=f"Take " + str(self.room.item.stats["name"]),
+-                                         font='Time_New_Roman 8', command=lambda: self.loot_chest())
+-            self.loot_button_window = self.bg_canvas.create_window(100, 200, anchor='sw',
+-                                                                   window=self.loot_button,
+-                                                                   tags="loot_button")
+-
+-            self.scrap_button = tk.Button(self, text=f"Scrap It",
+-                                          font='Time_New_Roman 8', command=lambda: self.scrap_chest())
+-            self.scrap_button_window = self.bg_canvas.create_window(100, 300, anchor='sw',
+-                                                                    window=self.scrap_button,
+-                                                                    tags="scrap_button")
+-
+-    def loot_chest(self):
+-        self.player.inventory.append(self.room.item)
+-        self.room.item = None
+-        self.bg_canvas.delete("loot_button", "scrap_button")
+-        self.destroy()
+-
+-    def scrap_chest(self):
+-        self.player.stats["Credits"] += self.room.item.stats["value"]
+-        self.room.item = None
+-        self.bg_canvas.delete("loot_button", "scrap_button")
+-        self.destroy()
+-
+-    def destroy(self):
+-        self.room.clearRoom(True)
+-        super().destroy()
+Index: Classes/Rooms/CombatRoom.py
+===================================================================
+diff --git a/Classes/Rooms/CombatRoom.py b/Classes/Rooms/CombatRoom.py
+deleted file mode 100644
+--- a/Classes/Rooms/CombatRoom.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,43 +0,0 @@
+-import random
+-
+-from Classes.Rooms.Room import Room
+-from Classes.Character import *
+-import csv
+-
+-
+-class CombatRoom(Room):
+-
+-    ENEMIES = []
+-
+-    @staticmethod
+-    def load_enemies() -> None:
+-        """Static method to load the different types of items from a specified file.
+-        """
+-        if not CombatRoom.ENEMIES:
+-            with open('Names/enemy_txt/monster_names', 'r') as f:
+-                reader = csv.reader(f)
+-                for row in reader:
+-                    CombatRoom.ENEMIES.append(row)
+-
+-    def __init__(self, *args):
+-        super().__init__()
+-        if not CombatRoom.ENEMIES:
+-            CombatRoom.load_enemies()
+-        self.player = None
+-        if isinstance(args, Player):
+-            self.player = args
+-        else:
+-            self.mon_lv = 1
+-        self.enemies = []
+-        self.generate_enemies()
+-        self.name = self.generateName("Combat")
+-        self.roomType = "Combat"
+-        self.text = "You have entered a Combat room. Prepare to fight."
+-
+-    def generate_enemies(self):
+-        num = random.randint(1, 4)
+-        if self.player:
+-            self.mon_lv = self.player.stats["Level"]
+-        for i in range(0, num):
+-            mon_name = random.choice(CombatRoom.ENEMIES)
+-            self.enemies.append(Enemy(mon_name[0], None, self.mon_lv))
+Index: Tests/Map_tests.py
+===================================================================
+diff --git a/Tests/Map_tests.py b/Tests/Map_tests.py
+deleted file mode 100644
+--- a/Tests/Map_tests.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,8 +0,0 @@
+-import unittest
+-from Classes.Map.Map import *
+-
+-
+-class Map_tests(unittest.TestCase):
+-    def test1(self):
+-        map = Map()
+-        self.assertIsInstance(map, Map, "Map not valid object")
+\ No newline at end of file
+Index: Names/CombatRoomNames.txt
+===================================================================
+diff --git a/Names/CombatRoomNames.txt b/Names/CombatRoomNames.txt
+deleted file mode 100644
+--- a/Names/CombatRoomNames.txt	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,1 +0,0 @@
+-Engine Room,Captain's Cabin,Main Cabin,Bridge,Bathroom,Cafeteria,Showers,Kitchen,Barracks,Pod Bay,Hangar,Storage Area,Docking Port,Weapons Bay,Cabin 1,Cabin 2,Cabin 3,Elevator 1,Elevator 2,Elevator 3,Life Pod 1,Life Pod 2,Life Pod 3,
+\ No newline at end of file
+Index: Classes/Item.py
+===================================================================
+diff --git a/Classes/Item.py b/Classes/Item.py
+deleted file mode 100644
+--- a/Classes/Item.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,70 +0,0 @@
+-import random
+-import csv
+-
+-
+-class Item:
+-
+-    ITEMS = []
+-
+-    @staticmethod
+-    def load_items() -> None:
+-        """Static method to load the different types of items from a specified file.
+-        """
+-        if not Item.ITEMS:
+-            with open('Names/items_txt/item_types', 'r') as f:
+-                reader = csv.reader(f)
+-                for row in reader:
+-                    Item.ITEMS.append(row)
+-
+-    # Stats is a dictionary
+-    def __init__(self, stats: list):
+-        if not Item.ITEMS:
+-            Item.load_items()
+-
+-        self.stats = {}
+-        self.stats["type"] = stats[0]
+-        self.stats["name"] = stats[1]
+-        self.stats["damage"] = int(stats[2])
+-        self.stats["defense"] = int(stats[3])
+-        self.stats["value"] = int(stats[4])
+-        self.stats["damagePercent"] = float(stats[5])
+-        self.stats["critPercent"] = 0.01
+-        self.stats["armorBreakPercent"] = 0.01
+-        self.assignStats()
+-
+-        # self.assignStats() --> Testing, not using
+-        # Got to assign equipment's type
+-        # ["Weapon", "Head", "Arms", "Chest", "Legs", "Feet"]
+-
+-    def assignStats(self):
+-        self.name = self.stats["name"]
+-        self.damage = self.stats["damage"]
+-
+-        # What % Higher or % Lower from self.damage can possible damages be
+-        self.damagePercent = self.stats["damagePercent"]
+-
+-        # In the format 0.%%
+-        self.critPercent = self.stats["critPercent"]
+-
+-        # Chance of damage bypassing enemies defense
+-        self.armorBreakPercent = self.stats["armorBreakPercent"]
+-
+-        ###### More stats can be added but idk
+-
+-    # Enemy would be an instance of the enemy class
+-    def getDamageDealt(self, enemy):
+-        damageRangeValue = random.uniform(1 - self.damagePercent, 1 + self.damagePercent)
+-        baseDamageDealt = self.damage * damageRangeValue
+-
+-        appliedDamage = baseDamageDealt
+-        if random.random() < self.critPercent:
+-            appliedDamage *= 2
+-
+-        # If crit is 
+-        enemyDefenseReducer = 1
+-        if random.random() < self.armorBreakPercent:
+-            enemyDefenseReducer = 0.5
+-
+-        enemyDefense = enemy.getDefense()
+-
+-        return appliedDamage - enemyDefense * enemyDefenseReducer
+Index: Classes/GUI/InventoryGui.py
+===================================================================
+diff --git a/Classes/GUI/InventoryGui.py b/Classes/GUI/InventoryGui.py
+deleted file mode 100644
+--- a/Classes/GUI/InventoryGui.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,146 +0,0 @@
+-import tkinter as tk
+-from Classes.Character import *
+-from Classes.Rooms.Room import *
+-from Classes.GUI.MainGui import *
+-from PIL import ImageTk, Image
+-
+-
+-class InventoryGUI(tk.Toplevel):
+-    def __init__(self, player: Player, room: Room, gui):
+-        super().__init__()
+-        self.title("Character Inventory")
+-        self.geometry(f'{800}x{600}+400+50')
+-        self.width = self.winfo_width()
+-        self.height = self.winfo_height()
+-        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
+-        self.iconbitmap('Images/SpaceShip.ico')
+-        self.width = self.winfo_width()
+-        self.height = self.winfo_height()
+-
+-        self.player = player
+-        self.room = room
+-        self.gui = gui
+-
+-        self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
+-        self.bg = ImageTk.PhotoImage(self.original_image)
+-
+-        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="#043F5B")
+-        self.bg_canvas.pack(fill='both', expand=True)
+-        self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
+-
+-        self.exit_button = tk.Button(self, text="Close", font="Time_New_Roman 10", command=self.destroy)
+-        self.exit_button_window = self.bg_canvas.create_window(self.width - 60, 580,
+-                                                               anchor='sw', window=self.exit_button)
+-
+-        self.bg_canvas.create_text(self.width / 2 - 200, self.height - 580, font=10, fill="#ff0d1d", justify="center",
+-                                   text=self.player.name + "'s Equipment", tags="equipment_title")
+-        self.bg_canvas.create_text(self.width / 2 + 200, self.height - 580, font=10, fill="#ff0d1d", justify="center",
+-                                   text=self.player.name + "'s Inventory", tags="inventory_title")
+-
+-        self.unequip_button = tk.Button(self, text='Unequip Entered Item\nFrom Equipment',
+-                                        font='Time_New_Roman 10', command=lambda: self.removeEquippedItem())
+-        self.unequip_button_window = self.bg_canvas.create_window(150, 400, anchor='sw',
+-                                                                  window=self.unequip_button, tags="unequip_button")
+-
+-        self.equip_button = tk.Button(self, text='Equip Entered Item\nFrom Inventory',
+-                                      font='Time_New_Roman 10', command=lambda: self.equipItemInventory())
+-        self.equip_button_window = self.bg_canvas.create_window(350, 400, anchor='sw',
+-                                                                window=self.equip_button, tags="equip_button")
+-
+-        self.drop_button = tk.Button(self, text='Drop Entered Item\nFrom Inventory',
+-                                     font='Time_New_Roman 10', command=lambda: self.dropItemInventory())
+-        self.drop_button_window = self.bg_canvas.create_window(550, 400, anchor='sw',
+-                                                               window=self.drop_button, tags="equip_button")
+-
+-        self.item_entry_text = tk.Label(self, text='Enter Item Below To Start', font='Time_New_Roman 10')
+-        self.item_entry_text = self.bg_canvas.create_window(150, 450, anchor='sw',
+-                                                            window=self.item_entry_text, tags="item_entry_text")
+-        self.item_entry_box = tk.Entry(self, font='Time_New_Roman 12')
+-        self.bg_canvas.create_window(150, 480, anchor='sw', window=self.item_entry_box, tags="item_entry")
+-
+-        self.updateInventoryGui()
+-        self.mainloop()
+-
+-    def equipment_grid(self):
+-        self.bg_canvas.delete("equipment")
+-        if self.player.equipment:
+-            self.bg_canvas.create_text(self.width / 2 - 200, self.height - 450, font=8, fill="#ff0d1d",
+-                                       text="\nHead Armor: " + str(self.player.equipment["Head"].stats["name"])
+-                                       + ": +" + str(self.player.equipment["Head"].stats["defense"]) + " Defense"
+-                                       + "\nArm Armor: " + str(self.player.equipment["Arms"].stats["name"])
+-                                       + ": +" + str(self.player.equipment["Arms"].stats["defense"]) + " Defense"
+-                                       + "\nChest Armor: " + str(self.player.equipment["Chest"].stats["name"])
+-                                       + ": +" + str(self.player.equipment["Chest"].stats["defense"]) + " Defense"
+-                                       + "\nLeg Armor: " + str(self.player.equipment["Legs"].stats["name"])
+-                                       + ": +" + str(self.player.equipment["Legs"].stats["defense"]) + " Defense"
+-                                       + "\nFoot Armor: " + str(self.player.equipment["Feet"].stats["name"])
+-                                       + ": +" + str(self.player.equipment["Feet"].stats["defense"]) + " Defense"
+-                                       + "\nWeapon: " + str(self.player.equipment["Weapon"].stats["name"])
+-                                       + ": +" + str(self.player.equipment["Weapon"].stats["damage"]) + " Damage"
+-                                       + "\n\nTotal Attack: " + str(self.player.getAttack())
+-                                       + "\nTotal Defense: " + str(self.player.getDefense())
+-                                       + "\nCredits: " + str(self.player.stats["Credits"]),
+-                                       tags="equipment", justify="center")
+-
+-    def inventory_grid(self):
+-        self.bg_canvas.delete("inventory")
+-        self.inventory_text = ""
+-        if len(self.player.inventory) > 0:
+-            for item in self.player.inventory:
+-                if item.stats["type"] == "Weapon":
+-                    self.inventory_text += ("\n" + str(item.stats["name"]) + ": +"
+-                                            + str(item.stats["damage"]) + " Damage")
+-                else:
+-                    self.inventory_text += ("\n" + str(item.stats["name"]) + ": +"
+-                                            + str(item.stats["defense"]) + " Defense")
+-        else:
+-            self.inventory_text = "Your Inventory\nIs Empty"
+-        self.bg_canvas.create_text(self.width / 2 + 200, self.height - 450, font=10, fill="#ff0d1d", justify="center",
+-                                   text=self.inventory_text, tags="inventory")
+-
+-    def updateInventoryGui(self):
+-        self.equipment_grid()
+-        self.inventory_grid()
+-
+-    def dropItemInventory(self):
+-        self.read_entry_box()
+-        if self.read_entry_box() is not None:
+-            item_to_drop = self.item_entry
+-            for item in self.player.inventory:
+-                if item.stats["name"] == item_to_drop:
+-                    self.player.dropItem(item)
+-                    self.item_entry_box.delete(0, 100)
+-                    self.updateInventoryGui()
+-
+-    def equipItemInventory(self):
+-        self.read_entry_box()
+-        if self.read_entry_box() is not None:
+-            item_to_equip = self.item_entry
+-            for item in self.player.inventory:
+-                if item.stats["name"] == item_to_equip:
+-                    self.player.equipItem(item)
+-                    self.player.updateDefense()
+-                    self.player.updateAttack()
+-                    self.updateInventoryGui()
+-
+-    def removeEquippedItem(self):
+-        self.read_entry_box()
+-        if self.read_entry_box() is not None:
+-            item_to_remove = self.item_entry
+-            for item in self.player.equipment.values():
+-                if item.stats["name"] == item_to_remove:
+-                    self.player.unequipItem(item)
+-                    self.player.updateDefense()
+-                    self.player.updateAttack()
+-                    self.updateInventoryGui()
+-
+-    def read_entry_box(self) -> None | str:
+-        self.item_entry = None
+-        if self.item_entry_box.get():
+-            self.item_entry = self.item_entry_box.get()
+-        return self.item_entry
+-
+-    def destroy(self):
+-        self.room.clearRoom(True)
+-        self.gui.ready = True
+-        super().destroy()
+\ No newline at end of file
+Index: Classes/GameHandler.py
+===================================================================
+diff --git a/Classes/GameHandler.py b/Classes/GameHandler.py
+deleted file mode 100644
+--- a/Classes/GameHandler.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,41 +0,0 @@
+-import tkinter
+-
+-from Classes.GUI.FightGUI import FightGUI
+-from Classes.GUI.MainGui import MainGUI
+-from Classes.GUI.ChestGUI import ChestGUI
+-from Classes.GUI.ShopGUI import ShopGUI
+-from Classes.Character import Player
+-from Classes.Map.Map import Map
+-
+-class GameHandler:
+-    def __init__(self):
+-        self.player = Player("Default", {"Strength": 5, "Dexterity": 5, "Vitality": 5,
+-                             "Intelligence": 5, "Level": 1, "XP": 0, "Stat Points": 5, "Credits": 0}) 
+-        self.map = Map()
+-        self.GUI = None
+-        MainGUI(self.player, self)
+-
+-
+-    def getMap(self):
+-        return self.map
+-
+-    # For some reason python isn't happy if I set MainGUI above to a variable so I have to do this
+-    def setGUI(self, GUI):
+-        self.GUI = GUI
+-    
+-    def enterRoom(self, room):
+-        # if not self.map.currentRoom.cleared:
+-        #     return
+-
+-        self.map.setCurrentRoom( room )
+-        self.GUI.display_buttons()
+-        # match room.roomType:
+-        #     case "Combat":
+-        #         self.GUI.enterCombatRoom(room)
+-        #         self.FightGUI = FightGUI(room, self.player)
+-        #     case "Chest":
+-        #         self.GUI.enterChestRoom(room)
+-        #         self.ChestGUI = ChestGUI(room, self.player)
+-        #     case "Shop":
+-        #         self.GUI.enterShopRoom(room)
+-        #         self.ShopGUI = ShopGUI(room, self.player)
+Index: Names/ChestRoomNames.txt
+===================================================================
+diff --git a/Names/ChestRoomNames.txt b/Names/ChestRoomNames.txt
+deleted file mode 100644
+--- a/Names/ChestRoomNames.txt	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,1 +0,0 @@
+-Barracks, Lockers, Chest Bay, Chest Storage, Chest Locale, Chest Den, Chest Plane
+\ No newline at end of file
+Index: Classes/Map/Map.py
+===================================================================
+diff --git a/Classes/Map/Map.py b/Classes/Map/Map.py
+deleted file mode 100644
+--- a/Classes/Map/Map.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,95 +0,0 @@
+-import math
+-import random
+-from Classes.Character import *
+-from Classes.Map.Edge import Edge
+-from Classes.Map.MapConstants import MapConstants
+-
+-# Manages the rooms and room connections
+-
+-
+-class Map:
+-    def __init__(self):
+-        self.rooms = None
+-        self.currentRoom = None
+-        self.edges = []
+-
+-        self.generateMap()
+-
+-    def generateMap(self):
+-        self.generateRandomRooms()
+-        self.connectEveryRoomTogether()
+-        self.primsAlgorithm()
+-        self.setCurrentRoom(self.rooms[0])
+-        self.printMap()
+-
+-    def getCurrentRoom(self):
+-        return self.currentRoom
+-    
+-    def setCurrentRoom(self, room):
+-        self.currentRoom = room
+-
+-    def generateRandomRooms(self):
+-        self.rooms = []
+-
+-        counter = 1;
+-        # Loop through each room type
+-        for roomType in MapConstants.ROOM_TYPES:
+-            # Loop for the desired number of rooms
+-            for _ in range(MapConstants.ROOM_TYPES[roomType]["desired_number"]):
+-                randomX = random.randint(1, MapConstants.MAP_WIDTH)
+-                randomY = random.randint(1, MapConstants.MAP_HEIGHT)
+-
+-                # Create room and set coordinates
+-                room = MapConstants.ROOM_TYPES[roomType]["room"]()
+-
+-                # TODO: delete later
+-                room.name = str(counter)
+-                counter += 1
+-
+-                room.setCoordinates(randomX, randomY)
+-
+-                self.rooms.append( room )
+-
+-    # Create an edge between all possible pairs of rooms
+-    def connectEveryRoomTogether(self):
+-        for room in self.rooms:
+-            for otherRoom in self.rooms:
+-                if room != otherRoom:
+-                    room.edges.append(Edge(room, otherRoom))
+-
+-
+-    # Implementation of Prim's Algorithm
+-    # Takes a graph of nodes (rooms) and edges, and constructs a minimum spanning tree
+-    # Downside is that a mst doesn't produce cycles, so additional edges will have to be added in              
+-    def primsAlgorithm(self):
+-        seenRooms = [self.rooms[0]]
+-        defaultEdge = Edge(self.rooms[0], self.rooms[1])
+-        mst = []
+-
+-        while len(seenRooms) < MapConstants.TOTAL_ROOMS:
+-
+-            availableEdges = []
+-            for seenRoom in seenRooms:
+-                for edge in seenRoom.edges:
+-
+-                    if edge.rooms[0] in seenRooms and edge.rooms[1] not in seenRooms:
+-                        availableEdges.append( edge )
+-
+-            minimumEdge = min( availableEdges, key=lambda edge: edge.weight, default=defaultEdge)
+-            seenRooms.append( minimumEdge.rooms[1] )
+-            mst.append(minimumEdge)
+-
+-            # Throw random edges in
+-            while random.random() < 0.5 and len(availableEdges) != 0:
+-                randomEdge = random.choice(availableEdges)
+-                mst.append( randomEdge)
+-
+-        # From what was created from prim's algorithm, create adjacency between rooms
+-        # Edges and adjacency are kinda redundant tbh
+-        for edge in mst:
+-            edge.rooms[0].createAdjacency(edge.rooms[1])
+-        
+-
+-    def printMap(self):
+-        for room in self.rooms:
+-            print(f"{room} is adjacent to: {room.getAdjacentRooms()}")
+\ No newline at end of file
+Index: Classes/Map/MapConstants.py
+===================================================================
+diff --git a/Classes/Map/MapConstants.py b/Classes/Map/MapConstants.py
+deleted file mode 100644
+--- a/Classes/Map/MapConstants.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,25 +0,0 @@
+-from Classes.Rooms.ChestRoom import ChestRoom
+-from Classes.Rooms.ShopRoom import ShopRoom
+-from Classes.Rooms.CombatRoom import CombatRoom
+-
+-class MapConstants:
+-    TOTAL_ROOMS = 100
+-
+-    # Completely Arbitrary
+-    MAP_HEIGHT = 50
+-    MAP_WIDTH = 50
+-
+-    ROOM_TYPES = {
+-        "Combat": {
+-            "desired_number": 50,
+-            "room": CombatRoom
+-        },
+-        "Chest": {
+-            "desired_number": 45,
+-            "room": ChestRoom
+-        },
+-        "Shop": {
+-            "desired_number": 5,
+-            "room": ShopRoom
+-        }
+-    }
+\ No newline at end of file
+Index: reference/character.py
+===================================================================
+diff --git a/reference/character.py b/reference/character.py
+deleted file mode 100644
+--- a/reference/character.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,682 +0,0 @@
+-"""Create player characters with different classes. Creates more generic
+-monsters as enemies.
+-
+-Phuc Le
+-11/10/2023
+-Version 3.2
+-"""
+-import random
+-from random import *
+-from item import *
+-from datetime import *
+-
+-
+-class Character:
+-    """The base Character class containing from which the more specific
+-     player classes and Monster class is customized from.
+-    """
+-    def __init__(self, name: str) -> None:
+-        """The constructor for the Character instance.
+-        Args:
+-            name (str): The Character's name. Cannot be blank (Exception Handling)
+-        Except:
+-            ValueError: The character's name must be a non-empty string.
+-        """
+-        if not isinstance(name, str):
+-            raise ValueError("The character's name must be a string.")
+-        if not name:
+-            raise ValueError("The character's name cannot be an empty string.")
+-
+-        self.__name = name
+-        self.__strength = 1
+-        self.__dexterity = 1
+-        self.__vitality = 1
+-        self.__intelligence = 1
+-        self.__level = 1
+-        self.__xp = 0
+-        self.__stats = 0
+-        self.__max_health = 50 + (5 * (self.vitality + self.level))
+-        self.__health = self.max_health
+-        self.base_attack = 0
+-        self.base_defense = 0
+-        self.__inventory: list[Item] = []
+-        self.__armor: list[Armor] = []
+-        self.__weapon = Weapon(["weapon", "barehanded", 0, 0, 0])
+-        self.__weapon.condition = ["Regular", 1.0]  # Need to change the 1.0 to "1.0"
+-        self.__inventory_weight = 0
+-        self.__max_weight = 5
+-
+-    @property
+-    def name(self) -> str:
+-        """Getter for the __name attribute:
+-        Returns:
+-            self.__name (str): The name of a character.
+-        """
+-        return self.__name
+-
+-    @property
+-    def max_health(self) -> int:
+-        """Getter for the __max_health attribute.
+-        Returns:
+-            __max_health (int): The max health of a character.
+-        """
+-        return self.__max_health
+-
+-    @max_health.setter
+-    def max_health(self, change: int) -> None:
+-        """Setter for the __max_health attribute.
+-        Args:
+-            change (int): The change to a character's current max health amount.
+-            A positive value increases max health.
+-        Except:
+-            ValueError: change must be an integer.
+-            CharacterDeathException: If the character's max health hits or drops below 0.
+-        """
+-        if not isinstance(change, int):
+-            raise ValueError("The health change must be an integer.")
+-        self.__max_health = self.__max_health + change
+-        try:
+-            if self.__max_health <= 0:
+-                raise CharacterDeathException(self.name + "'s max health is <=0.", self)
+-        except CharacterDeathException:
+-            print(self.name + "'s health is <=0.", self)
+-
+-    @property
+-    def health(self) -> int:
+-        """Getter for the __health attribute.
+-        Returns:
+-            __health (int): The current health of a character.
+-        """
+-        return self.__health
+-
+-    @health.setter
+-    def health(self, change: int) -> None:
+-        """Setter for the __health attribute.
+-        Args:
+-            change (int): The change to a character's current health amount.
+-            A positive value increases health.
+-        Except:
+-            ValueError: change must be an integer.
+-            CharacterDeathException: If the character's health hits or drops below 0.
+-        """
+-        if not isinstance(change, int):
+-            raise ValueError("The health change must be an integer.")
+-        self.__health = self.__health + change
+-        try:
+-            if self.health <= 0:
+-                raise CharacterDeathException(self.name + "'s health is <=0.", self)
+-        except CharacterDeathException:
+-            print(self.name + "'s health is <=0.", self)
+-
+-    @property
+-    def weapon(self) -> Weapon:
+-        """Getter for the __weapon attribute
+-        Returns:
+-            __weapon (Weapon): The weapon a character is wielding.
+-        """
+-        return self.__weapon
+-
+-    @weapon.setter
+-    def weapon(self, weapon: Weapon) -> None:
+-        """Setter for the __weapon attribute.
+-        Args:
+-            weapon (Weapon): The new Weapon instance for the character to wield.
+-        Except:
+-            ValueError: The weapon argument must be a Weapon instance.
+-        """
+-        if not isinstance(weapon, Weapon):
+-            raise ValueError("The weapon passed in must be a Weapon instance.")
+-        self.__weapon = weapon
+-
+-    @property
+-    def armor(self) -> list[Armor]:
+-        """Getter for the armor a character is wearing.
+-        Returns:
+-            __armor (list[Armor]): The list of armor pieces a character is wearing.
+-        """
+-        return self.__armor
+-
+-    @armor.setter
+-    def armor(self, armor_name: Armor) -> None:
+-        """Setter that modified the __armor attribute.
+-        Args:
+-            armor_name (Armor): The Armor instance the character will wear.
+-        Except:
+-            ValueError: The armor_name passed in is not an Armor instance.
+-        """
+-        if not isinstance(armor_name, Armor):
+-            raise ValueError("The armor passed in wasn't an Armor instance.")
+-        for armor in self.__armor:
+-            if armor.description == armor_name.description:
+-                self.__armor.remove(armor_name)
+-                self.__inventory.append(armor_name)
+-        self.__armor.append(armor_name)
+-
+-    @property
+-    def stats(self) -> int:
+-        """Getter for the character's unallocated stat points.
+-        Returns:
+-            __free_stats (int): The character's current unallocated stat points.
+-        """
+-        return self.__stats
+-
+-    @stats.setter
+-    def stats(self, change: int):
+-        """Setter for the __stats attribute.
+-        Args:
+-            change (int): How much to change __stats by.
+-        """
+-        self.__stats += change
+-        if self.__stats < 0:
+-            self.__stats = 0
+-
+-    @property
+-    def strength(self) -> int:
+-        """Getter for the character's strength.
+-        Returns:
+-            __strength (int): The character's current strength.
+-        """
+-        return self.__strength
+-
+-    @strength.setter
+-    def strength(self, change: int):
+-        """Setter for the __strength attribute.
+-        Args:
+-            change (int): How much to change __strength by.
+-        """
+-        self.__strength += change
+-        if self.__strength < 0:
+-            self.__strength = 0
+-
+-    @property
+-    def dexterity(self) -> int:
+-        """Getter for the character's dexterity.
+-            Returns:
+-                __dexterity (int): The character's current dexterity.
+-            """
+-        return self.__dexterity
+-
+-    @dexterity.setter
+-    def dexterity(self, change: int):
+-        """Setter for the __dexterity attribute.
+-        Args:
+-            change (int): How much to change __dexterity by.
+-        """
+-        self.__dexterity += change
+-        if self.__dexterity < 0:
+-            self.__dexterity = 0
+-
+-    @property
+-    def vitality(self) -> int:
+-        """Getter for the character's vitality.
+-        Returns:
+-            __vitality (int): The character's current vitality.
+-        """
+-        return self.__vitality
+-
+-    @vitality.setter
+-    def vitality(self, change: int):
+-        """Setter for the __vitality attribute.
+-        Args:
+-            change (int): How much to change __vitality by.
+-        """
+-        self.__vitality += change
+-        if self.__vitality < 0:
+-            self.__vitality = 0
+-
+-    @property
+-    def intelligence(self) -> int:
+-        """Getter for the character's intelligence.
+-        Returns:
+-            __intelligence (int): The character's current intelligence.
+-        """
+-        return self.__intelligence
+-
+-    @intelligence.setter
+-    def intelligence(self, change: int):
+-        """Setter for the __intelligence attribute.
+-        Args:
+-            change (int): How much to change __intelligence by.
+-        """
+-        self.__intelligence += change
+-        if self.__intelligence < 0:
+-            self.__intelligence = 0
+-
+-    @property
+-    def level(self) -> int:
+-        """Getter for the character's level.
+-        Returns:
+-            __level (int): The character's current level.
+-        """
+-        return self.__level
+-
+-    @level.setter
+-    def level(self, change: int):
+-        """Setter for the __level attribute.
+-        Args:
+-            change (int): How much to change __level by.
+-        """
+-        self.__level += change
+-
+-    @property
+-    def xp(self) -> int:
+-        """Getter for the character's __xp.
+-        Returns:
+-            __xp (int): The character's current __xp.
+-        """
+-        return self.__xp
+-
+-    @xp.setter
+-    def xp(self, change: int):
+-        """Setter for the __xp attribute.
+-        Args:
+-            change (int): How much to change __xp by.
+-        """
+-        self.__xp += change
+-
+-    def inventory(self) -> list[Item]:
+-        """Getter for the __inventory attribute.
+-        Returns:
+-            __inventory (list[Item]): The list of Items in a character's inventory.
+-        """
+-        return self.__inventory
+-
+-    def in_inventory(self, item_description: str) -> Item | None:
+-        """Checks if the item is in the character's inventory or not.
+-        Args:
+-            item_description (str): The item description to search for.
+-        Returns:
+-            item (Item): The Item instance if it was found.
+-            None: If the Item instance wasn't found.
+-        Except:
+-            ValueError: The item_description wasn't a string.
+-            ValueError: The item_description must be a non-empty string.
+-        """
+-        if not isinstance(item_description, str):
+-            raise ValueError("The item's description wasn't a string.")
+-        if not item_description:
+-            raise ValueError("The item's description must be a non-empty string.")
+-        for item in self.inventory():
+-            if isinstance(item, Item):
+-                if item_description == item.description:
+-                    return item
+-            else:
+-                return None
+-        return None
+-
+-    def add_inventory(self, item_name: Item) -> None:
+-        """Adds an Item instance to the character's inventory.
+-        Args:
+-            item_name (Item): The item to add to the inventory.
+-        Except:
+-            ValueError: The item_name passed in wasn't an Item instance.
+-        """
+-        if not isinstance(item_name, Item):
+-            raise ValueError("The item you wanted to add wasn't an Item instance.")
+-        self.__inventory.append(item_name)
+-
+-    def wearing(self, item_description: str) -> Armor | None:
+-        """Determines if the item_description inputted was already worn or not.
+-        Args:
+-            item_description (str): The item's description to look up.
+-        Returns:
+-            armor (Armor): The Armor instance if you were wearing the specified armor.
+-            None: If you weren't wearing the specified armor piece.
+-        Except:
+-            ValueError: The item_description passed in wasn't a string.
+-            ValueError: The item's description was an empty string.
+-        """
+-        if not isinstance(item_description, str):
+-            raise ValueError("The item's description wasn't a string.")
+-        if not item_description:
+-            raise ValueError("The item's description can't be an empty string.")
+-        for armor in self.armor:
+-            if item_description == armor.description:
+-                return armor
+-        return None
+-
+-    @property
+-    def base_attack(self) -> int:
+-        """Getter for the __base_attack attribute.
+-        Returns:
+-            __base_attack (int): A character's base attack.
+-        """
+-        return self.__base_attack
+-
+-    @base_attack.setter
+-    def base_attack(self, *args) -> None:
+-        """Setter for the __base_attack attribute.
+-        """
+-        self.__base_attack = 4 + self.strength + self.level
+-
+-    @property
+-    def base_defense(self) -> int:
+-        """Getter for the __base_defense attribute.
+-        Returns:
+-            __base_defense (int): A character's base defense.
+-        """
+-        return self.__base_defense
+-
+-    @base_defense.setter
+-    def base_defense(self, *args) -> None:
+-        """Setter for the __base_defense attribute.
+-        """
+-        self.__base_defense = int(4 + self.vitality//2 + self.level*.5)
+-
+-    @property
+-    def inventory_weight(self) -> int:
+-        """Calculates the weight of all items in a character's inventory
+-         and stores it as __inventory_weight.
+-        Returns:
+-            __inventory_weight (int): The weight a character is carrying.
+-        """
+-        self.__inventory_weight = 0
+-        for item in self.inventory():
+-            if isinstance(item, Item):
+-                self.__inventory_weight = self.__inventory_weight + item.weight
+-        return self.__inventory_weight
+-
+-    @property
+-    def max_weight(self) -> int:
+-        """Getter for the __max_weight attribute.
+-        Returns:
+-            __max_weight (int): The maximum carry weight of a character.
+-        """
+-        return self.__max_weight
+-
+-    def total_defense(self) -> int:
+-        """Calculates a character's total defense as a result of their
+-         base defense and all armor pieces worn.
+-        Returns:
+-            sum_defense (int): The total defense a character has.
+-        """
+-        sum_defense = self.__base_defense
+-        if not self.__armor:
+-            return sum_defense
+-        else:
+-            for armor in self.__armor:
+-                sum_defense = sum_defense + armor.added_defense
+-            return sum_defense
+-
+-    def total_attack(self) -> int:
+-        """Calculates a character's total attack as a result of their
+-         base attack and the weapon they're wielding.
+-        Returns:
+-            sum_attack (int): The total attack a character has.
+-        """
+-        sum_attack = self.__base_attack + int(self.__weapon.added_attack)
+-        return sum_attack
+-
+-    def take_damage(self, enemy: object) -> int:
+-        """Calculates the damage this character will take when attacked
+-         by the specified enemy.
+-        Args:
+-            enemy (object): Specifically, the Character instance that is attacking.
+-        Returns:
+-            damage (int): The damage this character will take expressed as a positive value.
+-        Except:
+-            ValueError: The enemy object passed in wasn't a Character instance.
+-        """
+-        if isinstance(enemy, Character):
+-            damage = enemy.total_attack() - self.total_defense()
+-            if randint(0, 100) == 100:
+-                damage = 2 * enemy.total_attack()
+-                print("Critical Hit! " + enemy.name + "'s attack ignored " + self.name + "'s defense.")
+-            if damage <= 0:
+-                return 0
+-            else:
+-                self.health = -damage
+-            return damage
+-        else:
+-            raise ValueError("The enemy object specified wasn't a Character instance.")
+-
+-    def __str__(self) -> str:
+-        """String method containing all the information on a character.
+-        Returns:
+-            str: A long strong about a character's
+-             name, class, weapon, armor, inventory, and total stats.
+-        """
+-        self.__char_att = self.total_attack()
+-        self.__char_def = self.total_defense()
+-        self.__char_inv = []
+-        for item in self.inventory():
+-            if isinstance(item, Item):
+-                self.__char_inv.append(item.description)
+-        self.__armor_list = []
+-        for armor in self.armor:
+-            self.__armor_list.append(armor.description)
+-
+-        return (self.name + " is wielding a " + self.weapon.description +
+-                " weapon and is wearing " + str(self.__armor_list) + ". They are carrying "
+-                + str(self.__char_inv) + ".\n Their stats are " + str(self.health)
+-                + " Health, " + str(self.__char_att) + " Attack, " + str(self.__char_def)
+-                + " Defense.")
+-
+-
+-class Player(Character):
+-    """The player character, gains consumable medical kits for healing.
+-     Inherits from the Character class.
+-    """
+-    def __init__(self, name: str) -> None:
+-        """Constructor for the Bard instance.
+-        Except:
+-            ValueError: The name passed in wasn't a string.
+-        """
+-        if isinstance(name, str):
+-            super().__init__(name)
+-        else:
+-            raise ValueError("The name passed in wasn't a string.")
+-        self.__med_kits = 5
+-        self.stats = 5
+-
+-    @property
+-    def med_kits(self) -> int:
+-        """Getter for the __med_kits attribute.
+-        Returns:
+-            __med_kits (int) = Number of med kits on the character.
+-        """
+-        return self.__med_kits
+-
+-    @med_kits.setter
+-    def med_kits(self, change: int):
+-        """Setter for the __med_kits attribute.
+-        Args:
+-            change (int): How much to change __med_kits by.
+-        """
+-        self.__med_kits += change
+-        if self.__med_kits < 0:
+-            self.__med_kits = 0
+-
+-    def heal(self) -> int | None:
+-        """Heals yourself at the cost of a med kit.
+-
+-        Returns:
+-            0: If you're out of med kits.
+-            amt (int): The amount you healed yourself for.
+-             Scales with your LV and intelligence.
+-        """
+-        if self.med_kits > 0:
+-            self.med_kits = -1
+-            amt = self.intelligence + self.level + 10
+-            tmp = self.health + amt
+-            if tmp >= self.max_health:
+-                amt = self.max_health - self.health
+-            self.health = amt
+-            print(self.name + " used a med kit and healed " + str(amt) + " health.")
+-            return amt
+-        else:
+-            print("No med kits left.")
+-            return 0
+-
+-    def lv_up(self):
+-        tmp_lv = self.level
+-        tmp_xp = self.xp
+-        tmp_stats = self.stats
+-        while self.xp >= (self.level * 10):
+-            self.stats = 5
+-            self.xp = -(self.level * 10)
+-            self.level = 1
+-        print(f"Level: {tmp_lv} --> {self.level}")
+-        print(f"XP: {tmp_xp} --> {self.xp}")
+-        print(f"Stat Points: {tmp_stats} --> {self.stats}")
+-        while self.stats > 0:
+-            stat = input("What stat would you like to increase? Enter 'nothing' if you would like to stop.").lower()
+-            if stat == 'strength':
+-                self.strength = 1
+-                print(f"Strength: {self.strength - 1} --> {self.strength}\n")
+-            elif stat == 'dexterity':
+-                self.dexterity = 1
+-                print(f"Dexterity: {self.dexterity - 1} --> {self.dexterity}\n")
+-            elif stat == 'vitality':
+-                self.vitality = 1
+-                print(f"Vitality: {self.vitality - 1} --> {self.vitality}\n")
+-            elif stat == 'intelligence':
+-                self.intelligence = 1
+-                print(f"Intelligence: {self.intelligence - 1} --> {self.intelligence}\n")
+-            elif stat == "nothing":
+-                print("You decide to leave them alone for now.\n")
+-            else:
+-                print('Not a valid stat.\n')
+-            self.stats = -1
+-
+-
+-class Monster(Character):
+-    """The monster's to be fought, their stats depend on the default values
+-     specified in Character. Inherits from the Character class.
+-    """
+-    def __init__(self, name: str) -> None:
+-        """Constructor for the Monster instance.
+-        Except:
+-            ValueError: The name passed in wasn't a string.
+-        """
+-        if isinstance(name, str):
+-            super().__init__(name)
+-            self.__gold = randint(1, 10)
+-            if not Item.ITEMS:
+-                Item.load_items()
+-            if not Item.CONDITIONS:
+-                Item.load_conditions()
+-            if randint(1, 10) == 1:  # Turned in randint(1, 10) >= 1
+-                item = random.choice(Item.ITEMS)
+-                if "weapon" == item[0]:
+-                    self.add_inventory(Weapon(item))
+-                else:
+-                    self.add_inventory(Armor(item))
+-        else:
+-            raise ValueError("The name passed in wasn't a string.")
+-
+-    def __str__(self) -> str:
+-        """String method that returns a monster's information.
+-        Returns:
+-            str: A string containing a monster's name, stats,
+-             the gold they have, and the item they're carrying.
+-        """
+-
+-        self.__mon_inv = []
+-        if self.inventory():
+-            self.__mon_inv = self.inventory()[0]
+-            return ("LV " + str(self.level) + " " + self.name + " "
+-                    + str(self.health) + " Health, " + str(self.total_attack())
+-                    + " Attack and " + str(self.total_defense()) + " Defense.\n It is carrying " +
+-                    str(self.__gold) + " gold and an item of " +
+-                    str(self.__mon_inv.description) + ".")
+-        return ("LV " + str(self.level) + " " + self.name + " "
+-                + str(self.health) + " Health, " + str(self.total_attack())
+-                + " Attack and " + str(self.total_defense()) + " Defense"
+-                + " Luck.\n It is carrying " + str(self.__gold) + " gold.")
+-
+-    @property
+-    def gold(self) -> int:
+-        """Getter for the __gold attribute.
+-        Returns:
+-            __gold (int): The gold coins a monster is carrying.
+-        """
+-        return self.__gold
+-
+-    def lv_up(self):
+-        while self.xp >= (self.level * 10):
+-            self.stats = 5
+-            self.xp = -(self.level * 10)
+-            self.level = 1
+-        while self.stats > 0:
+-            stats = ['strength', 'dexterity', 'vitality', 'intelligence']
+-            stat = random.choice(stats)
+-            if stat == 'strength':
+-                self.strength = 1
+-            elif stat == 'dexterity':
+-                self.dexterity = 1
+-            elif stat == 'vitality':
+-                self.vitality = 1
+-            else:
+-                self.intelligence = 1
+-            self.stats = -1
+-
+-
+-class CharacterDeathException(Exception):
+-    """Exception for when a player character is killed.
+-    """
+-    def __init__(self, msg: str, character: object) -> None:
+-        """Constructor for the exception instance.
+-        Args:
+-            msg (str): The string message to be printed.
+-            character (object): Specifically, the player character that died.
+-        Except:
+-            ValueError: The msg passed in wasn't a string
+-            ValueError: The msg passed in cannot be an empty string.
+-            ValueError: The character passed in wasn't a Character object.
+-        """
+-        if not isinstance(msg, str):
+-            raise ValueError("The msg passed in must be a string.")
+-        if not msg:
+-            raise ValueError("The msg passed in cannot be an empty string.")
+-        if not isinstance(character, Character):
+-            raise ValueError("The character passed in must be a Character object.")
+-        super().__init__(msg)
+-        self.character = character
+-
+-
+-class MonsterDeathException(Exception):
+-    """Exception for when a monster is killed."""
+-    def __init__(self, msg: str, monster: Monster) -> None:
+-        """Constructor for the exception instance.
+-        Args:
+-            msg (str): The string message to be printed.
+-            monster (Monster): The monster that died.
+-        Except:
+-            ValueError: The msg passed in wasn't a string.
+-            ValueError: The msg must be a non-empty string.
+-            ValueError: The monster passed in wasn't a Monster object.
+-        """
+-        if not isinstance(msg, str):
+-            raise ValueError("The msg passed in must be a string.")
+-        if not msg:
+-            raise ValueError("The msg must be a non-empty string.")
+-        if not isinstance(monster, Monster):
+-            raise ValueError("The monster passed in must be a Monster object.")
+-        if not monster:
+-            raise ValueError("The monster passed in cannot be None.")
+-        super().__init__(msg)
+-        self.monster = monster
+-
+-
+-class CharacterOverweightException(Exception):
+-    """Exception for when a player character is carrying too much in their inventory.
+-    """
+-    def __init__(self, msg: str, character: Character) -> None:
+-        """Constructor for the exception instance.
+-        Args:
+-            msg (str): The string message to be printed.
+-            character (object): Specifically, the player character that is overburdened.
+-        Except:
+-            ValueError: The msg passed in wasn't a string
+-            ValueError: The msg must be a non-empty string.
+-            ValueError: The character passed in wasn't a Character object.
+-        """
+-        if not isinstance(msg, str):
+-            raise ValueError("The msg passed in must be a string.")
+-        if not msg:
+-            raise ValueError("The msg must be a non-empty string.")
+-        if not isinstance(character, Character):
+-            raise ValueError("The character passed in must be a Character object.")
+-        super().__init__(msg)
+-        self.character = character
+Index: reference/printer.py
+===================================================================
+diff --git a/reference/printer.py b/reference/printer.py
+deleted file mode 100644
+--- a/reference/printer.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,39 +0,0 @@
+-"""Allows for the printing of text in different colors.
+-
+-Phuc Le
+-11/9/2023
+-Version 1.0
+-"""
+-from colorama import Back, Fore, Style
+-
+-
+-class Printer:
+-    """Contains various static methods for printing text.
+-    """
+-    @staticmethod
+-    def info(message) -> None:
+-        """Prints white text on a black background.
+-        General Use method.
+-        """
+-        print(Back.BLACK + Fore.LIGHTWHITE_EX + message.__str__())
+-
+-    @staticmethod
+-    def alert(message) -> None:
+-        """Prints light red text on a black background.
+-        Used for drawing attention towards something.
+-        """
+-        print(Back.BLACK + Fore.LIGHTRED_EX + message.__str__())
+-
+-    @staticmethod
+-    def dialogue(message) -> None:
+-        """Prints black text on a green background.
+-        Used when dialogue occurs.
+-        """
+-        print(Fore.BLACK + Back.LIGHTGREEN_EX + '"' + message.__str__() + '"')
+-
+-    @staticmethod
+-    def text(message) -> None:
+-        """Prints white text on a black background.
+-        General use method.
+-        """
+-        print(Back.BLACK + Fore.LIGHTWHITE_EX + message.__str__())
+Index: Classes/TextPrinter.py
+===================================================================
+diff --git a/Classes/TextPrinter.py b/Classes/TextPrinter.py
+deleted file mode 100644
+--- a/Classes/TextPrinter.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,39 +0,0 @@
+-class TextPrinter:
+-    def __init__(self, tkinter):
+-        self.tkinter = tkinter
+-        self.ready = True
+-
+-    # Method of printing defines where text will be printed in regards to other text
+-    # In most cases, it will be tk.END.
+-    def animate_text(self, text, text_id, method_of_printing):
+-        if self.ready is False:
+-            return
+-        
+-        self.ready = False
+-
+-        delta = 25
+-        delay = 0
+-
+-        # Offset textbox as text height is constantly changing
+-        self.offsetTextBox(text_id,-80)
+-
+-        for char in text:
+-            update_text = lambda s=char: self.tkinter.bg_canvas.insert(text_id, method_of_printing, s)
+-            self.tkinter.bg_canvas.after(delay, update_text)
+-            delay += delta
+-        else:
+-            delay += delta
+-            self.tkinter.bg_canvas.after(delay, self.toggleReady)
+-
+-    def toggleReady(self):
+-        self.ready = not self.ready
+-
+-    def isTextReady(self):
+-        return self.ready
+-    
+-    def offsetTextBox(self, id, amount):
+-        self.tkinter.bg_canvas.move(id, 0, amount)
+-
+-
+-
+-
+Index: reference/item.py
+===================================================================
+diff --git a/reference/item.py b/reference/item.py
+deleted file mode 100644
+--- a/reference/item.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,249 +0,0 @@
+-"""Stores information about the various weapons and armors that characters
+- can wear/equip in the non-abstract Weapon and Armor classes.
+-
+-Phuc Le
+-11/9/2023
+-Version 3.0
+-"""
+-
+-
+-import abc
+-import csv
+-import random
+-from typing import List
+-
+-
+-class Item(abc.ABC):
+-    """ABC that contains information about an abstract item.
+-    Attributes:
+-        CONDITIONS (List[List[str]]): The list containing all the potential
+-         conditions an item can have.
+-        ITEMS (List[List[str]]): The list containing all the potential item types.
+-    """
+-    CONDITIONS: List[List[str]] = []
+-    ITEMS: List[List[str]] = []
+-
+-    @staticmethod
+-    def load_conditions() -> None:
+-        """Static method to load the different conditions an item can be in from a specified file.
+-        """
+-        with open('../Classes/items_txt/item_attributes', 'r') as f:
+-            reader = csv.reader(f)
+-            for row in reader:
+-                Item.CONDITIONS.append(row)
+-
+-    @staticmethod
+-    def load_items() -> None:
+-        """Static method to load the different types of items from a specified file.
+-        """
+-        with open('../Classes/items_txt/item_types', 'r') as f:
+-            reader = csv.reader(f)
+-            for row in reader:
+-                Item.ITEMS.append(row)
+-
+-    def __init__(self, attributes: list) -> None:
+-        """The constructor for the Item instance.
+-            Args:
+-                attributes (list): The list of attributes an item has.
+-            Except:
+-                ValueError: If the attributes passed to the instance wasn't a list.
+-                ValueError: If the attributes list was of length 4 or less.
+-                ValueError: If the first element in the list wasn't a string.
+-                ValueError: If the second element in the list wasn't a string.
+-                ValueError: If the attributes[4] value wasn't a string or an integer.
+-                ValueError: If the attributes[4] value can't be turned into an integer through int().
+-            """
+-        if not isinstance(attributes, list):
+-            raise ValueError("The attributes passed to the Item instance must be"
+-                             " in a list.")
+-        if not len(attributes) >= 5:
+-            raise ValueError("The attributes list must have at least 5 entries.")
+-        if not isinstance(attributes[0], str):
+-            raise ValueError("The first element in the list must be a string.")
+-        if not isinstance(attributes[1], str):
+-            raise ValueError("The second element in the list must be a string.")
+-        if not isinstance(attributes[4], str) and not isinstance(attributes[4], int):
+-            raise ValueError("The fourth entry in the attribute list must be a string or an integer.")
+-        try:
+-            self.__weight = int(attributes[4])
+-        except ValueError:
+-            raise ValueError("The fourth entry in the attribute list can't be turned into an integer through int().")
+-        self.__attributes = attributes
+-        self.__name = attributes[1]
+-
+-        if not Item.CONDITIONS:
+-            Item.load_conditions()
+-        condition = random.choice(Item.CONDITIONS)
+-        self.condition = condition
+-
+-    @property
+-    def name(self) -> str:
+-        """Getter for the __name attribute.
+-        Returns:
+-            __name (str): The item's name.
+-        """
+-        return self.__name
+-
+-    @property
+-    def description(self) -> str:
+-        """Method that returns a short description of an item.
+-        Returns:
+-            str: A short string of an item's condition and name.
+-        """
+-        return self.__condition[0] + " " + self.__name
+-
+-    @property
+-    def condition(self) -> list:
+-        """Getter for the __condition attribute.
+-        Returns:
+-            __condition (list): A list about the condition of an item.
+-        """
+-        return self.__condition
+-
+-    @condition.setter
+-    def condition(self, _condition: list) -> None:
+-        """Setter for the __condition attribute.
+-        Args:
+-            _condition (list): An item's condition as a list with types [str, float].
+-        Except:
+-            ValueError: The item's conditions must be in the form of a list.
+-            ValueError: The item's list of conditions must have at least 2 entries.
+-            ValueError: The first element in the list of conditions must be a string.
+-            ValueError: The second element in the list of conditions must be a string or a float.
+-        """
+-        if not isinstance(_condition, list):
+-            raise ValueError("The item's conditions must be in the form of a list.")
+-        if len(_condition) < 2:
+-            raise ValueError("The item's list of conditions must have at least 2 entries.")
+-        if not isinstance(_condition[0], str):
+-            raise ValueError("The first index value must be a string.")
+-        if not isinstance(_condition[1], str) and not isinstance(_condition[1], float):
+-            raise ValueError("The second index value must be a string or a float.")
+-        self.__condition = _condition
+-
+-    @property
+-    def weight(self) -> int:
+-        """Getter for the __weight attribute.
+-        Returns:
+-            __weight (int): The weight of an item as an integer.
+-        """
+-        return self.__weight
+-
+-    @property
+-    def attributes(self) -> list:
+-        """Getter for the __attributes attribute.
+-        Returns:
+-            __attributes (list): The list of attributes an item's contain.
+-        """
+-        return self.__attributes
+-
+-
+-class Armor(Item):
+-    """Stores information about an armor piece. Inherits from the Item class.
+-    """
+-    def __init__(self, attributes) -> None:
+-        """The constructor for the Armor instance.
+-        Args:
+-            attributes (list): The list of attributes an armor piece has.
+-        Except:
+-            ValueError: If the attributes passed to this instance wasn't a list.
+-            ValueError: If the list passed in had less than 5 elements.
+-            ValueError: If the first entry in the list wasn't 'armor'.
+-        """
+-        if not isinstance(attributes, list):
+-            raise ValueError("The attributes passed in wasn't a list.")
+-        if len(attributes) < 5:
+-            raise ValueError("The attributes list passed in must have at least 5 entries.")
+-        if attributes[0] != "armor":
+-            raise ValueError("The 1st entry in the list wasn't 'armor'.")
+-        super().__init__(attributes)
+-        self.added_defense = self.attributes
+-        self.__armor_type = attributes[1]
+-
+-    @property
+-    def added_defense(self) -> int:
+-        """Getter for the added_defense attribute.
+-        Returns:
+-            __added_defense (int): The defense increase provided by an armor piece.
+-        """
+-        return self.__added_defense
+-
+-    @added_defense.setter
+-    def added_defense(self, attributes: list) -> None:
+-        """Setter for the defense an armor piece adds.
+-        Args:
+-            attributes (list): The list of attributes this armor piece has.
+-        Except:
+-            ValueError: If the armor's attributes aren't given as a list.
+-            ValueError: If the fourth entry in the attribute list wasn't an integer or a string.
+-            ValueError: If the second entry in the armor's condition wasn't a string or a float.
+-            ValueError: If the attribute list had less than 5 entries.
+-        """
+-        if not isinstance(attributes, list):
+-            raise ValueError("The attributes passed in must be in a list.")
+-        if not len(attributes) >= 5:
+-            raise ValueError("The list must have at least 5 entries.")
+-        if not isinstance(attributes[3], int) and not isinstance(attributes[3], str):
+-            raise ValueError("The fourth element in the attribute list must be an integer or a string.")
+-        if not isinstance(self.condition[1], str) and not isinstance(self.condition[1], float):
+-            raise ValueError("The second element in the condition list must be a string or a float.")
+-        self.__added_defense = round(float(attributes[3]) * float(self.condition[1]))
+-
+-    @property
+-    def type(self) -> str:
+-        """Getter for the type attribute.
+-        Returns:
+-            __armor_type (str): The type of armor.
+-        """
+-        return self.__armor_type
+-
+-
+-class Weapon(Item):
+-    """Stores information about a weapon. Inherits from the Item class.
+-    """
+-    def __init__(self, attributes: list) -> None:
+-        """The constructor for the Weapon class.
+-        Args:
+-            attributes (list): The list of attributes a weapon has.
+-        Except:
+-            ValueError: If the attributes passed to this instance wasn't a list.
+-            ValueError: If the list passed in was less than 5 elements.
+-            ValueError: If the first entry in the list wasn't 'weapon'.
+-        """
+-        if not isinstance(attributes, list):
+-            raise ValueError("The attributes passed in wasn't a list.")
+-        if len(attributes) < 5:
+-            raise ValueError("The attributes list passed in must have at least 5 entries.")
+-        if attributes[0] != "weapon":
+-            raise ValueError("The 1st entry in the list wasn't 'weapon'.")
+-        super().__init__(attributes)
+-        self.added_attack = self.attributes
+-
+-    @property
+-    def added_attack(self) -> int:
+-        """Getter for the added_attack attribute.
+-        Returns:
+-            __added_attack (int): The attack increase provided by a weapon.
+-        """
+-        return self.__added_attack
+-
+-    @added_attack.setter
+-    def added_attack(self, attributes: list) -> None:
+-        """Setter for the attack a weapon adds.
+-        Args:
+-            attributes (list): The list of attributes this weapon has.
+-        Except:
+-            ValueError: If the weapon's attributes aren't given as a list.
+-            ValueError: If the third entry in the attribute list wasn't an integer or a string.
+-            ValueError: If the second entry in the weapon's condition wasn't a string or a float.
+-            ValueError: If the attribute list had less than 5 entries.
+-        """
+-        if not isinstance(attributes, list):
+-            raise ValueError("The attributes passed in must be in a list.")
+-        if not len(attributes) >= 5:
+-            raise ValueError("The list must have at least 5 entries.")
+-        if not isinstance(attributes[2], int) and not isinstance(attributes[2], str):
+-            raise ValueError("The third element in the attribute list must be an integer or a string.")
+-        if not isinstance(self.condition[1], str) and not isinstance(self.condition[1], float):
+-            raise ValueError("The second element in the condition list must be a string or a float.")
+-        self.__added_attack = round(float(attributes[2]) * float(self.condition[1]))
+Index: Classes/GUI/FightGUI.py
+===================================================================
+diff --git a/Classes/GUI/FightGUI.py b/Classes/GUI/FightGUI.py
+deleted file mode 100644
+--- a/Classes/GUI/FightGUI.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,177 +0,0 @@
+-import random
+-import tkinter as tk
+-from Classes.Character import *
+-from Classes.Rooms.CombatRoom import CombatRoom
+-from Classes.Rooms.Room import *
+-from PIL import ImageTk, Image
+-
+-
+-class FightGUI(tk.Toplevel):
+-    def __init__(self, room: CombatRoom, player: Player):
+-        super().__init__()
+-        self.title("Combat Screen")
+-        self.geometry(f'{800}x{600}+400+50')
+-        self.width = self.winfo_width()
+-        self.height = self.winfo_height()
+-        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
+-        self.iconbitmap('Images/SpaceShip.ico')
+-        self.width = self.winfo_width()
+-        self.height = self.winfo_height()
+-
+-        self.player = player
+-        self.room = room
+-        self.enemies = room.enemies
+-
+-        self.no_enemy = False
+-
+-        self.original_image = Image.open('Images/bg2.jpeg').resize((self.width, self.height))
+-        self.bg = ImageTk.PhotoImage(self.original_image)
+-
+-        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height, bg="#043F5B")
+-        self.bg_canvas.pack(fill='both', expand=True)
+-        self.bg_canvas.create_image(0, 0, image=self.bg, anchor='nw')
+-
+-        self.bg_canvas.create_text(self.width / 2 - 250, self.height - 580, font=10, fill="#ff0d1d", justify="center",
+-                                   text=self.player.name + "'s Side", tags="equipment_title")
+-        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 580, font=10, fill="#ff0d1d", justify="center",
+-                                   text="Enemies' Side", tags="Enemies")
+-
+-        self.enemy_entry_text = tk.Label(self, text='Enemy # To Attack', font='Time_New_Roman 8')
+-        self.enemy_entry_text = self.bg_canvas.create_window(50, 430, anchor='sw',
+-                                                             window=self.enemy_entry_text, tags="enemy_entry_text")
+-        self.enemy_entry_box = tk.Entry(self, font='Time_New_Roman 8')
+-        self.bg_canvas.create_window(50, 450, anchor='sw', window=self.enemy_entry_box, tags="enemy_entry")
+-
+-        self.attack_button = tk.Button(self, text=f'Attack',
+-                                       font='Time_New_Roman 8', command=lambda: self.player_attack())
+-        self.attack_button_window = self.bg_canvas.create_window(50, 400, anchor='sw',
+-                                                                 window=self.attack_button,
+-                                                                 tags="attack_button")
+-
+-        self.defend_button = tk.Button(self, text='Defend',
+-                                       font='Time_New_Roman 8', command=lambda: self.defend(self.player))
+-        self.defend_button_window = self.bg_canvas.create_window(250, 400, anchor='sw',
+-                                                                 window=self.defend_button, tags="defend_button")
+-
+-        self.use_medkit_button = tk.Button(self, text='Use Medkit',
+-                                           font='Time_New_Roman 8', command=lambda: self.use_medkit())
+-        self.use_medkit_button_window = self.bg_canvas.create_window(450, 400, anchor='sw',
+-                                                                     window=self.use_medkit_button,
+-                                                                     tags="medkit_button")
+-
+-        self.use_item_button = tk.Button(self, text='Placeholder\n',
+-                                         font='Time_New_Roman 8', command=lambda: self.destroy())
+-        self.use_item_button_window = self.bg_canvas.create_window(650, 400, anchor='sw',
+-                                                                   window=self.use_item_button, tags="use_item_button")
+-
+-        self.updateCombatGUI()
+-        self.mainloop()
+-
+-    def player_grid(self):
+-        self.bg_canvas.delete("health", "attack", "defense", "medkits")
+-        self.bg_canvas.create_text(50, self.height - 300, anchor='sw', font=8,
+-                                   fill="#ff0d1d", justify="center",
+-                                   text="Health: " + str(self.player.stats["Health"])
+-                                   + " / " + str(self.player.stats["Max Health"]), tags="health")
+-        self.bg_canvas.create_text(50, self.height - 270, anchor='sw', font=8, fill="#ff0d1d", justify="center",
+-                                   text="Attack: " + str(self.player.attack), tags="ff0d1d")
+-        self.bg_canvas.create_text(50, self.height - 240, anchor='sw', font=8, fill="#ff0d1d", justify="center",
+-                                   text="Defense: " + str(self.player.defense), tags="defense")
+-        self.bg_canvas.create_text(self.width / 2 + 50, self.height - 240, anchor='sw',
+-                                   font=8, fill="#ff0d1d", justify="center", tags="medkits",
+-                                   text="Medkits: " + str(self.player.stats["Medkits"]))
+-
+-    def updateCombatGUI(self):
+-        self.player_grid()
+-        self.enemy_grid()
+-        self.make_exit()
+-
+-    def enemy_grid(self):
+-        self.bg_canvas.delete("enemies")
+-        self.enemies_txt = ""
+-        self.count = 0
+-        if len(self.enemies) > 0:
+-            for enemy in self.enemies:
+-                self.enemies_txt += ("\n" + str(self.count) + ") " + str(enemy.name) + "\n  "
+-                                     + str(enemy.getAttack()) + " Damage\n  "
+-                                     + str(enemy.getDefense()) + " Defense")
+-                self.count += 1
+-        else:
+-            self.enemies_txt = "No Enemies Remain"
+-        self.bg_canvas.create_text(self.width / 2 + 250, self.height - 450, font=8, fill="#ff0d1d", justify="center",
+-                                   text=self.enemies_txt, tags="enemies")
+-
+-    def read_entry_box(self) -> None | str:
+-        self.enemy_entry = None
+-        if self.enemy_entry_box.get():
+-            self.enemy_entry = self.enemy_entry_box.get()
+-        return self.enemy_entry
+-
+-    def enemy_attack(self, attacker: Character, target: Character):
+-        if target.living:
+-            target.take_damage(attacker)
+-        if target.stats["Health"] < 1:
+-            self.player.setLiving(False)
+-            attacker.stats["XP"] += target.stats["Level"] * 10
+-        if isinstance(attacker, Player):
+-            self.resolve_player_turn()
+-        self.updateCombatGUI()
+-        print(attacker.name + " attacked " + str(target.name))
+-
+-    def player_attack(self):
+-        to_target = self.read_entry_box()
+-        if to_target is not None:
+-            if to_target.isnumeric():
+-                if int(to_target) < len(self.enemies):
+-                    target = self.enemies[int(to_target)]
+-                    target.take_damage(self.player)
+-                    if target.stats["Health"] < 1:
+-                        self.enemies.remove(target)
+-                        target.setLiving(False)
+-                        self.enemy_entry_box.delete(0,100)
+-                        self.player.stats["XP"] += target.stats["Level"] * 10
+-                        self.player.stats["Credits"] += target.stats["Level"]
+-                    print(self.player.name + " attacked " + str(target.name))
+-                    self.resolve_player_turn()
+-        else:
+-            print("That enemy doesn't exist")
+-        self.updateCombatGUI()
+-
+-    def defend(self, defender: Character):
+-        defender.defend_action()
+-        if isinstance(defender, Player):
+-            self.resolve_player_turn()
+-        self.updateCombatGUI()
+-
+-
+-    def use_medkit(self):
+-        self.player.use_medkits()
+-        self.resolve_player_turn()
+-        self.updateCombatGUI()
+-
+-    def resolve_player_turn(self):
+-        if self.player:
+-            for enemy in self.enemies:
+-                enemy.updateDefense()
+-                self.enemy_turn(enemy)
+-            self.player.updateDefense()
+-
+-    def enemy_turn(self, enemy: Enemy):
+-        choice = random.choice(["attack", "defend", "nothing"])
+-        if choice == "attack":
+-            self.player.take_damage(enemy)
+-        elif choice == "defend":
+-            self.defend(enemy)
+-
+-    def make_exit(self):
+-        if not self.enemies:
+-            self.exit_button = tk.Button(self, text="Exit", font="Time_New_Roman 10", command=self.destroy)
+-            self.exit_button_window = self.bg_canvas.create_window(self.width / 2 - 60, 380,
+-                                                                   anchor='sw', window=self.exit_button)
+-            self.bg_canvas.delete("attack_button", "defend_button", "use_item_button",
+-                                  "enemy_entry", "enemy_entry_text")
+-
+-    def destroy(self):
+-        if not self.enemies:
+-            self.room.clearRoom(True)
+-            super().destroy()
+Index: test.py
+===================================================================
+diff --git a/test.py b/test.py
+deleted file mode 100644
+--- a/test.py	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ /dev/null	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
+@@ -1,13 +0,0 @@
+-import unittest
+-from Tests import Map_tests
+-
+-test_suite = unittest.TestSuite()
+-
+-# Add to suite for each method in test class
+-test_suite.addTest(Map_tests.Map_tests('test1'))
+-# ...
+-
+-runner = unittest.TextTestRunner(verbosity=2)
+-runner.run(test_suite)
+-
+-
+Index: pylint.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pylint.txt b/pylint.txt
+new file mode 100644
+--- /dev/null	(date 1710037337745)
++++ b/pylint.txt	(date 1710037337745)
+@@ -0,0 +1,228 @@
++************* Module Classes.gamehandler
++rpg\Classes\gamehandler.py:42:0: C0303: Trailing whitespace (trailing-whitespace)
++************* Module Classes.item
++rpg\Classes\item.py:75:20: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\item.py:19:17: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
++************* Module Classes.textprinter
++rpg\Classes\textprinter.py:27:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\textprinter.py:56:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\textprinter.py:41:8: W0120: Else clause on loop without a break statement, remove the else and de-indent all the code inside it (useless-else-on-loop)
++rpg\Classes\textprinter.py:37:26: C3001: Lambda expression assigned to a variable. Define a function using the "def" keyword instead. (unnecessary-lambda-assignment)
++************* Module Classes.GUI.CharacterGui
++rpg\Classes\GUI\CharacterGui.py:1:0: C0103: Module name "CharacterGui" doesn't conform to snake_case naming style (invalid-name)
++rpg\Classes\GUI\CharacterGui.py:7:0: W0401: Wildcard import Classes.GUI.MainGui (wildcard-import)
++rpg\Classes\GUI\CharacterGui.py:11:0: E0102: class already defined line 7 (function-redefined)
++rpg\Classes\GUI\CharacterGui.py:11:0: R0902: Too many instance attributes (10/7) (too-many-instance-attributes)
++rpg\Classes\GUI\CharacterGui.py:118:39: W0108: Lambda may not be necessary (unnecessary-lambda)
++rpg\Classes\GUI\CharacterGui.py:7:0: W0614: Unused import(s) CharacterGUI, random, ttk, MainGUI, InventoryGUI, FightGUI, ShopGUI and TextPrinter from wildcard import of Classes.GUI.MainGui (unused-wildcard-import)
++************* Module Classes.GUI.ChestGUI
++rpg\Classes\GUI\ChestGUI.py:1:0: C0103: Module name "ChestGUI" doesn't conform to snake_case naming style (invalid-name)
++rpg\Classes\GUI\ChestGUI.py:10:0: R0902: Too many instance attributes (12/7) (too-many-instance-attributes)
++rpg\Classes\GUI\ChestGUI.py:43:52: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
++rpg\Classes\GUI\ChestGUI.py:45:49: W0108: Lambda may not be necessary (unnecessary-lambda)
++rpg\Classes\GUI\ChestGUI.py:50:53: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
++rpg\Classes\GUI\ChestGUI.py:54:50: W0108: Lambda may not be necessary (unnecessary-lambda)
++************* Module Classes.GUI.FightGUI
++rpg\Classes\GUI\FightGUI.py:53:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\GUI\FightGUI.py:1:0: C0103: Module name "FightGUI" doesn't conform to snake_case naming style (invalid-name)
++rpg\Classes\GUI\FightGUI.py:12:0: R0902: Too many instance attributes (26/7) (too-many-instance-attributes)
++rpg\Classes\GUI\FightGUI.py:66:50: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
++rpg\Classes\GUI\FightGUI.py:68:47: W0108: Lambda may not be necessary (unnecessary-lambda)
++rpg\Classes\GUI\FightGUI.py:82:51: W0108: Lambda may not be necessary (unnecessary-lambda)
++rpg\Classes\GUI\FightGUI.py:88:74: W0108: Lambda may not be necessary (unnecessary-lambda)
++rpg\Classes\GUI\FightGUI.py:8:0: W0611: Unused Room imported from Classes.Rooms.room (unused-import)
++************* Module Classes.GUI.InventoryGui
++rpg\Classes\GUI\InventoryGui.py:1:0: C0103: Module name "InventoryGui" doesn't conform to snake_case naming style (invalid-name)
++rpg\Classes\GUI\InventoryGui.py:7:0: W0401: Wildcard import Classes.GUI.MainGui (wildcard-import)
++rpg\Classes\GUI\InventoryGui.py:11:0: E0102: class already defined line 7 (function-redefined)
++rpg\Classes\GUI\InventoryGui.py:11:0: R0902: Too many instance attributes (21/7) (too-many-instance-attributes)
++rpg\Classes\GUI\InventoryGui.py:58:48: W0108: Lambda may not be necessary (unnecessary-lambda)
++rpg\Classes\GUI\InventoryGui.py:65:46: W0108: Lambda may not be necessary (unnecessary-lambda)
++rpg\Classes\GUI\InventoryGui.py:72:45: W0108: Lambda may not be necessary (unnecessary-lambda)
++rpg\Classes\GUI\InventoryGui.py:7:0: W0614: Unused import(s) InventoryGUI, random, ttk, MainGUI, CharacterGUI, FightGUI, ShopGUI and TextPrinter from wildcard import of Classes.GUI.MainGui (unused-wildcard-import)
++************* Module Classes.GUI.MainGui
++rpg\Classes\GUI\MainGui.py:84:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\GUI\MainGui.py:168:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\GUI\MainGui.py:219:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\GUI\MainGui.py:253:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\GUI\MainGui.py:278:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\GUI\MainGui.py:291:91: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\GUI\MainGui.py:297:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\GUI\MainGui.py:380:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\GUI\MainGui.py:388:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\GUI\MainGui.py:1:0: C0103: Module name "MainGui" doesn't conform to snake_case naming style (invalid-name)
++rpg\Classes\GUI\MainGui.py:6:0: W0404: Reimport 'tkinter' (imported line 4) (reimported)
++rpg\Classes\GUI\MainGui.py:14:0: W0401: Wildcard import Images (wildcard-import)
++rpg\Classes\GUI\MainGui.py:35:8: C0103: Attribute name "screenWidth" doesn't conform to snake_case naming style (invalid-name)
++rpg\Classes\GUI\MainGui.py:36:8: C0103: Attribute name "screenHeight" doesn't conform to snake_case naming style (invalid-name)
++rpg\Classes\GUI\MainGui.py:40:8: C0103: Attribute name "gameHandler" doesn't conform to snake_case naming style (invalid-name)
++rpg\Classes\GUI\MainGui.py:99:8: C0103: Attribute name "textPrinter" doesn't conform to snake_case naming style (invalid-name)
++rpg\Classes\GUI\MainGui.py:404:12: C0103: Attribute name "InventoryGUI" doesn't conform to snake_case naming style (invalid-name)
++rpg\Classes\GUI\MainGui.py:17:0: R0902: Too many instance attributes (27/7) (too-many-instance-attributes)
++rpg\Classes\GUI\MainGui.py:238:47: W0108: Lambda may not be necessary (unnecessary-lambda)
++rpg\Classes\GUI\MainGui.py:245:46: W0108: Lambda may not be necessary (unnecessary-lambda)
++rpg\Classes\GUI\MainGui.py:282:12: C0103: Variable name "adjacentRoom" doesn't conform to snake_case naming style (invalid-name)
++rpg\Classes\GUI\MainGui.py:283:19: C3001: Lambda expression assigned to a variable. Define a function using the "def" keyword instead. (unnecessary-lambda-assignment)
++rpg\Classes\GUI\MainGui.py:378:38: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
++rpg\Classes\GUI\MainGui.py:373:29: W0613: Unused argument 'room' (unused-argument)
++rpg\Classes\GUI\MainGui.py:94:8: W0201: Attribute 'original_image' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:209:8: W0201: Attribute 'original_image' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:311:8: W0201: Attribute 'original_image' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:96:8: W0201: Attribute 'bg' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:210:8: W0201: Attribute 'bg' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:312:8: W0201: Attribute 'bg' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:101:8: W0201: Attribute 'bg_canvas' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:216:8: W0201: Attribute 'bg_canvas' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:250:8: W0201: Attribute 'exit_button' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:251:8: W0201: Attribute 'exit_button_window' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:99:8: W0201: Attribute 'textPrinter' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:111:8: W0201: Attribute 'next_text' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:205:8: W0201: Attribute 'background_image' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:207:8: W0201: Attribute 'backg' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:214:8: W0201: Attribute 'menu_bg' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:263:8: W0201: Attribute 'map' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:275:8: W0201: Attribute 'button_frame' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:404:12: W0201: Attribute 'InventoryGUI' defined outside __init__ (attribute-defined-outside-init)
++rpg\Classes\GUI\MainGui.py:3:0: W0611: Unused import random (unused-import)
++rpg\Classes\GUI\MainGui.py:6:0: W0611: Unused tkinter imported as ttk (unused-import)
++rpg\Classes\GUI\MainGui.py:10:0: W0611: Unused FightGUI imported from Classes.GUI.FightGUI (unused-import)
++rpg\Classes\GUI\MainGui.py:11:0: W0611: Unused ShopGUI imported from Classes.GUI.ShopGUI (unused-import)
++rpg\Classes\GUI\MainGui.py:12:0: W0611: Unused Room imported from Classes.Rooms.room (unused-import)
++************* Module Classes.GUI.ShopGUI
++rpg\Classes\GUI\ShopGUI.py:1:0: C0103: Module name "ShopGUI" doesn't conform to snake_case naming style (invalid-name)
++rpg\Classes\GUI\ShopGUI.py:10:0: R0902: Too many instance attributes (25/7) (too-many-instance-attributes)
++rpg\Classes\GUI\ShopGUI.py:61:48: W0108: Lambda may not be necessary (unnecessary-lambda)
++rpg\Classes\GUI\ShopGUI.py:68:46: W0108: Lambda may not be necessary (unnecessary-lambda)
++rpg\Classes\GUI\ShopGUI.py:75:49: W0108: Lambda may not be necessary (unnecessary-lambda)
++rpg\Classes\GUI\ShopGUI.py:82:45: W0108: Lambda may not be necessary (unnecessary-lambda)
++rpg\Classes\GUI\ShopGUI.py:89:51: W0108: Lambda may not be necessary (unnecessary-lambda)
++************* Module Classes.Map.map
++rpg\Classes\Map\map.py:40:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\Map\map.py:108:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\Map\map.py:130:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\Map\map.py:65:17: W0511: TODO: delete later (fixme)
++rpg\Classes\Map\map.py:55:8: C0206: Consider iterating with .items() (consider-using-dict-items)
++rpg\Classes\Map\map.py:4:0: W0611: Unused import math (unused-import)
++************* Module Classes.Map.mapconstants
++rpg\Classes\Map\mapconstants.py:11:0: R0903: Too few public methods (0/2) (too-few-public-methods)
++************* Module Classes.Rooms.boss_room
++rpg\Classes\Rooms\boss_room.py:20:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\Rooms\boss_room.py:4:0: W0611: Unused CombatRoom imported from Classes.Rooms.combat_room (unused-import)
++************* Module Classes.Rooms.combat_room
++rpg\Classes\Rooms\combat_room.py:23:17: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
++rpg\Classes\Rooms\combat_room.py:56:12: W0612: Unused variable 'i' (unused-variable)
++************* Module Classes.Rooms.room
++rpg\Classes\Rooms\room.py:54:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\Rooms\room.py:85:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\Rooms\room.py:100:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\Rooms\room.py:107:0: C0303: Trailing whitespace (trailing-whitespace)
++rpg\Classes\Rooms\room.py:8:0: R0902: Too many instance attributes (9/7) (too-many-instance-attributes)
++rpg\Classes\Rooms\room.py:94:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
++rpg\Classes\Rooms\room.py:98:20: E1120: No value for argument 'seq' in method call (no-value-for-parameter)
++************* Module Classes.Rooms.shop_room
++rpg\Classes\Rooms\shop_room.py:20:12: W0612: Unused variable 'i' (unused-variable)
++************* Module Tests.edge_tests
++rpg\Tests\edge_tests.py:39:12: C2801: Unnecessarily calls dunder method __repr__. Use repr built-in function. (unnecessary-dunder-call)
++************* Module Tests.item_tests
++rpg\Tests\item_tests.py:16:8: W4902: Using deprecated method assertNotEquals() (deprecated-method)
++************* Module Tests.room_tests
++rpg\Tests\room_tests.py:114:25: C2801: Unnecessarily calls dunder method __repr__. Use repr built-in function. (unnecessary-dunder-call)
++rpg\Tests\room_tests.py:121:24: C2801: Unnecessarily calls dunder method __eq__. Use == operator. (unnecessary-dunder-call)
++rpg\Tests\room_tests.py:123:25: C2801: Unnecessarily calls dunder method __eq__. Use == operator. (unnecessary-dunder-call)
++************* Module Tests.start_room_tests
++rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
++==Classes.GUI.CharacterGui:[23:35]
++==Classes.GUI.InventoryGui:[23:33]
++        self.width = self.winfo_width()
++        self.height = self.winfo_height()
++        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
++        self.iconbitmap('Images/SpaceShip.ico')
++        self.width = self.winfo_width()
++        self.height = self.winfo_height()
++
++        self.player = player
++        self.room = room
++        self.gui = gui (duplicate-code)
++rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
++==Classes.GUI.InventoryGui:[174:182]
++==Classes.GUI.ShopGUI:[199:207]
++        self.read_entry_box()
++        if self.read_entry_box() is not None:
++            item_to_remove = self.item_entry
++            for item in self.player.equipment.values():
++                if item.stats["name"] == item_to_remove:
++                    self.player.unequip_item(item)
++                    self.player.update_defense()
++                    self.player.update_attack() (duplicate-code)
++rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
++==Classes.GUI.InventoryGui:[160:168]
++==Classes.GUI.ShopGUI:[186:194]
++        self.read_entry_box()
++        if self.read_entry_box() is not None:
++            item_to_equip = self.item_entry
++            for item in self.player.inventory:
++                if item.stats["name"] == item_to_equip:
++                    self.player.equip_item(item)
++                    self.player.update_defense()
++                    self.player.update_attack() (duplicate-code)
++rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
++==Classes.GUI.FightGUI:[24:33]
++==Classes.GUI.InventoryGui:[23:32]
++        self.width = self.winfo_width()
++        self.height = self.winfo_height()
++        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
++        self.iconbitmap('Images/SpaceShip.ico')
++        self.width = self.winfo_width()
++        self.height = self.winfo_height()
++
++        self.player = player
++        self.room = room (duplicate-code)
++rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
++==Classes.GUI.CharacterGui:[84:92]
++==Classes.GUI.MainGui:[122:130]
++                                   text=self.player.name + "'s Stats" +
++                                   "\n\nHealth: " + str(self.player.stats["Health"]) +
++                                   "/" + str(self.player.stats["Max Health"]) +
++                                   "\n\nStr: " + str(self.player.stats["Strength"]) +
++                                   "\n\nDex: " + str(self.player.stats["Dexterity"]) +
++                                   "\n\nVit: " + str(self.player.stats["Vitality"]) +
++                                   "\n\nInt: " + str(self.player.stats["Intelligence"]) +
++                                   "\n\nFree Points: " + str(self.player.stats["Stat Points"]) + (duplicate-code)
++rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
++==Classes.GUI.CharacterGui:[23:32]
++==Classes.GUI.ChestGUI:[22:32]
++        self.width = self.winfo_width()
++        self.height = self.winfo_height()
++        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
++        self.iconbitmap('Images/SpaceShip.ico')
++        self.width = self.winfo_width()
++        self.height = self.winfo_height()
++
++        self.player = player
++        self.room = room
++ (duplicate-code)
++rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
++==Classes.GUI.CharacterGui:[23:31]
++==Classes.GUI.ShopGUI:[22:30]
++        self.width = self.winfo_width()
++        self.height = self.winfo_height()
++        self.minsize(self.width, self.height)  # Minimum size of the window, can be maximized.
++        self.iconbitmap('Images/SpaceShip.ico')
++        self.width = self.winfo_width()
++        self.height = self.winfo_height()
++
++        self.player = player (duplicate-code)
++rpg\Tests\start_room_tests.py:1:0: R0801: Similar lines in 2 files
++==Classes.GUI.InventoryGui:[121:126]
++==Classes.GUI.ShopGUI:[139:144]
++        self.bg_canvas.delete("inventory")
++        self.inventory_text = ""
++        if len(self.player.inventory) > 0:
++            for item in self.player.inventory:
++                if item.stats["type"] == "Weapon": (duplicate-code)
++rpg\Tests\start_room_tests.py:1:0: R0401: Cyclic import (Classes.GUI.InventoryGui -> Classes.GUI.MainGui) (cyclic-import)
++rpg\Tests\start_room_tests.py:1:0: R0401: Cyclic import (Classes.GUI.CharacterGui -> Classes.GUI.MainGui) (cyclic-import)
++
++------------------------------------------------------------------
++Your code has been rated at 9.19/10 (previous run: 8.71/10, +0.48)
++
+Index: .idea/rpg.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <excludeFolder url=\"file://$MODULE_DIR$/.venv\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/rpg.iml b/.idea/rpg.iml
+--- a/.idea/rpg.iml	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ b/.idea/rpg.iml	(date 1710037337742)
+@@ -2,6 +2,7 @@
+ <module type="PYTHON_MODULE" version="4">
+   <component name="NewModuleRootManager">
+     <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
+       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+     </content>
+     <orderEntry type="inheritedJdk" />
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"1137f7f5-94a4-406c-ac24-1c75be041bf5\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/rpg\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/rpg\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/rpg\" />\r\n    <option name=\"ROOT_SYNC\" value=\"SYNC\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 7\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2bmxjSwlyAJvIwWriviN7xiaAKK\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"ASKED_ADD_EXTERNAL_FILES\": \"true\",\r\n    \"Python.Character.executor\": \"Run\",\r\n    \"Python.Gui.executor\": \"Run\",\r\n    \"Python.character.executor\": \"Run\",\r\n    \"Python.dungeon.executor\": \"Run\",\r\n    \"Python.item.executor\": \"Run\",\r\n    \"Python.main.executor\": \"Run\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"git-widget-placeholder\": \"main\",\r\n    \"settings.editor.selected.configurable\": \"inlay.hints\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\phuc2\\PycharmProjects\\rpg\\rpg\\Classes\\enemy_txt\" />\r\n      <recent name=\"C:\\Users\\phuc2\\PycharmProjects\\rpg\\rpg\\Classes\\room_txt\" />\r\n      <recent name=\"C:\\Users\\phuc2\\PycharmProjects\\rpg\\rpg\\Classes\\items_txt\" />\r\n      <recent name=\"C:\\Users\\phuc2\\PycharmProjects\\rpg\\rpg\" />\r\n      <recent name=\"C:\\Users\\phuc2\\PycharmProjects\\rpg\\rpg\\Classes\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-python-sdk-5a2391486177-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.13763.11\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"1137f7f5-94a4-406c-ac24-1c75be041bf5\" name=\"Changes\" comment=\"\" />\r\n      <created>1706834189870</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1706834189870</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 6a05bf85b76152a43d1177ea55009883ab58800d)
++++ b/.idea/workspace.xml	(date 1710037337744)
+@@ -4,8 +4,68 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="1137f7f5-94a4-406c-ac24-1c75be041bf5" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/rpg" beforeDir="false" afterPath="$PROJECT_DIR$/rpg" afterDir="false" />
++    <list default="true" id="1137f7f5-94a4-406c-ac24-1c75be041bf5" name="Changes" comment="Merge">
++      <change afterPath="$PROJECT_DIR$/pylint.txt" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/rpg/Images/GameOver.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/rpg/Images/GameWon.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/rpg.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rpg.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_1_2024_10_39_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_1_2024_10_39_PM__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/Character.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/GUI/CharacterGui.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/GUI/ChestGUI.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/GUI/FightGUI.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/GUI/InventoryGui.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/GUI/MainGui.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/GUI/ShopGUI.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/GameHandler.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/Item.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/Map/Edge.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/Map/Map.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/Map/MapConstants.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/Rooms/ChestRoom.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/Rooms/CombatRoom.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/Rooms/Room.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/Rooms/ShopRoom.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Classes/TextPrinter.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Documentation/Project Report Template .docx" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Images/BackgroundTwo.jpg" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Images/Example1.jpg" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Images/HallWay.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Images/MainGameScreen.jpg" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Images/Spaceship.ico" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Images/bg.jpg" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Images/bg2.jpeg" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Images/info_bg.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Images/inventory.jpg" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Images/mainGameBG.jpg" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Names/ChestRoomNames.txt" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Names/CombatRoomNames.txt" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Names/ShopRoomNames.txt" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Names/enemy_txt/monster_names" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Names/items_txt/item_attributes" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Names/items_txt/item_types" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Names/room_txt/room_names" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Tests/Character_tests.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Tests/Item_tests.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Tests/Map_tests.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Tests/dungeon_tests.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/reference/character.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/reference/game.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/reference/item.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/reference/main.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/reference/printer.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/rpg/Classes/GUI/FightGUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/Classes/GUI/FightGUI.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/rpg/Classes/GUI/MainGui.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/Classes/GUI/MainGui.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/rpg/Classes/Map/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/Classes/Map/map.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/rpg/Classes/Map/mapconstants.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/Classes/Map/mapconstants.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/rpg/Classes/Rooms/boss_room.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/Classes/Rooms/boss_room.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/rpg/Classes/Rooms/combat_room.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/Classes/Rooms/combat_room.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/rpg/Classes/character.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/Classes/character.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/rpg/Classes/gamehandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/Classes/gamehandler.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/rpg/Documentation/Project Report Template .docx" beforeDir="false" afterPath="$PROJECT_DIR$/rpg/Documentation/Project Report Template .docx" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -15,6 +75,21 @@
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/rpg" />
+     <option name="ROOT_SYNC" value="SYNC" />
++    <option name="UPDATE_TYPE" value="REBASE" />
++  </component>
++  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
++  "lastFilter": {
++    "state": "OPEN",
++    "assignee": "231ving"
++  }
++}]]></component>
++  <component name="GithubPullRequestsUISettings">
++    <option name="selectedUrlAndAccountId">
++      <UrlAndAccount>
++        <option name="accountId" value="a56bda9c-df1b-4cad-8369-bf7efd1b35ca" />
++        <option name="url" value="https://github.com/Evickerest/rpg.git" />
++      </UrlAndAccount>
++    </option>
+   </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+@@ -42,9 +117,10 @@
+     "Python.dungeon.executor": "Run",
+     "Python.item.executor": "Run",
+     "Python.main.executor": "Run",
++    "Python.test.executor": "Run",
+     "RunOnceActivity.OpenProjectViewOnStart": "true",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "git-widget-placeholder": "main",
++    "git-widget-placeholder": "Merging main",
+     "settings.editor.selected.configurable": "inlay.hints"
+   }
+ }]]></component>
+@@ -60,7 +136,7 @@
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+-        <option value="bundled-python-sdk-5a2391486177-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.13763.11" />
++        <option value="bundled-python-sdk-d68999036c7f-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.14475.56" />
+       </set>
+     </attachedChunks>
+   </component>
+@@ -74,6 +150,17 @@
+       <updated>1706834189870</updated>
+     </task>
+     <servers />
++  </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
+   </component>
+   <component name="VcsManagerConfiguration">
+     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

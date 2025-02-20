@@ -1,0 +1,1431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>rpg.Classes.GUI.fight_gui API documentation</title>
+<meta name="description" content="Module containing the FightGUI class." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>rpg.Classes.GUI.fight_gui</code></h1>
+</header>
+<section id="section-intro">
+<p>Module containing the FightGUI class.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Module containing the FightGUI class.
+&#34;&#34;&#34;
+
+import random
+import tkinter as tk
+from PIL import ImageTk, Image
+from Classes.GUI.button import Button
+from Classes.character import Player, Enemy, Character
+from Classes.Rooms.combat_room import CombatRoom
+from functools import partial
+
+
+class FightGUI(tk.Toplevel):
+    &#34;&#34;&#34;Class governing player-system interactions during an active FightRoom.
+    &#34;&#34;&#34;
+    def __init__(self, room: CombatRoom, player: Player, game_handler):
+        &#34;&#34;&#34;Creates the instance.
+        Args:
+            room (CombatRoom): The CombatRoom instance.
+            player (Player): The Player instance being controlled.
+            game_handler: The gameHandler instance.
+        &#34;&#34;&#34;
+
+        super().__init__()
+        # To import the Level counter from GameHandler
+        from Classes.game_handler import GameHandler
+
+        self.title(&#34;Combat Screen&#34;)
+        self.geometry(f&#39;{1000}x{800}+150+50&#39;)
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+        self.minsize(self.width, self.height)  # Min size, can be maximized.
+        self.iconbitmap(&#39;Images/LevelOne/SpaceShip.ico&#39;)
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+
+        self.player = player
+        self.room = room
+        self.enemies = room.enemies
+        self.room_name = room.__repr__()
+        self.game_handler = game_handler
+        self.no_enemy = False
+        self.enemies_txt = &#34;&#34;
+        self.count = 0
+        self.enemy_entry = None
+        self.exit_button = None
+        self.turn_counter = 0
+        self.player_txt1 = &#34;&#34;
+        self.player_txt2 = &#34;&#34;
+        self.enemy_txt1 = &#34;&#34;
+        self.enemy_txt2 = &#34;&#34;
+        self.lvl_counter = GameHandler.counter
+
+        self.rooms = {
+            &#39;Weapons Bay&#39;: &#39;#95F21C&#39;, &#39;Main Cabin&#39;: &#39;#95F21C&#39;, &#39;Elevator 1&#39;: &#39;#D18A00&#39;,
+            &#39;Storage Area&#39;: &#39;#95F21C&#39;, &#39;Kitchen&#39;: &#39;#D18A00&#39;, &#39;Barracks&#39;: &#39;#D18A00&#39;, 
+            &#39;Cafeteria&#39;: &#39;#54B851&#39;, &#39;Life Pod 1&#39;: &#39;#95F21C&#39;, &#39;Cabin 2&#39;: &#39;#54B851&#39;,
+            &#39;Showers&#39;: &#39;#95F21C&#39;, &#39;Cabin 1&#39;: &#39;#BE0000&#39;, &#39;Docking Port&#39;: &#39;#95F21C&#39;, 
+            &#39;Bridge&#39;: &#39;#95F21C&#39;, &#39;Elevator 3&#39;: &#39;#95F21C&#39;, &#39;Elevator 2&#39;: &#39;#D18A00&#39;,
+            &#39;Cabin 3&#39;: &#39;#95F21C&#39;, &#39;Captains Cabin&#39;: &#39;#D18A00&#39;, &#39;Hangar&#39;: &#39;#FFF000&#39;, 
+            &#39;Life Pod 2&#39;: &#39;#95F21C&#39;, &#39;Engine Room&#39;: &#39;#95F21C&#39;, &#39;Pod Bay&#39;: &#39;#54B851&#39;,
+            &#39;Life Pod 3&#39;: &#39;#00FFFC&#39;, &#39;Bathroom&#39;: &#39;#95F21C&#39;
+        }
+        self.simple_colors = [&#39;#FAFF00&#39;, &#39;#FDD800&#39;, &#39;#ACFF42&#39;, &#39;#FFFFFF&#39;]
+
+        if self.lvl_counter == 1:
+            self.text_color = self.rooms.get(self.room_name)
+            self.original_image = Image.open(&#39;Images/LevelOne/&#39; + self.room_name
+                                             + &#39;.jpg&#39;).resize((self.width, self.height))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+        elif self.lvl_counter == 2:
+            self.text_color = random.choice(self.simple_colors)
+            self.original_image = Image.open(&#39;Images/LevelTwo/&#39; + self.room_name
+                                             + &#39;.jpg&#39;).resize((self.width, self.height))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+
+        elif self.lvl_counter == 3:
+            self.text_color = random.choice(self.simple_colors)
+            self.original_image = Image.open(&#39;Images/Level3/LevelThree/&#39; + self.room_name
+                                             + &#39;.jpg&#39;).resize((self.width, self.height))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+
+        # Stats images and image name box.
+        self.health_icon = Image.open(&#39;Images/Items/Health.png&#39;).resize((30, 30))
+        self.health_stat_icon = ImageTk.PhotoImage(self.health_icon)
+
+        self.attack_icon = Image.open(&#39;Images/Items/Attack.png&#39;).resize((30, 30))
+        self.att_stat_icon = ImageTk.PhotoImage(self.attack_icon)
+
+        self.def_icon = Image.open(&#39;Images/Items/defense.png&#39;).resize((30, 30))
+        self.deff_stat_icon = ImageTk.PhotoImage(self.def_icon)
+
+        self.med_image = Image.open(&#39;Images/Items/Medkit.png&#39;).resize((30, 30))
+        self.med_kit_image = ImageTk.PhotoImage(self.med_image)
+
+        self.name_b = Image.open(&#39;Images/Items/name_bar.png&#39;).resize((300, 80))
+        self.name_box = ImageTk.PhotoImage(self.name_b)
+
+        self.enemy_name_bx = self.name_box
+
+        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height,
+                                   bg=&#34;#043F5B&#34;)
+        self.bg_canvas.pack(fill=&#39;both&#39;, expand=True)
+        self.bg_canvas.create_image(0, 0, image=self.bg, anchor=&#39;nw&#39;)
+
+        self.bg_canvas.create_image(30, self.height - 800, image=self.name_box, anchor=&#39;nw&#39;)
+        self.bg_canvas.create_image(self.width / 2 + 170, self.height - 800, image=self.name_box, anchor=&#39;nw&#39;)
+
+        self.bg_canvas.create_text(self.width / 2 - 350, self.height - 660,
+                                   font=&#34;Cambria_Math 15 bold&#34;,
+                                   fill=self.text_color, justify=&#34;center&#34;,
+                                   text=self.player.name + &#34;&#39;s Side&#34;,
+                                   tags=&#34;equipment_title&#34;)
+
+        self.bg_canvas.create_text(self.width / 2 - 65, self.height - 660,
+                                   font=&#34;Cambria_Math 15 bold&#34;,
+                                   fill=self.text_color, justify=&#34;center&#34;,
+                                   text=&#34;Ship #&#34; + str(self.lvl_counter),
+                                   tags=&#34;lvl&#34;)
+
+        t = &#34;Enemies&#39; Side&#34; if not self.room.is_boss_room else &#34;Boss Side&#34;
+        self.bg_canvas.create_text(self.width / 2 + 350, self.height - 660,
+                                   font=&#34;Cambria_Math 15 bold&#34;,
+                                   fill=self.text_color, justify=&#34;center&#34;,
+                                   text=t, tags=&#34;Enemies&#34;)
+
+        self.bg_canvas.create_image(50, self.height - 360, image=self.health_stat_icon, anchor=&#39;nw&#39;)
+        self.bg_canvas.create_image(50, self.height - 325, image=self.att_stat_icon, anchor=&#39;nw&#39;)
+        self.bg_canvas.create_image(50, self.height - 290, image=self.deff_stat_icon, anchor=&#39;nw&#39;)
+        self.bg_canvas.create_image(50, self.height - 260, image=self.med_kit_image, anchor=&#39;nw&#39;)
+
+        # &#34;Partial&#34; binds a parameter to the function, another way to do this
+        # without a lambda expression
+        Button(self, &#34;Defend&#34;, partial(self.defend, self.player), 50, 680,
+               font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;), tags=&#34;defend_button&#34;)
+        Button(self, &#34;Use Medkit&#34;, self.use_medkit, 200, 680,
+               font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;))
+
+        for enemy in self.enemies:
+            self.set_enemy_actions(enemy)
+        self.combat_log()
+
+        self.update_combat_gui()
+        self.mainloop()
+
+    def player_grid(self):
+        &#34;&#34;&#34;Creates and updates the player&#39;s side of the display.
+        &#34;&#34;&#34;
+        self.bg_canvas.delete(&#34;health&#34;, &#34;attack&#34;, &#34;defense&#34;, &#34;medkits&#34;)
+        self.bg_canvas.create_text(90, self.height - 330, anchor=&#39;sw&#39;,
+                                   font=&#34;Cambria_Math 15 bold&#34;,
+                                   fill=self.text_color, justify=&#34;center&#34;,
+                                   text=&#34;Health:\t&#34;
+                                   + str(self.player.stats[&#34;Health&#34;]) + &#34; / &#34;
+                                   + str(self.player.stats[&#34;Max Health&#34;]),
+                                   tags=&#34;health&#34;)
+        self.bg_canvas.create_text(90, self.height - 300, anchor=&#39;sw&#39;,
+                                   font=&#34;Cambria_Math 15 bold&#34;,
+                                   fill=self.text_color, justify=&#34;center&#34;,
+                                   text=&#34;Attack:\t&#34; + str(self.player.attack),
+                                   tags=&#34;ff0d1d&#34;)
+        self.bg_canvas.create_text(90, self.height - 270, anchor=&#39;sw&#39;,
+                                   font=&#34;Cambria_Math 15 bold&#34;,
+                                   fill=self.text_color, justify=&#34;center&#34;,
+                                   text=&#34;Defense:\t&#34; + str(self.player.defense),
+                                   tags=&#34;defense&#34;)
+        self.bg_canvas.create_text(90, self.height - 240,
+                                   anchor=&#39;sw&#39;, font=&#34;Cambria_Math 15 bold&#34;,
+                                   fill=self.text_color,
+                                   justify=&#34;center&#34;, tags=&#34;medkits&#34;,
+                                   text=&#34;Medkits: &#34;
+                                   + str(self.player.stats[&#34;Medkits&#34;]))
+
+    def update_combat_gui(self):
+        &#34;&#34;&#34;Calls all parts of the GUI display and updates it.
+        &#34;&#34;&#34;
+        self.player_grid()
+        self.attack_buttons()
+        self.enemy_grid()
+        self.make_exit()
+
+    def enemy_grid(self):
+        &#34;&#34;&#34;Creates and updates the display for all enemies.
+        &#34;&#34;&#34;
+        # To import the Level counter from GameHandler
+        from Classes.game_handler import GameHandler
+        self.lvl_counter = GameHandler.counter
+
+        self.bg_canvas.delete(&#34;enemies&#34;)
+        self.enemies_txt = &#34;&#34;
+        self.count = 0
+        if len(self.enemies) &gt; 0:
+            for enemy in self.enemies:
+                self.enemies_txt += (&#34;\n&#34; + str(self.count) + &#34;) &#34;
+                                     + str(enemy.name) + &#34;\n  &#34;
+                                     + &#34;LV: &#34; + str(enemy.stats[&#34;Level&#34;])
+                                     + &#34; | Health: &#34;
+                                     + str(enemy.stats[&#34;Health&#34;]) + &#34;\n  &#34;
+                                     + str(enemy.get_attack()) + &#34; Damage | &#34;
+                                     + str(enemy.get_defense()) + &#34; Defense\n\n&#34;)
+                self.count += 1
+        else:
+            self.enemies_txt = &#34;No Enemies Remain&#34;
+        self.bg_canvas.create_text(self.width / 2 + 350, self.height - 600,
+                                   font=&#34;Cambria_Math 12 bold&#34;,
+                                   fill=self.text_color, justify=&#34;center&#34;,
+                                   text=self.enemies_txt, tags=&#34;enemies&#34;, anchor=&#34;n&#34;)
+
+    def attack_buttons(self):
+        &#34;&#34;&#34;Creates new buttons for attacking a specific enemy.
+        &#34;&#34;&#34;
+        self.bg_canvas.delete(&#34;attack_button1&#34;, &#34;attack_button2&#34;,
+                              &#34;attack_button3&#34;, &#34;attack_button4&#34;)
+        if len(self.enemies) &gt; 0:
+            Button(self, &#34;Attack #0&#34;, lambda: self.player_attack(self.enemies[0]),
+                   50, 580, font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;), tags=&#34;attack_button1&#34;)
+        if len(self.enemies) &gt; 1:
+            Button(self, &#34;Attack #1&#34;, lambda: self.player_attack(self.enemies[1]),
+                   200, 580, font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;), tags=&#34;attack_button2&#34;)
+        if len(self.enemies) &gt; 2:
+            Button(self, &#34;Attack #2&#34;, lambda: self.player_attack(self.enemies[2]),
+                   350, 580, font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;), tags=&#34;attack_button3&#34;)
+        if len(self.enemies) &gt; 3:
+            Button(self, &#34;Attack #3&#34;, lambda: self.player_attack(self.enemies[0]),
+                   500, 580, font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;), tags=&#34;attack_button4&#34;)
+
+    def player_attack(self, enemy: Enemy):
+        &#34;&#34;&#34;Method governing how a Player attacks a specified target.
+        Args:
+            enemy (Enemy): The enemy instance in the enemies attribute to
+             attack. Determined by what attack button is used.
+        &#34;&#34;&#34;
+        self.player_txt1 = &#34;&#34;
+        if not self.player.living:
+            return
+        if enemy in self.enemies:
+            damage = enemy.take_damage(self.player)
+            if damage == 0:
+                self.player_txt1 += (f&#34;You attacked {enemy.name} but&#34;
+                                     f&#34; they dodged!\n&#34;)
+            else:
+                self.player_txt1 += (f&#34;You hit {enemy.name} for {damage}&#34;
+                                     f&#34; damage.\n&#34;)
+            if enemy.stats[&#34;Health&#34;] &lt; 1:
+                self.enemies.remove(enemy)
+                self.room.enemies_killed += 1
+                enemy.set_living(False)
+                self.player_txt1 += f&#34;You killed {enemy.name}.\n&#34;
+                self.player.stats[&#34;XP&#34;] += int(enemy.stats[&#34;Level&#34;] * 2.5)
+                self.player.stats[&#34;Credits&#34;] += enemy.stats[&#34;Level&#34;]
+            self.resolve_player_turn()
+        else:
+            pass
+        if self.player.living:
+            self.update_combat_gui()
+
+    def defend(self, defender: Character):
+        &#34;&#34;&#34;Method to temporarily increase a Character&#39;s defense
+        Args:
+            defender (Character): The Character instance that is defending.
+        &#34;&#34;&#34;
+        defender.defend_action()
+        if isinstance(defender, Player):
+            self.player_txt1 = &#34;&#34;
+            self.player_txt1 += (f&#34;You are defending.\nYour defense is&#34;
+                                 f&#34; temporarily increased to&#34;
+                                 f&#34; {self.player.defense}.&#34;)
+            self.resolve_player_turn()
+        if self.player.living:
+            self.update_combat_gui()
+
+    def use_medkit(self):
+        &#34;&#34;&#34;Method to use a medkit and update the display.
+        &#34;&#34;&#34;
+        self.player_txt1 = &#34;&#34;
+        if self.player.stats[&#34;Medkits&#34;] &gt; 0:
+            heal = self.player.use_medkits()
+            self.player_txt1 = (f&#34;You used a medkit and healed for {heal}&#34;
+                                f&#34; health.&#34;)
+        else:
+            self.player_txt1 = f&#34;Oops! You ran out of medkits.&#34;
+        self.resolve_player_turn()
+        self.update_combat_gui()
+
+    def resolve_player_turn(self):
+        &#34;&#34;&#34;Method to resolve enemy actions after the player&#39;s turn is over.
+        &#34;&#34;&#34;
+        if self.player:
+            self.player_txt2 = self.player_txt1
+            self.player_txt1 = &#34;&#34;
+            self.enemy_txt1 = &#34;&#34;
+            self.enemy_txt2 = &#34;&#34;
+            for enemy in self.enemies:
+                enemy.update_defense()
+                if self.player.living:
+                    self.enemy_turn(enemy)
+                self.set_enemy_actions(enemy)
+            self.player.update_defense()
+            self.combat_log()
+            self.turn_count()
+
+    def enemy_turn(self, enemy: Enemy):
+        &#34;&#34;&#34;Method to randomly determine what an Enemy instance does.
+        Args:
+            enemy (Enemy): The Enemy instance doing the action.
+        &#34;&#34;&#34;
+        if enemy.action == &#34;attack&#34;:
+            damage = self.player.take_damage(enemy)
+            if damage == 0:
+                self.enemy_txt1 += (f&#34;{self.enemies.index(enemy)})&#34;
+                                    f&#34; {enemy.name} attacked&#34;
+                                    f&#34; {self.player.name} but you dodged!\n&#34;)
+            else:
+                self.enemy_txt1 += (f&#34;{self.enemies.index(enemy)})&#34;
+                                    f&#34; {enemy.name} attacked {self.player.name}&#34;
+                                    f&#34; for {damage} damage.\n&#34;)
+            if self.player.stats[&#34;Health&#34;] &lt; 1:
+                self.player.set_living(False)
+                self.enemy_txt1 += &#34;You were killed!\n&#34;
+                self.character_dead_gui()
+        elif enemy.action == &#34;defend&#34;:
+            self.defend(enemy)
+            self.enemy_txt1 += (f&#34;{self.enemies.index(enemy)}) {enemy.name} is&#34;
+                                f&#34; defending. Their defense is temporarily&#34;
+                                f&#34; {enemy.defense} now.\n&#34;)
+        else:
+            self.enemy_txt1 += (f&#34;{self.enemies.index(enemy)}) {enemy.name}&#34;
+                                f&#34; did nothing.\n&#34;)
+
+    def set_enemy_actions(self, enemy: Enemy):
+        &#34;&#34;&#34;Randomly sets the enemy&#39;s actions.
+        Args:
+            enemy (Enemy): The enemy instance to set their action.
+        &#34;&#34;&#34;
+        enemy.randomize_action()
+        enemy_predict_resist = (random.randint(1, 100) +
+                                enemy.stats[&#34;Intelligence&#34;] +
+                                enemy.stats[&#34;Level&#34;])
+        player_predict_chance = (random.randint(1, 100) +
+                                 self.player.stats[&#34;Intelligence&#34;]
+                                 + self.player.stats[&#34;Level&#34;])
+        if enemy_predict_resist &lt; player_predict_chance:
+            if enemy.action == &#34;nothing&#34;:
+                self.enemy_txt2 += (f&#34;{self.enemies.index(enemy)})&#34;
+                                    f&#34; {enemy.name} chose to do {enemy.action}.&#34;
+                                    f&#34;\n&#34;)
+            else:
+                self.enemy_txt2 += (f&#34;{self.enemies.index(enemy)})&#34;
+                                    f&#34; {enemy.name} chose to {enemy.action}.&#34;
+                                    f&#34;\n&#34;)
+        else:
+            self.enemy_txt2 += (f&#34;{self.enemies.index(enemy)}) {enemy.name}&#34;
+                                f&#34; can&#39;t be predicted.\n&#34;)
+
+    def turn_count(self):
+        &#34;&#34;&#34;Increments turn_counter by 1.
+        Returns:
+            turn_counter (int): The current turn.
+        &#34;&#34;&#34;
+        self.turn_counter += 1
+        return self.turn_counter
+
+    def combat_log(self):
+        &#34;&#34;&#34;Updates the combat log.
+        &#34;&#34;&#34;
+        self.bg_canvas.delete(&#34;player_txt1&#34;, &#34;player_txt2&#34;, &#34;enemy_txt1&#34;,
+                              &#34;enemy_txt2&#34;)
+        self.bg_canvas.create_text(50, 200, width=200,
+                                   font=(&#39;Cambria_Math&#39;, 13, &#39;bold&#39;),
+                                   fill=self.text_color,
+                                   justify=&#34;left&#34;, anchor=&#34;w&#34;,
+                                   text=f&#34;Last Turn (Turn {self.turn_counter})&#34;
+                                   f&#34;:\n{self.player_txt2}&#34;,
+                                   tags=&#34;player_txt2&#34;)
+        self.bg_canvas.create_text(50, 300, width=200,
+                                   font=(&#39;Cambria_Math&#39;, 13, &#39;bold&#39;),
+                                   fill=self.text_color,
+                                   justify=&#34;left&#34;, anchor=&#34;w&#34;,
+                                   text=f&#34;This Turn (Turn &#34;
+                                   f&#34;{self.turn_counter + 1})&#34;
+                                   f&#34;:\nWhat will you do?&#34;, tags=&#34;player_txt1&#34;)
+        self.bg_canvas.create_text(self.width / 3, 200, width=300,
+                                   font=(&#39;Cambria_Math&#39;, 13, &#39;bold&#39;),
+                                   fill=self.text_color,
+                                   justify=&#34;left&#34;, anchor=&#34;w&#34;,
+                                   text=f&#34;Last Turn (Turn {self.turn_counter})&#34;
+                                   f&#34;:\n{self.enemy_txt1}&#34;, tags=&#34;enemy_txt1&#34;)
+        self.bg_canvas.create_text(self.width / 3, 350, width=300,
+                                   font=(&#39;Cambria_Math&#39;, 13, &#39;bold&#39;),
+                                   fill=self.text_color,
+                                   justify=&#34;left&#34;, anchor=&#34;w&#34;,
+                                   text=f&#34;This Turn (Turn &#34;
+                                   f&#34;{self.turn_counter + 1}):\nYour&#34;
+                                   f&#34; Intelligence Stat lets you predict that:&#34;
+                                   f&#34;\n{self.enemy_txt2}&#34;,
+                                   tags=&#34;enemy_txt2&#34;)
+
+    def make_exit(self):
+        &#34;&#34;&#34;Method to make an exit after the fight is won.
+        &#34;&#34;&#34;
+        if not self.enemies:
+            Button(self, &#34;Exit&#34;, self.end_fight, int(self.width / 2 - 60), 580,
+                   font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;))
+            self.bg_canvas.delete(&#34;attack_button&#34;, &#34;defend_button&#34;,
+                                  &#34;use_item_button&#34;, &#34;enemy_entry&#34;,
+                                  &#34;enemy_entry_text&#34;)
+
+    def character_dead_gui(self):
+        &#34;&#34;&#34;Display GUI if character dies during combat.
+        &#34;&#34;&#34;
+        print(&#34;Character is dead&#34;)
+        super().destroy()
+        self.game_handler.end_game(False)
+
+    def end_fight(self):
+        &#34;&#34;&#34;Method handling when the instance can be exited and what happens.
+        &#34;&#34;&#34;
+        if not self.enemies or not self.player.living:
+            self.game_handler.exit_room(self.room)
+            self.room.clear_room(True)
+            self.destroy()
+
+    def destroy(self):
+        &#34;&#34;&#34;Overrides the standard destroy method. Prevents the fight window
+         from being destroyed until the fight ends.
+        &#34;&#34;&#34;
+        if not self.enemies or not self.player.living:
+            super().destroy()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI"><code class="flex name class">
+<span>class <span class="ident">FightGUI</span></span>
+<span>(</span><span>room: Classes.Rooms.combat_room.CombatRoom, player: Classes.character.Player, game_handler)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class governing player-system interactions during an active FightRoom.</p>
+<p>Creates the instance.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>room</code></strong> :&ensp;<code>CombatRoom</code></dt>
+<dd>The CombatRoom instance.</dd>
+<dt><strong><code>player</code></strong> :&ensp;<code>Player</code></dt>
+<dd>The Player instance being controlled.</dd>
+<dt><strong><code>game_handler</code></strong></dt>
+<dd>The gameHandler instance.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FightGUI(tk.Toplevel):
+    &#34;&#34;&#34;Class governing player-system interactions during an active FightRoom.
+    &#34;&#34;&#34;
+    def __init__(self, room: CombatRoom, player: Player, game_handler):
+        &#34;&#34;&#34;Creates the instance.
+        Args:
+            room (CombatRoom): The CombatRoom instance.
+            player (Player): The Player instance being controlled.
+            game_handler: The gameHandler instance.
+        &#34;&#34;&#34;
+
+        super().__init__()
+        # To import the Level counter from GameHandler
+        from Classes.game_handler import GameHandler
+
+        self.title(&#34;Combat Screen&#34;)
+        self.geometry(f&#39;{1000}x{800}+150+50&#39;)
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+        self.minsize(self.width, self.height)  # Min size, can be maximized.
+        self.iconbitmap(&#39;Images/LevelOne/SpaceShip.ico&#39;)
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+
+        self.player = player
+        self.room = room
+        self.enemies = room.enemies
+        self.room_name = room.__repr__()
+        self.game_handler = game_handler
+        self.no_enemy = False
+        self.enemies_txt = &#34;&#34;
+        self.count = 0
+        self.enemy_entry = None
+        self.exit_button = None
+        self.turn_counter = 0
+        self.player_txt1 = &#34;&#34;
+        self.player_txt2 = &#34;&#34;
+        self.enemy_txt1 = &#34;&#34;
+        self.enemy_txt2 = &#34;&#34;
+        self.lvl_counter = GameHandler.counter
+
+        self.rooms = {
+            &#39;Weapons Bay&#39;: &#39;#95F21C&#39;, &#39;Main Cabin&#39;: &#39;#95F21C&#39;, &#39;Elevator 1&#39;: &#39;#D18A00&#39;,
+            &#39;Storage Area&#39;: &#39;#95F21C&#39;, &#39;Kitchen&#39;: &#39;#D18A00&#39;, &#39;Barracks&#39;: &#39;#D18A00&#39;, 
+            &#39;Cafeteria&#39;: &#39;#54B851&#39;, &#39;Life Pod 1&#39;: &#39;#95F21C&#39;, &#39;Cabin 2&#39;: &#39;#54B851&#39;,
+            &#39;Showers&#39;: &#39;#95F21C&#39;, &#39;Cabin 1&#39;: &#39;#BE0000&#39;, &#39;Docking Port&#39;: &#39;#95F21C&#39;, 
+            &#39;Bridge&#39;: &#39;#95F21C&#39;, &#39;Elevator 3&#39;: &#39;#95F21C&#39;, &#39;Elevator 2&#39;: &#39;#D18A00&#39;,
+            &#39;Cabin 3&#39;: &#39;#95F21C&#39;, &#39;Captains Cabin&#39;: &#39;#D18A00&#39;, &#39;Hangar&#39;: &#39;#FFF000&#39;, 
+            &#39;Life Pod 2&#39;: &#39;#95F21C&#39;, &#39;Engine Room&#39;: &#39;#95F21C&#39;, &#39;Pod Bay&#39;: &#39;#54B851&#39;,
+            &#39;Life Pod 3&#39;: &#39;#00FFFC&#39;, &#39;Bathroom&#39;: &#39;#95F21C&#39;
+        }
+        self.simple_colors = [&#39;#FAFF00&#39;, &#39;#FDD800&#39;, &#39;#ACFF42&#39;, &#39;#FFFFFF&#39;]
+
+        if self.lvl_counter == 1:
+            self.text_color = self.rooms.get(self.room_name)
+            self.original_image = Image.open(&#39;Images/LevelOne/&#39; + self.room_name
+                                             + &#39;.jpg&#39;).resize((self.width, self.height))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+        elif self.lvl_counter == 2:
+            self.text_color = random.choice(self.simple_colors)
+            self.original_image = Image.open(&#39;Images/LevelTwo/&#39; + self.room_name
+                                             + &#39;.jpg&#39;).resize((self.width, self.height))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+
+        elif self.lvl_counter == 3:
+            self.text_color = random.choice(self.simple_colors)
+            self.original_image = Image.open(&#39;Images/Level3/LevelThree/&#39; + self.room_name
+                                             + &#39;.jpg&#39;).resize((self.width, self.height))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+
+        # Stats images and image name box.
+        self.health_icon = Image.open(&#39;Images/Items/Health.png&#39;).resize((30, 30))
+        self.health_stat_icon = ImageTk.PhotoImage(self.health_icon)
+
+        self.attack_icon = Image.open(&#39;Images/Items/Attack.png&#39;).resize((30, 30))
+        self.att_stat_icon = ImageTk.PhotoImage(self.attack_icon)
+
+        self.def_icon = Image.open(&#39;Images/Items/defense.png&#39;).resize((30, 30))
+        self.deff_stat_icon = ImageTk.PhotoImage(self.def_icon)
+
+        self.med_image = Image.open(&#39;Images/Items/Medkit.png&#39;).resize((30, 30))
+        self.med_kit_image = ImageTk.PhotoImage(self.med_image)
+
+        self.name_b = Image.open(&#39;Images/Items/name_bar.png&#39;).resize((300, 80))
+        self.name_box = ImageTk.PhotoImage(self.name_b)
+
+        self.enemy_name_bx = self.name_box
+
+        self.bg_canvas = tk.Canvas(self, width=self.width, height=self.height,
+                                   bg=&#34;#043F5B&#34;)
+        self.bg_canvas.pack(fill=&#39;both&#39;, expand=True)
+        self.bg_canvas.create_image(0, 0, image=self.bg, anchor=&#39;nw&#39;)
+
+        self.bg_canvas.create_image(30, self.height - 800, image=self.name_box, anchor=&#39;nw&#39;)
+        self.bg_canvas.create_image(self.width / 2 + 170, self.height - 800, image=self.name_box, anchor=&#39;nw&#39;)
+
+        self.bg_canvas.create_text(self.width / 2 - 350, self.height - 660,
+                                   font=&#34;Cambria_Math 15 bold&#34;,
+                                   fill=self.text_color, justify=&#34;center&#34;,
+                                   text=self.player.name + &#34;&#39;s Side&#34;,
+                                   tags=&#34;equipment_title&#34;)
+
+        self.bg_canvas.create_text(self.width / 2 - 65, self.height - 660,
+                                   font=&#34;Cambria_Math 15 bold&#34;,
+                                   fill=self.text_color, justify=&#34;center&#34;,
+                                   text=&#34;Ship #&#34; + str(self.lvl_counter),
+                                   tags=&#34;lvl&#34;)
+
+        t = &#34;Enemies&#39; Side&#34; if not self.room.is_boss_room else &#34;Boss Side&#34;
+        self.bg_canvas.create_text(self.width / 2 + 350, self.height - 660,
+                                   font=&#34;Cambria_Math 15 bold&#34;,
+                                   fill=self.text_color, justify=&#34;center&#34;,
+                                   text=t, tags=&#34;Enemies&#34;)
+
+        self.bg_canvas.create_image(50, self.height - 360, image=self.health_stat_icon, anchor=&#39;nw&#39;)
+        self.bg_canvas.create_image(50, self.height - 325, image=self.att_stat_icon, anchor=&#39;nw&#39;)
+        self.bg_canvas.create_image(50, self.height - 290, image=self.deff_stat_icon, anchor=&#39;nw&#39;)
+        self.bg_canvas.create_image(50, self.height - 260, image=self.med_kit_image, anchor=&#39;nw&#39;)
+
+        # &#34;Partial&#34; binds a parameter to the function, another way to do this
+        # without a lambda expression
+        Button(self, &#34;Defend&#34;, partial(self.defend, self.player), 50, 680,
+               font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;), tags=&#34;defend_button&#34;)
+        Button(self, &#34;Use Medkit&#34;, self.use_medkit, 200, 680,
+               font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;))
+
+        for enemy in self.enemies:
+            self.set_enemy_actions(enemy)
+        self.combat_log()
+
+        self.update_combat_gui()
+        self.mainloop()
+
+    def player_grid(self):
+        &#34;&#34;&#34;Creates and updates the player&#39;s side of the display.
+        &#34;&#34;&#34;
+        self.bg_canvas.delete(&#34;health&#34;, &#34;attack&#34;, &#34;defense&#34;, &#34;medkits&#34;)
+        self.bg_canvas.create_text(90, self.height - 330, anchor=&#39;sw&#39;,
+                                   font=&#34;Cambria_Math 15 bold&#34;,
+                                   fill=self.text_color, justify=&#34;center&#34;,
+                                   text=&#34;Health:\t&#34;
+                                   + str(self.player.stats[&#34;Health&#34;]) + &#34; / &#34;
+                                   + str(self.player.stats[&#34;Max Health&#34;]),
+                                   tags=&#34;health&#34;)
+        self.bg_canvas.create_text(90, self.height - 300, anchor=&#39;sw&#39;,
+                                   font=&#34;Cambria_Math 15 bold&#34;,
+                                   fill=self.text_color, justify=&#34;center&#34;,
+                                   text=&#34;Attack:\t&#34; + str(self.player.attack),
+                                   tags=&#34;ff0d1d&#34;)
+        self.bg_canvas.create_text(90, self.height - 270, anchor=&#39;sw&#39;,
+                                   font=&#34;Cambria_Math 15 bold&#34;,
+                                   fill=self.text_color, justify=&#34;center&#34;,
+                                   text=&#34;Defense:\t&#34; + str(self.player.defense),
+                                   tags=&#34;defense&#34;)
+        self.bg_canvas.create_text(90, self.height - 240,
+                                   anchor=&#39;sw&#39;, font=&#34;Cambria_Math 15 bold&#34;,
+                                   fill=self.text_color,
+                                   justify=&#34;center&#34;, tags=&#34;medkits&#34;,
+                                   text=&#34;Medkits: &#34;
+                                   + str(self.player.stats[&#34;Medkits&#34;]))
+
+    def update_combat_gui(self):
+        &#34;&#34;&#34;Calls all parts of the GUI display and updates it.
+        &#34;&#34;&#34;
+        self.player_grid()
+        self.attack_buttons()
+        self.enemy_grid()
+        self.make_exit()
+
+    def enemy_grid(self):
+        &#34;&#34;&#34;Creates and updates the display for all enemies.
+        &#34;&#34;&#34;
+        # To import the Level counter from GameHandler
+        from Classes.game_handler import GameHandler
+        self.lvl_counter = GameHandler.counter
+
+        self.bg_canvas.delete(&#34;enemies&#34;)
+        self.enemies_txt = &#34;&#34;
+        self.count = 0
+        if len(self.enemies) &gt; 0:
+            for enemy in self.enemies:
+                self.enemies_txt += (&#34;\n&#34; + str(self.count) + &#34;) &#34;
+                                     + str(enemy.name) + &#34;\n  &#34;
+                                     + &#34;LV: &#34; + str(enemy.stats[&#34;Level&#34;])
+                                     + &#34; | Health: &#34;
+                                     + str(enemy.stats[&#34;Health&#34;]) + &#34;\n  &#34;
+                                     + str(enemy.get_attack()) + &#34; Damage | &#34;
+                                     + str(enemy.get_defense()) + &#34; Defense\n\n&#34;)
+                self.count += 1
+        else:
+            self.enemies_txt = &#34;No Enemies Remain&#34;
+        self.bg_canvas.create_text(self.width / 2 + 350, self.height - 600,
+                                   font=&#34;Cambria_Math 12 bold&#34;,
+                                   fill=self.text_color, justify=&#34;center&#34;,
+                                   text=self.enemies_txt, tags=&#34;enemies&#34;, anchor=&#34;n&#34;)
+
+    def attack_buttons(self):
+        &#34;&#34;&#34;Creates new buttons for attacking a specific enemy.
+        &#34;&#34;&#34;
+        self.bg_canvas.delete(&#34;attack_button1&#34;, &#34;attack_button2&#34;,
+                              &#34;attack_button3&#34;, &#34;attack_button4&#34;)
+        if len(self.enemies) &gt; 0:
+            Button(self, &#34;Attack #0&#34;, lambda: self.player_attack(self.enemies[0]),
+                   50, 580, font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;), tags=&#34;attack_button1&#34;)
+        if len(self.enemies) &gt; 1:
+            Button(self, &#34;Attack #1&#34;, lambda: self.player_attack(self.enemies[1]),
+                   200, 580, font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;), tags=&#34;attack_button2&#34;)
+        if len(self.enemies) &gt; 2:
+            Button(self, &#34;Attack #2&#34;, lambda: self.player_attack(self.enemies[2]),
+                   350, 580, font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;), tags=&#34;attack_button3&#34;)
+        if len(self.enemies) &gt; 3:
+            Button(self, &#34;Attack #3&#34;, lambda: self.player_attack(self.enemies[0]),
+                   500, 580, font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;), tags=&#34;attack_button4&#34;)
+
+    def player_attack(self, enemy: Enemy):
+        &#34;&#34;&#34;Method governing how a Player attacks a specified target.
+        Args:
+            enemy (Enemy): The enemy instance in the enemies attribute to
+             attack. Determined by what attack button is used.
+        &#34;&#34;&#34;
+        self.player_txt1 = &#34;&#34;
+        if not self.player.living:
+            return
+        if enemy in self.enemies:
+            damage = enemy.take_damage(self.player)
+            if damage == 0:
+                self.player_txt1 += (f&#34;You attacked {enemy.name} but&#34;
+                                     f&#34; they dodged!\n&#34;)
+            else:
+                self.player_txt1 += (f&#34;You hit {enemy.name} for {damage}&#34;
+                                     f&#34; damage.\n&#34;)
+            if enemy.stats[&#34;Health&#34;] &lt; 1:
+                self.enemies.remove(enemy)
+                self.room.enemies_killed += 1
+                enemy.set_living(False)
+                self.player_txt1 += f&#34;You killed {enemy.name}.\n&#34;
+                self.player.stats[&#34;XP&#34;] += int(enemy.stats[&#34;Level&#34;] * 2.5)
+                self.player.stats[&#34;Credits&#34;] += enemy.stats[&#34;Level&#34;]
+            self.resolve_player_turn()
+        else:
+            pass
+        if self.player.living:
+            self.update_combat_gui()
+
+    def defend(self, defender: Character):
+        &#34;&#34;&#34;Method to temporarily increase a Character&#39;s defense
+        Args:
+            defender (Character): The Character instance that is defending.
+        &#34;&#34;&#34;
+        defender.defend_action()
+        if isinstance(defender, Player):
+            self.player_txt1 = &#34;&#34;
+            self.player_txt1 += (f&#34;You are defending.\nYour defense is&#34;
+                                 f&#34; temporarily increased to&#34;
+                                 f&#34; {self.player.defense}.&#34;)
+            self.resolve_player_turn()
+        if self.player.living:
+            self.update_combat_gui()
+
+    def use_medkit(self):
+        &#34;&#34;&#34;Method to use a medkit and update the display.
+        &#34;&#34;&#34;
+        self.player_txt1 = &#34;&#34;
+        if self.player.stats[&#34;Medkits&#34;] &gt; 0:
+            heal = self.player.use_medkits()
+            self.player_txt1 = (f&#34;You used a medkit and healed for {heal}&#34;
+                                f&#34; health.&#34;)
+        else:
+            self.player_txt1 = f&#34;Oops! You ran out of medkits.&#34;
+        self.resolve_player_turn()
+        self.update_combat_gui()
+
+    def resolve_player_turn(self):
+        &#34;&#34;&#34;Method to resolve enemy actions after the player&#39;s turn is over.
+        &#34;&#34;&#34;
+        if self.player:
+            self.player_txt2 = self.player_txt1
+            self.player_txt1 = &#34;&#34;
+            self.enemy_txt1 = &#34;&#34;
+            self.enemy_txt2 = &#34;&#34;
+            for enemy in self.enemies:
+                enemy.update_defense()
+                if self.player.living:
+                    self.enemy_turn(enemy)
+                self.set_enemy_actions(enemy)
+            self.player.update_defense()
+            self.combat_log()
+            self.turn_count()
+
+    def enemy_turn(self, enemy: Enemy):
+        &#34;&#34;&#34;Method to randomly determine what an Enemy instance does.
+        Args:
+            enemy (Enemy): The Enemy instance doing the action.
+        &#34;&#34;&#34;
+        if enemy.action == &#34;attack&#34;:
+            damage = self.player.take_damage(enemy)
+            if damage == 0:
+                self.enemy_txt1 += (f&#34;{self.enemies.index(enemy)})&#34;
+                                    f&#34; {enemy.name} attacked&#34;
+                                    f&#34; {self.player.name} but you dodged!\n&#34;)
+            else:
+                self.enemy_txt1 += (f&#34;{self.enemies.index(enemy)})&#34;
+                                    f&#34; {enemy.name} attacked {self.player.name}&#34;
+                                    f&#34; for {damage} damage.\n&#34;)
+            if self.player.stats[&#34;Health&#34;] &lt; 1:
+                self.player.set_living(False)
+                self.enemy_txt1 += &#34;You were killed!\n&#34;
+                self.character_dead_gui()
+        elif enemy.action == &#34;defend&#34;:
+            self.defend(enemy)
+            self.enemy_txt1 += (f&#34;{self.enemies.index(enemy)}) {enemy.name} is&#34;
+                                f&#34; defending. Their defense is temporarily&#34;
+                                f&#34; {enemy.defense} now.\n&#34;)
+        else:
+            self.enemy_txt1 += (f&#34;{self.enemies.index(enemy)}) {enemy.name}&#34;
+                                f&#34; did nothing.\n&#34;)
+
+    def set_enemy_actions(self, enemy: Enemy):
+        &#34;&#34;&#34;Randomly sets the enemy&#39;s actions.
+        Args:
+            enemy (Enemy): The enemy instance to set their action.
+        &#34;&#34;&#34;
+        enemy.randomize_action()
+        enemy_predict_resist = (random.randint(1, 100) +
+                                enemy.stats[&#34;Intelligence&#34;] +
+                                enemy.stats[&#34;Level&#34;])
+        player_predict_chance = (random.randint(1, 100) +
+                                 self.player.stats[&#34;Intelligence&#34;]
+                                 + self.player.stats[&#34;Level&#34;])
+        if enemy_predict_resist &lt; player_predict_chance:
+            if enemy.action == &#34;nothing&#34;:
+                self.enemy_txt2 += (f&#34;{self.enemies.index(enemy)})&#34;
+                                    f&#34; {enemy.name} chose to do {enemy.action}.&#34;
+                                    f&#34;\n&#34;)
+            else:
+                self.enemy_txt2 += (f&#34;{self.enemies.index(enemy)})&#34;
+                                    f&#34; {enemy.name} chose to {enemy.action}.&#34;
+                                    f&#34;\n&#34;)
+        else:
+            self.enemy_txt2 += (f&#34;{self.enemies.index(enemy)}) {enemy.name}&#34;
+                                f&#34; can&#39;t be predicted.\n&#34;)
+
+    def turn_count(self):
+        &#34;&#34;&#34;Increments turn_counter by 1.
+        Returns:
+            turn_counter (int): The current turn.
+        &#34;&#34;&#34;
+        self.turn_counter += 1
+        return self.turn_counter
+
+    def combat_log(self):
+        &#34;&#34;&#34;Updates the combat log.
+        &#34;&#34;&#34;
+        self.bg_canvas.delete(&#34;player_txt1&#34;, &#34;player_txt2&#34;, &#34;enemy_txt1&#34;,
+                              &#34;enemy_txt2&#34;)
+        self.bg_canvas.create_text(50, 200, width=200,
+                                   font=(&#39;Cambria_Math&#39;, 13, &#39;bold&#39;),
+                                   fill=self.text_color,
+                                   justify=&#34;left&#34;, anchor=&#34;w&#34;,
+                                   text=f&#34;Last Turn (Turn {self.turn_counter})&#34;
+                                   f&#34;:\n{self.player_txt2}&#34;,
+                                   tags=&#34;player_txt2&#34;)
+        self.bg_canvas.create_text(50, 300, width=200,
+                                   font=(&#39;Cambria_Math&#39;, 13, &#39;bold&#39;),
+                                   fill=self.text_color,
+                                   justify=&#34;left&#34;, anchor=&#34;w&#34;,
+                                   text=f&#34;This Turn (Turn &#34;
+                                   f&#34;{self.turn_counter + 1})&#34;
+                                   f&#34;:\nWhat will you do?&#34;, tags=&#34;player_txt1&#34;)
+        self.bg_canvas.create_text(self.width / 3, 200, width=300,
+                                   font=(&#39;Cambria_Math&#39;, 13, &#39;bold&#39;),
+                                   fill=self.text_color,
+                                   justify=&#34;left&#34;, anchor=&#34;w&#34;,
+                                   text=f&#34;Last Turn (Turn {self.turn_counter})&#34;
+                                   f&#34;:\n{self.enemy_txt1}&#34;, tags=&#34;enemy_txt1&#34;)
+        self.bg_canvas.create_text(self.width / 3, 350, width=300,
+                                   font=(&#39;Cambria_Math&#39;, 13, &#39;bold&#39;),
+                                   fill=self.text_color,
+                                   justify=&#34;left&#34;, anchor=&#34;w&#34;,
+                                   text=f&#34;This Turn (Turn &#34;
+                                   f&#34;{self.turn_counter + 1}):\nYour&#34;
+                                   f&#34; Intelligence Stat lets you predict that:&#34;
+                                   f&#34;\n{self.enemy_txt2}&#34;,
+                                   tags=&#34;enemy_txt2&#34;)
+
+    def make_exit(self):
+        &#34;&#34;&#34;Method to make an exit after the fight is won.
+        &#34;&#34;&#34;
+        if not self.enemies:
+            Button(self, &#34;Exit&#34;, self.end_fight, int(self.width / 2 - 60), 580,
+                   font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;))
+            self.bg_canvas.delete(&#34;attack_button&#34;, &#34;defend_button&#34;,
+                                  &#34;use_item_button&#34;, &#34;enemy_entry&#34;,
+                                  &#34;enemy_entry_text&#34;)
+
+    def character_dead_gui(self):
+        &#34;&#34;&#34;Display GUI if character dies during combat.
+        &#34;&#34;&#34;
+        print(&#34;Character is dead&#34;)
+        super().destroy()
+        self.game_handler.end_game(False)
+
+    def end_fight(self):
+        &#34;&#34;&#34;Method handling when the instance can be exited and what happens.
+        &#34;&#34;&#34;
+        if not self.enemies or not self.player.living:
+            self.game_handler.exit_room(self.room)
+            self.room.clear_room(True)
+            self.destroy()
+
+    def destroy(self):
+        &#34;&#34;&#34;Overrides the standard destroy method. Prevents the fight window
+         from being destroyed until the fight ends.
+        &#34;&#34;&#34;
+        if not self.enemies or not self.player.living:
+            super().destroy()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>tkinter.Toplevel</li>
+<li>tkinter.BaseWidget</li>
+<li>tkinter.Misc</li>
+<li>tkinter.Wm</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.attack_buttons"><code class="name flex">
+<span>def <span class="ident">attack_buttons</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates new buttons for attacking a specific enemy.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def attack_buttons(self):
+    &#34;&#34;&#34;Creates new buttons for attacking a specific enemy.
+    &#34;&#34;&#34;
+    self.bg_canvas.delete(&#34;attack_button1&#34;, &#34;attack_button2&#34;,
+                          &#34;attack_button3&#34;, &#34;attack_button4&#34;)
+    if len(self.enemies) &gt; 0:
+        Button(self, &#34;Attack #0&#34;, lambda: self.player_attack(self.enemies[0]),
+               50, 580, font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;), tags=&#34;attack_button1&#34;)
+    if len(self.enemies) &gt; 1:
+        Button(self, &#34;Attack #1&#34;, lambda: self.player_attack(self.enemies[1]),
+               200, 580, font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;), tags=&#34;attack_button2&#34;)
+    if len(self.enemies) &gt; 2:
+        Button(self, &#34;Attack #2&#34;, lambda: self.player_attack(self.enemies[2]),
+               350, 580, font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;), tags=&#34;attack_button3&#34;)
+    if len(self.enemies) &gt; 3:
+        Button(self, &#34;Attack #3&#34;, lambda: self.player_attack(self.enemies[0]),
+               500, 580, font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;), tags=&#34;attack_button4&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.character_dead_gui"><code class="name flex">
+<span>def <span class="ident">character_dead_gui</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display GUI if character dies during combat.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def character_dead_gui(self):
+    &#34;&#34;&#34;Display GUI if character dies during combat.
+    &#34;&#34;&#34;
+    print(&#34;Character is dead&#34;)
+    super().destroy()
+    self.game_handler.end_game(False)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.combat_log"><code class="name flex">
+<span>def <span class="ident">combat_log</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Updates the combat log.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def combat_log(self):
+    &#34;&#34;&#34;Updates the combat log.
+    &#34;&#34;&#34;
+    self.bg_canvas.delete(&#34;player_txt1&#34;, &#34;player_txt2&#34;, &#34;enemy_txt1&#34;,
+                          &#34;enemy_txt2&#34;)
+    self.bg_canvas.create_text(50, 200, width=200,
+                               font=(&#39;Cambria_Math&#39;, 13, &#39;bold&#39;),
+                               fill=self.text_color,
+                               justify=&#34;left&#34;, anchor=&#34;w&#34;,
+                               text=f&#34;Last Turn (Turn {self.turn_counter})&#34;
+                               f&#34;:\n{self.player_txt2}&#34;,
+                               tags=&#34;player_txt2&#34;)
+    self.bg_canvas.create_text(50, 300, width=200,
+                               font=(&#39;Cambria_Math&#39;, 13, &#39;bold&#39;),
+                               fill=self.text_color,
+                               justify=&#34;left&#34;, anchor=&#34;w&#34;,
+                               text=f&#34;This Turn (Turn &#34;
+                               f&#34;{self.turn_counter + 1})&#34;
+                               f&#34;:\nWhat will you do?&#34;, tags=&#34;player_txt1&#34;)
+    self.bg_canvas.create_text(self.width / 3, 200, width=300,
+                               font=(&#39;Cambria_Math&#39;, 13, &#39;bold&#39;),
+                               fill=self.text_color,
+                               justify=&#34;left&#34;, anchor=&#34;w&#34;,
+                               text=f&#34;Last Turn (Turn {self.turn_counter})&#34;
+                               f&#34;:\n{self.enemy_txt1}&#34;, tags=&#34;enemy_txt1&#34;)
+    self.bg_canvas.create_text(self.width / 3, 350, width=300,
+                               font=(&#39;Cambria_Math&#39;, 13, &#39;bold&#39;),
+                               fill=self.text_color,
+                               justify=&#34;left&#34;, anchor=&#34;w&#34;,
+                               text=f&#34;This Turn (Turn &#34;
+                               f&#34;{self.turn_counter + 1}):\nYour&#34;
+                               f&#34; Intelligence Stat lets you predict that:&#34;
+                               f&#34;\n{self.enemy_txt2}&#34;,
+                               tags=&#34;enemy_txt2&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.defend"><code class="name flex">
+<span>def <span class="ident">defend</span></span>(<span>self, defender: Classes.character.Character)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to temporarily increase a Character's defense</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>defender</code></strong> :&ensp;<code>Character</code></dt>
+<dd>The Character instance that is defending.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def defend(self, defender: Character):
+    &#34;&#34;&#34;Method to temporarily increase a Character&#39;s defense
+    Args:
+        defender (Character): The Character instance that is defending.
+    &#34;&#34;&#34;
+    defender.defend_action()
+    if isinstance(defender, Player):
+        self.player_txt1 = &#34;&#34;
+        self.player_txt1 += (f&#34;You are defending.\nYour defense is&#34;
+                             f&#34; temporarily increased to&#34;
+                             f&#34; {self.player.defense}.&#34;)
+        self.resolve_player_turn()
+    if self.player.living:
+        self.update_combat_gui()</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.destroy"><code class="name flex">
+<span>def <span class="ident">destroy</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Overrides the standard destroy method. Prevents the fight window
+from being destroyed until the fight ends.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def destroy(self):
+    &#34;&#34;&#34;Overrides the standard destroy method. Prevents the fight window
+     from being destroyed until the fight ends.
+    &#34;&#34;&#34;
+    if not self.enemies or not self.player.living:
+        super().destroy()</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.end_fight"><code class="name flex">
+<span>def <span class="ident">end_fight</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method handling when the instance can be exited and what happens.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def end_fight(self):
+    &#34;&#34;&#34;Method handling when the instance can be exited and what happens.
+    &#34;&#34;&#34;
+    if not self.enemies or not self.player.living:
+        self.game_handler.exit_room(self.room)
+        self.room.clear_room(True)
+        self.destroy()</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.enemy_grid"><code class="name flex">
+<span>def <span class="ident">enemy_grid</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates and updates the display for all enemies.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def enemy_grid(self):
+    &#34;&#34;&#34;Creates and updates the display for all enemies.
+    &#34;&#34;&#34;
+    # To import the Level counter from GameHandler
+    from Classes.game_handler import GameHandler
+    self.lvl_counter = GameHandler.counter
+
+    self.bg_canvas.delete(&#34;enemies&#34;)
+    self.enemies_txt = &#34;&#34;
+    self.count = 0
+    if len(self.enemies) &gt; 0:
+        for enemy in self.enemies:
+            self.enemies_txt += (&#34;\n&#34; + str(self.count) + &#34;) &#34;
+                                 + str(enemy.name) + &#34;\n  &#34;
+                                 + &#34;LV: &#34; + str(enemy.stats[&#34;Level&#34;])
+                                 + &#34; | Health: &#34;
+                                 + str(enemy.stats[&#34;Health&#34;]) + &#34;\n  &#34;
+                                 + str(enemy.get_attack()) + &#34; Damage | &#34;
+                                 + str(enemy.get_defense()) + &#34; Defense\n\n&#34;)
+            self.count += 1
+    else:
+        self.enemies_txt = &#34;No Enemies Remain&#34;
+    self.bg_canvas.create_text(self.width / 2 + 350, self.height - 600,
+                               font=&#34;Cambria_Math 12 bold&#34;,
+                               fill=self.text_color, justify=&#34;center&#34;,
+                               text=self.enemies_txt, tags=&#34;enemies&#34;, anchor=&#34;n&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.enemy_turn"><code class="name flex">
+<span>def <span class="ident">enemy_turn</span></span>(<span>self, enemy: Classes.character.Enemy)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to randomly determine what an Enemy instance does.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>enemy</code></strong> :&ensp;<code>Enemy</code></dt>
+<dd>The Enemy instance doing the action.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def enemy_turn(self, enemy: Enemy):
+    &#34;&#34;&#34;Method to randomly determine what an Enemy instance does.
+    Args:
+        enemy (Enemy): The Enemy instance doing the action.
+    &#34;&#34;&#34;
+    if enemy.action == &#34;attack&#34;:
+        damage = self.player.take_damage(enemy)
+        if damage == 0:
+            self.enemy_txt1 += (f&#34;{self.enemies.index(enemy)})&#34;
+                                f&#34; {enemy.name} attacked&#34;
+                                f&#34; {self.player.name} but you dodged!\n&#34;)
+        else:
+            self.enemy_txt1 += (f&#34;{self.enemies.index(enemy)})&#34;
+                                f&#34; {enemy.name} attacked {self.player.name}&#34;
+                                f&#34; for {damage} damage.\n&#34;)
+        if self.player.stats[&#34;Health&#34;] &lt; 1:
+            self.player.set_living(False)
+            self.enemy_txt1 += &#34;You were killed!\n&#34;
+            self.character_dead_gui()
+    elif enemy.action == &#34;defend&#34;:
+        self.defend(enemy)
+        self.enemy_txt1 += (f&#34;{self.enemies.index(enemy)}) {enemy.name} is&#34;
+                            f&#34; defending. Their defense is temporarily&#34;
+                            f&#34; {enemy.defense} now.\n&#34;)
+    else:
+        self.enemy_txt1 += (f&#34;{self.enemies.index(enemy)}) {enemy.name}&#34;
+                            f&#34; did nothing.\n&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.make_exit"><code class="name flex">
+<span>def <span class="ident">make_exit</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to make an exit after the fight is won.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_exit(self):
+    &#34;&#34;&#34;Method to make an exit after the fight is won.
+    &#34;&#34;&#34;
+    if not self.enemies:
+        Button(self, &#34;Exit&#34;, self.end_fight, int(self.width / 2 - 60), 580,
+               font=(&#34;Cambria Math&#34;, 12, &#34;bold&#34;))
+        self.bg_canvas.delete(&#34;attack_button&#34;, &#34;defend_button&#34;,
+                              &#34;use_item_button&#34;, &#34;enemy_entry&#34;,
+                              &#34;enemy_entry_text&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.player_attack"><code class="name flex">
+<span>def <span class="ident">player_attack</span></span>(<span>self, enemy: Classes.character.Enemy)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method governing how a Player attacks a specified target.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>enemy</code></strong> :&ensp;<code>Enemy</code></dt>
+<dd>The enemy instance in the enemies attribute to</dd>
+</dl>
+<p>attack. Determined by what attack button is used.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def player_attack(self, enemy: Enemy):
+    &#34;&#34;&#34;Method governing how a Player attacks a specified target.
+    Args:
+        enemy (Enemy): The enemy instance in the enemies attribute to
+         attack. Determined by what attack button is used.
+    &#34;&#34;&#34;
+    self.player_txt1 = &#34;&#34;
+    if not self.player.living:
+        return
+    if enemy in self.enemies:
+        damage = enemy.take_damage(self.player)
+        if damage == 0:
+            self.player_txt1 += (f&#34;You attacked {enemy.name} but&#34;
+                                 f&#34; they dodged!\n&#34;)
+        else:
+            self.player_txt1 += (f&#34;You hit {enemy.name} for {damage}&#34;
+                                 f&#34; damage.\n&#34;)
+        if enemy.stats[&#34;Health&#34;] &lt; 1:
+            self.enemies.remove(enemy)
+            self.room.enemies_killed += 1
+            enemy.set_living(False)
+            self.player_txt1 += f&#34;You killed {enemy.name}.\n&#34;
+            self.player.stats[&#34;XP&#34;] += int(enemy.stats[&#34;Level&#34;] * 2.5)
+            self.player.stats[&#34;Credits&#34;] += enemy.stats[&#34;Level&#34;]
+        self.resolve_player_turn()
+    else:
+        pass
+    if self.player.living:
+        self.update_combat_gui()</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.player_grid"><code class="name flex">
+<span>def <span class="ident">player_grid</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates and updates the player's side of the display.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def player_grid(self):
+    &#34;&#34;&#34;Creates and updates the player&#39;s side of the display.
+    &#34;&#34;&#34;
+    self.bg_canvas.delete(&#34;health&#34;, &#34;attack&#34;, &#34;defense&#34;, &#34;medkits&#34;)
+    self.bg_canvas.create_text(90, self.height - 330, anchor=&#39;sw&#39;,
+                               font=&#34;Cambria_Math 15 bold&#34;,
+                               fill=self.text_color, justify=&#34;center&#34;,
+                               text=&#34;Health:\t&#34;
+                               + str(self.player.stats[&#34;Health&#34;]) + &#34; / &#34;
+                               + str(self.player.stats[&#34;Max Health&#34;]),
+                               tags=&#34;health&#34;)
+    self.bg_canvas.create_text(90, self.height - 300, anchor=&#39;sw&#39;,
+                               font=&#34;Cambria_Math 15 bold&#34;,
+                               fill=self.text_color, justify=&#34;center&#34;,
+                               text=&#34;Attack:\t&#34; + str(self.player.attack),
+                               tags=&#34;ff0d1d&#34;)
+    self.bg_canvas.create_text(90, self.height - 270, anchor=&#39;sw&#39;,
+                               font=&#34;Cambria_Math 15 bold&#34;,
+                               fill=self.text_color, justify=&#34;center&#34;,
+                               text=&#34;Defense:\t&#34; + str(self.player.defense),
+                               tags=&#34;defense&#34;)
+    self.bg_canvas.create_text(90, self.height - 240,
+                               anchor=&#39;sw&#39;, font=&#34;Cambria_Math 15 bold&#34;,
+                               fill=self.text_color,
+                               justify=&#34;center&#34;, tags=&#34;medkits&#34;,
+                               text=&#34;Medkits: &#34;
+                               + str(self.player.stats[&#34;Medkits&#34;]))</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.resolve_player_turn"><code class="name flex">
+<span>def <span class="ident">resolve_player_turn</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to resolve enemy actions after the player's turn is over.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def resolve_player_turn(self):
+    &#34;&#34;&#34;Method to resolve enemy actions after the player&#39;s turn is over.
+    &#34;&#34;&#34;
+    if self.player:
+        self.player_txt2 = self.player_txt1
+        self.player_txt1 = &#34;&#34;
+        self.enemy_txt1 = &#34;&#34;
+        self.enemy_txt2 = &#34;&#34;
+        for enemy in self.enemies:
+            enemy.update_defense()
+            if self.player.living:
+                self.enemy_turn(enemy)
+            self.set_enemy_actions(enemy)
+        self.player.update_defense()
+        self.combat_log()
+        self.turn_count()</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.set_enemy_actions"><code class="name flex">
+<span>def <span class="ident">set_enemy_actions</span></span>(<span>self, enemy: Classes.character.Enemy)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Randomly sets the enemy's actions.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>enemy</code></strong> :&ensp;<code>Enemy</code></dt>
+<dd>The enemy instance to set their action.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_enemy_actions(self, enemy: Enemy):
+    &#34;&#34;&#34;Randomly sets the enemy&#39;s actions.
+    Args:
+        enemy (Enemy): The enemy instance to set their action.
+    &#34;&#34;&#34;
+    enemy.randomize_action()
+    enemy_predict_resist = (random.randint(1, 100) +
+                            enemy.stats[&#34;Intelligence&#34;] +
+                            enemy.stats[&#34;Level&#34;])
+    player_predict_chance = (random.randint(1, 100) +
+                             self.player.stats[&#34;Intelligence&#34;]
+                             + self.player.stats[&#34;Level&#34;])
+    if enemy_predict_resist &lt; player_predict_chance:
+        if enemy.action == &#34;nothing&#34;:
+            self.enemy_txt2 += (f&#34;{self.enemies.index(enemy)})&#34;
+                                f&#34; {enemy.name} chose to do {enemy.action}.&#34;
+                                f&#34;\n&#34;)
+        else:
+            self.enemy_txt2 += (f&#34;{self.enemies.index(enemy)})&#34;
+                                f&#34; {enemy.name} chose to {enemy.action}.&#34;
+                                f&#34;\n&#34;)
+    else:
+        self.enemy_txt2 += (f&#34;{self.enemies.index(enemy)}) {enemy.name}&#34;
+                            f&#34; can&#39;t be predicted.\n&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.turn_count"><code class="name flex">
+<span>def <span class="ident">turn_count</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Increments turn_counter by 1.</p>
+<h2 id="returns">Returns</h2>
+<p>turn_counter (int): The current turn.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def turn_count(self):
+    &#34;&#34;&#34;Increments turn_counter by 1.
+    Returns:
+        turn_counter (int): The current turn.
+    &#34;&#34;&#34;
+    self.turn_counter += 1
+    return self.turn_counter</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.update_combat_gui"><code class="name flex">
+<span>def <span class="ident">update_combat_gui</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calls all parts of the GUI display and updates it.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_combat_gui(self):
+    &#34;&#34;&#34;Calls all parts of the GUI display and updates it.
+    &#34;&#34;&#34;
+    self.player_grid()
+    self.attack_buttons()
+    self.enemy_grid()
+    self.make_exit()</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.fight_gui.FightGUI.use_medkit"><code class="name flex">
+<span>def <span class="ident">use_medkit</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to use a medkit and update the display.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def use_medkit(self):
+    &#34;&#34;&#34;Method to use a medkit and update the display.
+    &#34;&#34;&#34;
+    self.player_txt1 = &#34;&#34;
+    if self.player.stats[&#34;Medkits&#34;] &gt; 0:
+        heal = self.player.use_medkits()
+        self.player_txt1 = (f&#34;You used a medkit and healed for {heal}&#34;
+                            f&#34; health.&#34;)
+    else:
+        self.player_txt1 = f&#34;Oops! You ran out of medkits.&#34;
+    self.resolve_player_turn()
+    self.update_combat_gui()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="rpg.Classes.GUI" href="index.html">rpg.Classes.GUI</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="rpg.Classes.GUI.fight_gui.FightGUI" href="#rpg.Classes.GUI.fight_gui.FightGUI">FightGUI</a></code></h4>
+<ul class="two-column">
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.attack_buttons" href="#rpg.Classes.GUI.fight_gui.FightGUI.attack_buttons">attack_buttons</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.character_dead_gui" href="#rpg.Classes.GUI.fight_gui.FightGUI.character_dead_gui">character_dead_gui</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.combat_log" href="#rpg.Classes.GUI.fight_gui.FightGUI.combat_log">combat_log</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.defend" href="#rpg.Classes.GUI.fight_gui.FightGUI.defend">defend</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.destroy" href="#rpg.Classes.GUI.fight_gui.FightGUI.destroy">destroy</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.end_fight" href="#rpg.Classes.GUI.fight_gui.FightGUI.end_fight">end_fight</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.enemy_grid" href="#rpg.Classes.GUI.fight_gui.FightGUI.enemy_grid">enemy_grid</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.enemy_turn" href="#rpg.Classes.GUI.fight_gui.FightGUI.enemy_turn">enemy_turn</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.make_exit" href="#rpg.Classes.GUI.fight_gui.FightGUI.make_exit">make_exit</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.player_attack" href="#rpg.Classes.GUI.fight_gui.FightGUI.player_attack">player_attack</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.player_grid" href="#rpg.Classes.GUI.fight_gui.FightGUI.player_grid">player_grid</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.resolve_player_turn" href="#rpg.Classes.GUI.fight_gui.FightGUI.resolve_player_turn">resolve_player_turn</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.set_enemy_actions" href="#rpg.Classes.GUI.fight_gui.FightGUI.set_enemy_actions">set_enemy_actions</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.turn_count" href="#rpg.Classes.GUI.fight_gui.FightGUI.turn_count">turn_count</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.update_combat_gui" href="#rpg.Classes.GUI.fight_gui.FightGUI.update_combat_gui">update_combat_gui</a></code></li>
+<li><code><a title="rpg.Classes.GUI.fight_gui.FightGUI.use_medkit" href="#rpg.Classes.GUI.fight_gui.FightGUI.use_medkit">use_medkit</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

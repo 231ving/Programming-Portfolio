@@ -1,0 +1,530 @@
+@startuml
+class tkinter {}
+
+class TextPrinter {
+    animate_text()
+    toggle_ready()
+    offset_text_box()
+        tkinter
+    ready
+    ready
+    ready
+    __init__()
+}
+class Item {
+    load_items()
+    assign_stats()
+    get_damage_dealt()
+        damage
+    damage_percent
+    crit_percent
+    armor_break_percent
+    name
+    damage
+    damage_percent
+    crit_percent
+    armor_break_percent
+    __init__()
+}
+class GameHandler {
+    start_new_game()
+    get_map()
+    set_gui()
+    enter_room()
+    exit_room()
+    end_game()
+        player
+    map
+    gui
+    initial_time
+    total_enemies_killed
+    total_rooms_entered
+    player
+    initial_time
+    total_enemies_killed
+    total_rooms_entered
+    map
+    gui
+    __init__()
+}
+class Character {
+    set_living()
+    add_item()
+    drop_item()
+    upgrade_stats()
+    lv_up()
+    update_max_health()
+    update_health()
+    get_defense()
+    get_attack()
+    defend_action()
+        name
+    stats
+    attack
+    defense
+    living
+    living
+    defense
+    __init__()
+}
+class Player {
+    equip_item()
+    unequip_item()
+    use_medkits()
+    med_kits()
+    med_kits()
+    change_name()
+    update_defense()
+    update_attack()
+    take_damage()
+        name
+    defense
+    attack
+    __init__()
+}
+class Enemy {
+    take_damage()
+    update_defense()
+    update_attack()
+    update_stats()
+        name
+    defense
+    attack
+    __init__()
+}
+class Edge {
+    get_weight()
+    __repr__()
+        weight
+    __init__()
+}
+class Map {
+    generate_map()
+    get_current_room()
+    set_current_room()
+    generate_random_rooms()
+    connect_every_room_together()
+    prims_algorithm()
+    assign_random_images()
+    print_map()
+        rooms
+    current_room
+    start_room
+    current_room
+    __init__()
+}
+class MapConstants {
+        __init__()
+}
+class ShopGUI {
+    equipment_grid()
+    inventory_grid()
+    shop_grid()
+    update_shop_gui()
+    equip_item_inventory()
+    remove_equipped_item()
+    buy_item_from_shop()
+    sell_item_inventory()
+    buy_medkits()
+    read_entry_box()
+    destroy()
+        width
+    height
+    width
+    height
+    player
+    shop
+    game_handler
+    item_entry
+    original_image
+    bg
+    bg_canvas
+    exit_button
+    exit_button_window
+    unequip_button
+    unequip_button_window
+    equip_button
+    equip_button_window
+    purchase_button
+    purchase_button_window
+    sell_button
+    sell_button_window
+    buy_medkit_button
+    buy_medkit_button_window
+    item_entry_text
+    item_entry_text
+    item_entry_box
+    item_entry
+    item_entry
+    __init__()
+}
+class MainGUI {
+    create_intro_screen1()
+    create_intro_screen2()
+    create_intro_screen3()
+    update_init_stats()
+    create_main_gui()
+    start_game()
+    display_buttons()
+    handle_button_input()
+    change_map_image()
+    animate_text()
+    enter_repeated_room()
+    enter_chest_room()
+    enter_shop_room()
+    enter_combat_room()
+    enter_boss_room()
+    exit_boss_room()
+    exit_room()
+    exit_combat_room()
+    open_inventory_gui()
+    open_character_gui()
+    display_game_lost_gui()
+    display_game_won_gui()
+        width
+    height
+    screen_width
+    screen_height
+    original_image
+    bg
+    bg_canvas
+    user_name
+    user_name_entry
+    user_name_window
+    start_button
+    start_button_window
+    exit_button
+    exit_button_window
+    text_printer
+    next_text
+    background_image
+    backg
+    button_frame
+    img
+    menu_bg
+    map
+    player
+    name
+    game_handler
+    ready
+    original_image
+    bg
+    bg_canvas
+    user_name
+    user_name_window
+    user_name_entry
+    start_button
+    start_button_window
+    exit_button
+    exit_button_window
+    name
+    original_image
+    bg
+    bg_canvas
+    next_text
+    background_image
+    backg
+    original_image
+    bg
+    menu_bg
+    bg_canvas
+    exit_button
+    exit_button_window
+    text_printer
+    ready
+    map
+    player
+    button_frame
+    original_image
+    bg
+    ready
+    ready
+    img
+    bg_canvas
+    exit_button
+    img
+    bg_canvas
+    exit_button
+    __init__()
+}
+class InventoryGUI {
+    equipment_grid()
+    inventory_grid()
+    update_inventory_gui()
+    drop_item_inventory()
+    equip_item_inventory()
+    remove_equipped_item()
+    read_entry_box()
+    destroy()
+        width
+    height
+    width
+    height
+    player
+    room
+    gui
+    item_entry
+    original_image
+    bg
+    bg_canvas
+    exit_button
+    exit_button_window
+    unequip_button
+    unequip_button_window
+    equip_button
+    equip_button_window
+    drop_button
+    drop_button_window
+    item_entry_text
+    item_entry_text_window
+    item_entry_box
+    item_entry
+    item_entry
+    __init__()
+}
+class FightGUI {
+    player_grid()
+    update_combat_gui()
+    enemy_grid()
+    read_entry_box()
+    player_attack()
+    defend()
+    use_medkit()
+    resolve_player_turn()
+    enemy_turn()
+    make_exit()
+    character_dead_gui()
+    endFight()
+        width
+    height
+    width
+    height
+    player
+    room
+    enemies
+    room_name
+    game_handler
+    no_enemy
+    count
+    enemy_entry
+    exit_button
+    exit_button_window
+    original_image
+    bg
+    bg_canvas
+    enemy_entry_text
+    enemy_entry_text
+    enemy_entry_box
+    attack_button
+    attack_button_window
+    defend_button
+    defend_button_window
+    use_medkit_button
+    use_medkit_button_window
+    count
+    enemy_entry
+    enemy_entry
+    exit_button
+    exit_button_window
+    __init__()
+}
+class ChestGUI {
+    loot_chest()
+    scrap_chest()
+    destroy()
+        width
+    height
+    width
+    height
+    player
+    room
+    game_handler
+    original_image
+    bg
+    bg_canvas
+    __init__()
+}
+class CharacterGUI {
+    stat_button()
+    level_up()
+    update_character_gui()
+    destroy()
+        width
+    height
+    width
+    height
+    player
+    room
+    gui
+    original_image
+    bg
+    bg_canvas
+    __init__()
+}
+class StartRoom {
+        __init__()
+}
+class ShopRoom {
+        name
+    __init__()
+}
+class Room {
+    set_coordinates()
+    get_coordinates()
+    clear_room()
+    get_cleared()
+    set_image_path()
+    create_adjacency()
+    add_adjacent_room()
+    get_adjacent_rooms()
+    generate_name()
+    __repr__()
+    __eq__()
+        is_currently_entered
+    has_entered
+    cleared
+    name
+    map_image_path
+    pos_x
+    pos_y
+    pos_x
+    pos_y
+    cleared
+    map_image_path
+    name
+    __init__()
+}
+class CombatRoom {
+    load_enemies()
+    generate_enemies()
+    lv_enemies()
+        player
+    mon_lv
+    name
+    is_boss_room
+    enemies_killed
+    mon_lv
+    __init__()
+}
+class ChestRoom {
+        name
+    item
+    __init__()
+}
+class BossRoom {
+        name
+    enemies_killed
+    is_boss_room
+    __init__()
+}
+Character <|-- Player
+Character <|-- Enemy
+Room <|-- StartRoom
+Room <|-- ShopRoom
+Room <|-- CombatRoom
+Room <|-- ChestRoom
+Room <|-- BossRoom
+
+TextPrinter --> tkinter
+TextPrinter ..> tkinter
+
+Item ..> Enemy
+
+GameHandler --> Player
+GameHandler ..> Player
+GameHandler  --> Map
+GameHandler  ..> Map
+GameHandler --> MainGUI
+GameHandler ..> MainGUI
+
+GameHandler ..> FightGUI
+GameHandler ..> ChestGUI
+GameHandler  ..> ShopGUI
+GameHandler  ..> Room
+
+Character ..> Item
+Character --> Item
+
+Player ..> Item
+Player --> Item
+
+Enemy ..> Player
+
+ShopRoom --> Item
+
+Room --> Room
+Room ..> Room
+
+CombatRoom --> Enemy
+CombatRoom ..> Enemy
+
+ChestRoom --> Item
+
+BossRoom --> Enemy
+
+MapConstants --> CombatRoom
+MapConstants --> ChestRoom
+MapConstants --> ShopRoom
+MapConstants --> BossRoom
+
+Map --> StartRoom
+Map --> Room
+Map ..> Room
+Map --> Edge
+Map ..> Edge
+Map ..> MapConstants
+
+ShopGUI --|> tkinter
+ShopGUI --> Player
+ShopGUI ..> Player
+ShopGUI ..> GameHandler
+ShopGUI --> GameHandler
+ShopGUI ..> Item
+
+MainGUI --|> tkinter
+MainGUI --> Player
+MainGUI ..> Player
+MainGUI --> GameHandler
+MainGUI ..> GameHandler
+MainGUI --> Map
+MainGUI ..> Map
+MainGUI --> TextPrinter
+MainGUI ..> TextPrinter
+MainGUI ..> CharacterGUI
+MainGUI ..> InventoryGUI
+
+InventoryGUI --|> tkinter
+InventoryGUI --> Player
+InventoryGUI  --> Room
+InventoryGUI --> MainGUI
+InventoryGUI  ..> Player
+InventoryGUI  ..> Room
+InventoryGUI  ..> MainGUI
+
+FightGUI --|> tkinter
+FightGUI --> CombatRoom
+FightGUI ..> CombatRoom
+FightGUI  --> Player
+FightGUI  ..> Player
+FightGUI --> GameHandler
+FightGUI ..> GameHandler
+FightGUI --> Enemy
+FightGUI ..> Enemy
+FightGUI ..> Character
+
+ChestGUI --|> tkinter
+ChestGUI --> ChestRoom
+ChestGUI  ..> ChestRoom
+ChestGUI  --> Player
+ChestGUI  ..> Player
+ChestGUI --> GameHandler
+ChestGUI  ..> GameHandler
+
+CharacterGUI --|> tkinter
+CharacterGUI --> Player
+CharacterGUI ..> Player
+CharacterGUI --> Room
+CharacterGUI ..> Room
+CharacterGUI --> MainGUI
+CharacterGUI ..> MainGUI
+@enduml

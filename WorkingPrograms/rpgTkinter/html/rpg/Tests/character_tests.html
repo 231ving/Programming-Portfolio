@@ -1,0 +1,2105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>rpg.Tests.character_tests API documentation</title>
+<meta name="description" content="Module containing the unittests for Character." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>rpg.Tests.character_tests</code></h1>
+</header>
+<section id="section-intro">
+<p>Module containing the unittests for Character.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Module containing the unittests for Character.
+&#34;&#34;&#34;
+import unittest
+import random
+from Classes.character import Character, Player, Enemy
+from Classes.item import Item
+
+
+class CharacterTests(unittest.TestCase):
+    &#34;&#34;&#34;Testcase for the Character class.
+    &#34;&#34;&#34;
+    def test_1character_init(self):
+        &#34;&#34;&#34;Check that the Character initializes properly.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        self.assertEqual(x.name, &#34;Bob&#34;)
+        self.assertEqual(x.stats[&#34;Strength&#34;], 5)
+        self.assertEqual(x.stats[&#34;Dexterity&#34;], 5)
+        self.assertEqual(x.stats[&#34;Vitality&#34;], 5)
+        self.assertEqual(x.stats[&#34;Intelligence&#34;], 5)
+        self.assertEqual(x.stats[&#34;Level&#34;], 1)
+        self.assertEqual(x.stats[&#34;XP&#34;], 0)
+        self.assertEqual(x.stats[&#34;Stat Points&#34;], 5)
+        self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+        self.assertFalse(x.inventory)
+        self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+        self.assertEqual(x.attack, 0)
+        self.assertEqual(x.defense, 0)
+        self.assertTrue(x.living)
+
+
+
+    def test_2character_init2(self):
+        &#34;&#34;&#34;Check that the character&#39;s stats are initialized.&#34;&#34;&#34;
+        x = Character(&#34;Default&#34;, {&#34;Strength&#34;: 5, &#34;Dexterity&#34;: 5, &#34;Vitality&#34;: 5,
+                      &#34;Intelligence&#34;: 5, &#34;Level&#34;: 1, &#34;XP&#34;: 0, &#34;Stat Points&#34;: 5,
+                                  &#34;Credits&#34;: 0})
+        self.assertEqual(x.name, &#34;Default&#34;)
+        self.assertEqual(x.stats[&#34;Strength&#34;], 5)
+        self.assertEqual(x.stats[&#34;Dexterity&#34;], 5)
+        self.assertEqual(x.stats[&#34;Vitality&#34;], 5)
+        self.assertEqual(x.stats[&#34;Intelligence&#34;], 5)
+        self.assertEqual(x.stats[&#34;Level&#34;], 1)
+        self.assertEqual(x.stats[&#34;XP&#34;], 0)
+        self.assertEqual(x.stats[&#34;Stat Points&#34;], 5)
+        self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+        self.assertFalse(x.inventory)
+        self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+        self.assertEqual(x.attack, 0)
+        self.assertEqual(x.defense, 0)
+        self.assertTrue(x.living)
+
+    def test_3set_living(self):
+        &#34;&#34;&#34;Test for the set_living method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        x.set_living(False)
+        self.assertFalse(x.living)
+
+    def test_4add_item(self):
+        &#34;&#34;&#34;Test for the add_item method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        Item.load_items()
+        item = Item(random.choice(Item.ITEMS))
+        self.assertFalse(x.inventory)
+        x.add_item(item)
+        self.assertTrue(x.inventory)
+
+    def test_5drop_item(self):
+        &#34;&#34;&#34;Test for the drop_item method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        Item.load_items()
+        item = Item(random.choice(Item.ITEMS))
+        self.assertFalse(x.inventory)
+        x.add_item(item)
+        x.drop_item(item)
+        self.assertFalse(x.inventory)
+
+    def test_6lv_up(self):
+        &#34;&#34;&#34;Test for the lv_up method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        x.stats[&#34;XP&#34;] += 11
+        x.lv_up()
+        self.assertEqual(x.stats[&#34;Level&#34;], 2)
+
+    def test_7update_max_health(self):
+        &#34;&#34;&#34;Test for the update_max_health method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        x.stats[&#34;Health&#34;] += 11
+        x.update_max_health()
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+
+    def test_8update_health(self):
+        &#34;&#34;&#34;Test for the update_health method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        x.update_health(100)
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+
+    def test_9get_defense(self):
+        &#34;&#34;&#34;Test for the get_defense method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        self.assertEqual(x.get_defense(), 0)
+
+    def test_10get_attack(self):
+        &#34;&#34;&#34;Test for the get_attack method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        self.assertEqual(x.get_attack(), 0)
+
+    def test_11defend_action(self):
+        &#34;&#34;&#34;Test for the defend_action method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        x.defense = 10
+        self.assertEqual(x.get_defense(), 10)
+        x.defend_action()
+        self.assertEqual(x.get_defense(), 15)
+
+
+class PlayerTests(unittest.TestCase):
+    &#34;&#34;&#34;Testcase for the Player class.
+    &#34;&#34;&#34;
+    def test_1player_init1(self):
+        &#34;&#34;&#34;Test that the Player initializes correctly.
+        &#34;&#34;&#34;
+        x = Player(&#34;Bob&#34;, None)
+        self.assertEqual(x.name, &#34;Bob&#34;)
+        self.assertEqual(x.stats[&#34;Strength&#34;], 5)
+        self.assertEqual(x.stats[&#34;Dexterity&#34;], 5)
+        self.assertEqual(x.stats[&#34;Vitality&#34;], 5)
+        self.assertEqual(x.stats[&#34;Intelligence&#34;], 5)
+        self.assertEqual(x.stats[&#34;Level&#34;], 1)
+        self.assertEqual(x.stats[&#34;XP&#34;], 0)
+        self.assertEqual(x.stats[&#34;Stat Points&#34;], 5)
+        self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+        self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+        self.assertEqual(x.stats[&#34;Medkits&#34;], 5)
+        self.assertFalse(x.inventory)
+        self.assertIsInstance(x.equipment[&#34;Head&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Chest&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Arms&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Legs&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Feet&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Weapon&#34;], Item)
+        self.assertTrue(x.attack &gt; 0)
+        self.assertTrue(x.defense &gt; 0)
+        self.assertTrue(x.living)
+
+    def test_2player_init2(self):
+        &#34;&#34;&#34;Test that the Player&#39;s instance attributes are correct.
+        &#34;&#34;&#34;
+        x = Player(&#34;Default&#34;, {&#34;Strength&#34;: 5, &#34;Dexterity&#34;: 5, &#34;Vitality&#34;: 5,
+                   &#34;Intelligence&#34;: 5, &#34;Level&#34;: 1, &#34;XP&#34;: 0, &#34;Stat Points&#34;: 5,
+                               &#34;Credits&#34;: 0})
+        self.assertEqual(x.name, &#34;Default&#34;)
+        self.assertEqual(x.stats[&#34;Strength&#34;], 5)
+        self.assertEqual(x.stats[&#34;Dexterity&#34;], 5)
+        self.assertEqual(x.stats[&#34;Vitality&#34;], 5)
+        self.assertEqual(x.stats[&#34;Intelligence&#34;], 5)
+        self.assertEqual(x.stats[&#34;Level&#34;], 1)
+        self.assertEqual(x.stats[&#34;XP&#34;], 0)
+        self.assertEqual(x.stats[&#34;Stat Points&#34;], 5)
+        self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+        self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+        self.assertEqual(x.stats[&#34;Medkits&#34;], 5)
+        self.assertFalse(x.inventory)
+        self.assertIsInstance(x.equipment[&#34;Head&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Chest&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Arms&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Legs&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Feet&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Weapon&#34;], Item)
+        self.assertTrue(x.attack &gt; 0)
+        self.assertTrue(x.defense &gt; 0)
+        self.assertTrue(x.living)
+
+    def test3_equip_item_real(self):
+        &#34;&#34;&#34;Test for the equip_item method with various Item instances.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        x = Item(random.choice(Item.ITEMS))
+        while x.stats[&#34;type&#34;] != &#34;Weapon&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Weapon&#34;], x)
+
+        while x.stats[&#34;type&#34;] != &#34;Head&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Head&#34;], x)
+
+        while x.stats[&#34;type&#34;] != &#34;Arms&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Arms&#34;], x)
+
+        while x.stats[&#34;type&#34;] != &#34;Chest&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Chest&#34;], x)
+
+        while x.stats[&#34;type&#34;] != &#34;Legs&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Legs&#34;], x)
+
+        while x.stats[&#34;type&#34;] != &#34;Feet&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Feet&#34;], x)
+
+    def test4_equip_item_none_item(self):
+        &#34;&#34;&#34;Test for the equip_item method if the Item&#39;s have a name of &#34;None&#34;.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        x = Item([&#34;Weapon&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Weapon&#34;] = x
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Weapon&#34;], x)
+
+        x = Item([&#34;Head&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Head&#34;] = x
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Head&#34;], x)
+
+        x = Item([&#34;Chest&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Chest&#34;] = x
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Chest&#34;], x)
+
+        x = Item([&#34;Arms&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Arms&#34;] = x
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Arms&#34;], x)
+
+        x = Item([&#34;Legs&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Legs&#34;] = x
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Legs&#34;], x)
+
+        x = Item([&#34;Feet&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Feet&#34;] = x
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Feet&#34;], x)
+
+    def test_5unequip_item_real(self):
+        &#34;&#34;&#34;Test for the unequip_item method with various Item instances.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        x = player.equipment[&#34;Weapon&#34;]
+        player.unequip_item(x)
+        unequipped = None
+        for item in player.inventory:
+            if item == x:
+                unequipped = item
+        self.assertEqual(x, unequipped)
+
+        x = player.equipment[&#34;Head&#34;]
+        player.unequip_item(x)
+        unequipped = None
+        for item in player.inventory:
+            if item == x:
+                unequipped = item
+        self.assertEqual(x, unequipped)
+
+        x = player.equipment[&#34;Arms&#34;]
+        player.unequip_item(x)
+        unequipped = None
+        for item in player.inventory:
+            if item == x:
+                unequipped = item
+        self.assertEqual(x, unequipped)
+
+        x = player.equipment[&#34;Chest&#34;]
+        player.unequip_item(x)
+        unequipped = None
+        for item in player.inventory:
+            if item == x:
+                unequipped = item
+        self.assertEqual(x, unequipped)
+
+        x = player.equipment[&#34;Legs&#34;]
+        player.unequip_item(x)
+        unequipped = None
+        for item in player.inventory:
+            if item == x:
+                unequipped = item
+        self.assertEqual(x, unequipped)
+
+        x = player.equipment[&#34;Feet&#34;]
+        player.unequip_item(x)
+        unequipped = None
+        for item in player.inventory:
+            if item == x:
+                unequipped = item
+        self.assertEqual(x, unequipped)
+
+    def test_6unequip_item_none(self):
+        &#34;&#34;&#34;Test for the unequip_item method if the Items have the name &#34;None&#34;.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        x = Item([&#34;Weapon&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Weapon&#34;] = x
+        player.equip_item(x)
+        player.unequip_item(x)
+        self.assertEqual(player.inventory, [])
+
+        x = Item([&#34;Head&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Head&#34;] = x
+        player.equip_item(x)
+        player.unequip_item(x)
+        self.assertFalse(player.inventory)
+
+        x = Item([&#34;Chest&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Chest&#34;] = x
+        player.equip_item(x)
+        player.unequip_item(x)
+        self.assertFalse(player.inventory)
+
+        x = Item([&#34;Arms&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Arms&#34;] = x
+        player.equip_item(x)
+        player.unequip_item(x)
+        self.assertFalse(player.inventory)
+
+        x = Item([&#34;Legs&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Legs&#34;] = x
+        player.equip_item(x)
+        player.unequip_item(x)
+        self.assertFalse(player.inventory)
+
+        x = Item([&#34;Feet&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Feet&#34;] = x
+        player.equip_item(x)
+        player.unequip_item(x)
+        self.assertFalse(player.inventory)
+
+    def test_7use_medkits(self):
+        &#34;&#34;&#34;Test for the use_medkits method.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        player.use_medkits()
+        self.assertEqual(player.stats[&#34;Medkits&#34;], 4)
+        player.stats[&#34;Health&#34;] = 1
+        player.use_medkits()
+        self.assertTrue(player.stats[&#34;Health&#34;] &gt; 1)
+        player.stats[&#34;Medkits&#34;] = 0
+        player.use_medkits()
+        self.assertEqual(player.stats[&#34;Medkits&#34;], 0)
+
+    def test_8get_medkits(self):
+        &#34;&#34;&#34;Test for the medkits property.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        self.assertEqual(player.med_kits, 5)
+
+    def test_9set_medkits(self):
+        &#34;&#34;&#34;Test for the medkits setter.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        player.med_kits = -1
+        self.assertEqual(player.med_kits, 4)
+
+        player.med_kits = -100
+        self.assertEqual(player.med_kits, 0)
+
+    def test_10change_name(self):
+        &#34;&#34;&#34;Test for the change_name method.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        player.change_name(&#34;SD&#34;)
+        self.assertEqual(player.name, &#34;SD&#34;)
+
+    def test_11update_defense(self):
+        &#34;&#34;&#34;Test for the update_defense method.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        defense = player.get_defense()
+        player.stats[&#34;Vitality&#34;] += 5
+        player.update_defense()
+        self.assertTrue(player.get_defense() &gt; defense)
+
+    def test_12update_attack(self):
+        &#34;&#34;&#34;Test for the update_attack method.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        attack = player.get_attack()
+        player.stats[&#34;Strength&#34;] += 5
+        player.update_attack()
+        self.assertTrue(player.get_attack() &gt; attack)
+
+    def test_13take_damage(self):
+        &#34;&#34;&#34;Test for the take_damage method.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        health = player.stats[&#34;Health&#34;]
+        x = player.take_damage(player)
+        while x != 0:
+            x = player.take_damage(player)
+            player.update_health(x)
+        self.assertEqual(x, 0)
+        while player.stats[&#34;Health&#34;] &gt; 0:
+            player.take_damage(player)
+            self.assertTrue(player.stats[&#34;Health&#34;] &lt; health)
+
+    def test_14take_damage_killed(self):
+        &#34;&#34;&#34;Test that the take_damage method sets the Player&#39;s status to be dead.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        player.stats[&#34;Health&#34;] = 1
+        while player.living is True:
+            player.take_damage(player)
+        self.assertFalse(player.living)
+
+
+
+class EnemyTests(unittest.TestCase):
+    &#34;&#34;&#34;Testcase for the Enemy class.
+    &#34;&#34;&#34;
+    def test_1enemy_init1(self):
+        &#34;&#34;&#34;Test for the Enemy instance initialization.
+        &#34;&#34;&#34;
+        x = Enemy(&#34;Bob&#34;, None, 1)
+        self.assertEqual(x.name, &#34;Bob&#34;)
+        self.assertTrue(x.stats[&#34;Strength&#34;] &gt;= 5)
+        self.assertTrue(x.stats[&#34;Dexterity&#34;] &gt;= 5)
+        self.assertTrue(x.stats[&#34;Vitality&#34;] &gt;= 5)
+        self.assertTrue(x.stats[&#34;Intelligence&#34;] &gt;= 5)
+        self.assertEqual(x.stats[&#34;Level&#34;], 1)
+        self.assertEqual(x.stats[&#34;XP&#34;], 0)
+        self.assertEqual(x.stats[&#34;Stat Points&#34;], 0)
+        self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+        self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+        self.assertFalse(x.inventory)
+        self.assertTrue(x.attack &gt; 0)
+        self.assertTrue(x.defense &gt; 0)
+        self.assertTrue(x.living)
+
+    def test_2enemy_init2(self):
+        &#34;&#34;&#34;Test for the instance attributes.
+        &#34;&#34;&#34;
+        x = Enemy(&#34;Bob&#34;, None, 10)
+        self.assertEqual(x.stats[&#34;Level&#34;], 10)
+        self.assertEqual(x.name, &#34;Bob&#34;)
+        self.assertTrue(x.stats[&#34;Strength&#34;] &gt; 5)
+        self.assertTrue(x.stats[&#34;Dexterity&#34;] &gt; 5)
+        self.assertTrue(x.stats[&#34;Vitality&#34;] &gt; 5)
+        self.assertTrue(x.stats[&#34;Intelligence&#34;] &gt; 5)
+        self.assertEqual(x.stats[&#34;XP&#34;], 0)
+        self.assertEqual(x.stats[&#34;Stat Points&#34;], 0)
+        self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+        self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+        self.assertFalse(x.inventory)
+        self.assertTrue(x.attack &gt; 0)
+        self.assertTrue(x.defense &gt; 0)
+        self.assertTrue(x.living)
+
+    def test_3take_damage(self):
+        &#34;&#34;&#34;Test for the take_damage method.
+        &#34;&#34;&#34;
+        enemy = Enemy(&#34;Bob&#34;, None, 10)
+        player = Player(&#34;Ded&#34;, None)
+        health = enemy.stats[&#34;Health&#34;]
+        enemy.take_damage(player)
+        while enemy.stats[&#34;Health&#34;] &gt;= health:
+            enemy.take_damage(player)
+        self.assertTrue(enemy.stats[&#34;Health&#34;] &lt; health)
+        player.unequip_item(player.equipment[&#34;Weapon&#34;])
+        player.damage = 0
+        enemy.take_damage(player)
+        self.assertTrue(enemy.stats[&#34;Health&#34;] &lt; health)
+
+    def test_4update_defense(self):
+        &#34;&#34;&#34;Test for the update_defense method.
+        &#34;&#34;&#34;
+        enemy = Enemy(&#34;Bob&#34;, None, 10)
+        defense = enemy.get_defense()
+        enemy.stats[&#34;Vitality&#34;] += 10
+        enemy.update_defense()
+        self.assertTrue(enemy.get_defense() &gt; defense)
+
+    def test_5update_attack(self):
+        &#34;&#34;&#34;Test for the update_attack method.
+        &#34;&#34;&#34;
+        enemy = Enemy(&#34;Bob&#34;, None, 10)
+        attack = enemy.get_attack()
+        enemy.stats[&#34;Strength&#34;] += 10
+        enemy.update_attack()
+        self.assertTrue(enemy.get_attack() &gt; attack)
+
+    def test_6update_stats(self):
+        &#34;&#34;&#34;Test for the update_stats method.
+        &#34;&#34;&#34;
+        enemy = Enemy(&#34;Bob&#34;, None, 1)
+        stat_sum = (enemy.stats[&#34;Strength&#34;] + enemy.stats[&#34;Dexterity&#34;] +
+                    enemy.stats[&#34;Vitality&#34;] + enemy.stats[&#34;Intelligence&#34;])
+        enemy.stats[&#34;Stat Points&#34;] += 10
+        enemy.update_stats()
+        final_stat_sum = (enemy.stats[&#34;Strength&#34;] + enemy.stats[&#34;Dexterity&#34;] +
+                          enemy.stats[&#34;Vitality&#34;] +
+                          enemy.stats[&#34;Intelligence&#34;])
+        self.assertTrue(final_stat_sum &gt; stat_sum)
+
+    def test_7randomize_action(self):
+        &#34;&#34;&#34;Test the randomize_action method&#34;&#34;&#34;
+        enemy = Enemy(&#34;Bob&#34;, None, 1)
+        enemy_action = enemy.action
+        while enemy_action == enemy.action:
+            enemy.randomize_action()
+        self.assertTrue(enemy.action != enemy_action)
+        self.assertTrue(enemy.action in enemy.actions)
+
+    def test_8set_action(self):
+        &#34;&#34;&#34;Test the set_action method&#34;&#34;&#34;
+        enemy = Enemy(&#34;Bob&#34;, None, 1)
+        enemy_actions = len(enemy.actions)
+        enemy.set_actions(&#34;dodge&#34;)
+        self.assertTrue(len(enemy.actions) &gt; enemy_actions)
+        self.assertTrue(&#34;dodge&#34; in enemy.actions)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="rpg.Tests.character_tests.CharacterTests"><code class="flex name class">
+<span>class <span class="ident">CharacterTests</span></span>
+<span>(</span><span>methodName='runTest')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Testcase for the Character class.</p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CharacterTests(unittest.TestCase):
+    &#34;&#34;&#34;Testcase for the Character class.
+    &#34;&#34;&#34;
+    def test_1character_init(self):
+        &#34;&#34;&#34;Check that the Character initializes properly.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        self.assertEqual(x.name, &#34;Bob&#34;)
+        self.assertEqual(x.stats[&#34;Strength&#34;], 5)
+        self.assertEqual(x.stats[&#34;Dexterity&#34;], 5)
+        self.assertEqual(x.stats[&#34;Vitality&#34;], 5)
+        self.assertEqual(x.stats[&#34;Intelligence&#34;], 5)
+        self.assertEqual(x.stats[&#34;Level&#34;], 1)
+        self.assertEqual(x.stats[&#34;XP&#34;], 0)
+        self.assertEqual(x.stats[&#34;Stat Points&#34;], 5)
+        self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+        self.assertFalse(x.inventory)
+        self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+        self.assertEqual(x.attack, 0)
+        self.assertEqual(x.defense, 0)
+        self.assertTrue(x.living)
+
+
+
+    def test_2character_init2(self):
+        &#34;&#34;&#34;Check that the character&#39;s stats are initialized.&#34;&#34;&#34;
+        x = Character(&#34;Default&#34;, {&#34;Strength&#34;: 5, &#34;Dexterity&#34;: 5, &#34;Vitality&#34;: 5,
+                      &#34;Intelligence&#34;: 5, &#34;Level&#34;: 1, &#34;XP&#34;: 0, &#34;Stat Points&#34;: 5,
+                                  &#34;Credits&#34;: 0})
+        self.assertEqual(x.name, &#34;Default&#34;)
+        self.assertEqual(x.stats[&#34;Strength&#34;], 5)
+        self.assertEqual(x.stats[&#34;Dexterity&#34;], 5)
+        self.assertEqual(x.stats[&#34;Vitality&#34;], 5)
+        self.assertEqual(x.stats[&#34;Intelligence&#34;], 5)
+        self.assertEqual(x.stats[&#34;Level&#34;], 1)
+        self.assertEqual(x.stats[&#34;XP&#34;], 0)
+        self.assertEqual(x.stats[&#34;Stat Points&#34;], 5)
+        self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+        self.assertFalse(x.inventory)
+        self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+        self.assertEqual(x.attack, 0)
+        self.assertEqual(x.defense, 0)
+        self.assertTrue(x.living)
+
+    def test_3set_living(self):
+        &#34;&#34;&#34;Test for the set_living method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        x.set_living(False)
+        self.assertFalse(x.living)
+
+    def test_4add_item(self):
+        &#34;&#34;&#34;Test for the add_item method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        Item.load_items()
+        item = Item(random.choice(Item.ITEMS))
+        self.assertFalse(x.inventory)
+        x.add_item(item)
+        self.assertTrue(x.inventory)
+
+    def test_5drop_item(self):
+        &#34;&#34;&#34;Test for the drop_item method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        Item.load_items()
+        item = Item(random.choice(Item.ITEMS))
+        self.assertFalse(x.inventory)
+        x.add_item(item)
+        x.drop_item(item)
+        self.assertFalse(x.inventory)
+
+    def test_6lv_up(self):
+        &#34;&#34;&#34;Test for the lv_up method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        x.stats[&#34;XP&#34;] += 11
+        x.lv_up()
+        self.assertEqual(x.stats[&#34;Level&#34;], 2)
+
+    def test_7update_max_health(self):
+        &#34;&#34;&#34;Test for the update_max_health method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        x.stats[&#34;Health&#34;] += 11
+        x.update_max_health()
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+
+    def test_8update_health(self):
+        &#34;&#34;&#34;Test for the update_health method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        x.update_health(100)
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+
+    def test_9get_defense(self):
+        &#34;&#34;&#34;Test for the get_defense method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        self.assertEqual(x.get_defense(), 0)
+
+    def test_10get_attack(self):
+        &#34;&#34;&#34;Test for the get_attack method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        self.assertEqual(x.get_attack(), 0)
+
+    def test_11defend_action(self):
+        &#34;&#34;&#34;Test for the defend_action method.
+        &#34;&#34;&#34;
+        x = Character(&#34;Bob&#34;, None)
+        x.defense = 10
+        self.assertEqual(x.get_defense(), 10)
+        x.defend_action()
+        self.assertEqual(x.get_defense(), 15)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>unittest.case.TestCase</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="rpg.Tests.character_tests.CharacterTests.test_10get_attack"><code class="name flex">
+<span>def <span class="ident">test_10get_attack</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the get_attack method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_10get_attack(self):
+    &#34;&#34;&#34;Test for the get_attack method.
+    &#34;&#34;&#34;
+    x = Character(&#34;Bob&#34;, None)
+    self.assertEqual(x.get_attack(), 0)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.CharacterTests.test_11defend_action"><code class="name flex">
+<span>def <span class="ident">test_11defend_action</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the defend_action method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_11defend_action(self):
+    &#34;&#34;&#34;Test for the defend_action method.
+    &#34;&#34;&#34;
+    x = Character(&#34;Bob&#34;, None)
+    x.defense = 10
+    self.assertEqual(x.get_defense(), 10)
+    x.defend_action()
+    self.assertEqual(x.get_defense(), 15)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.CharacterTests.test_1character_init"><code class="name flex">
+<span>def <span class="ident">test_1character_init</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Check that the Character initializes properly.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_1character_init(self):
+    &#34;&#34;&#34;Check that the Character initializes properly.
+    &#34;&#34;&#34;
+    x = Character(&#34;Bob&#34;, None)
+    self.assertEqual(x.name, &#34;Bob&#34;)
+    self.assertEqual(x.stats[&#34;Strength&#34;], 5)
+    self.assertEqual(x.stats[&#34;Dexterity&#34;], 5)
+    self.assertEqual(x.stats[&#34;Vitality&#34;], 5)
+    self.assertEqual(x.stats[&#34;Intelligence&#34;], 5)
+    self.assertEqual(x.stats[&#34;Level&#34;], 1)
+    self.assertEqual(x.stats[&#34;XP&#34;], 0)
+    self.assertEqual(x.stats[&#34;Stat Points&#34;], 5)
+    self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+    self.assertFalse(x.inventory)
+    self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+    self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+    self.assertEqual(x.attack, 0)
+    self.assertEqual(x.defense, 0)
+    self.assertTrue(x.living)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.CharacterTests.test_2character_init2"><code class="name flex">
+<span>def <span class="ident">test_2character_init2</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Check that the character's stats are initialized.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_2character_init2(self):
+    &#34;&#34;&#34;Check that the character&#39;s stats are initialized.&#34;&#34;&#34;
+    x = Character(&#34;Default&#34;, {&#34;Strength&#34;: 5, &#34;Dexterity&#34;: 5, &#34;Vitality&#34;: 5,
+                  &#34;Intelligence&#34;: 5, &#34;Level&#34;: 1, &#34;XP&#34;: 0, &#34;Stat Points&#34;: 5,
+                              &#34;Credits&#34;: 0})
+    self.assertEqual(x.name, &#34;Default&#34;)
+    self.assertEqual(x.stats[&#34;Strength&#34;], 5)
+    self.assertEqual(x.stats[&#34;Dexterity&#34;], 5)
+    self.assertEqual(x.stats[&#34;Vitality&#34;], 5)
+    self.assertEqual(x.stats[&#34;Intelligence&#34;], 5)
+    self.assertEqual(x.stats[&#34;Level&#34;], 1)
+    self.assertEqual(x.stats[&#34;XP&#34;], 0)
+    self.assertEqual(x.stats[&#34;Stat Points&#34;], 5)
+    self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+    self.assertFalse(x.inventory)
+    self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+    self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+    self.assertEqual(x.attack, 0)
+    self.assertEqual(x.defense, 0)
+    self.assertTrue(x.living)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.CharacterTests.test_3set_living"><code class="name flex">
+<span>def <span class="ident">test_3set_living</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the set_living method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_3set_living(self):
+    &#34;&#34;&#34;Test for the set_living method.
+    &#34;&#34;&#34;
+    x = Character(&#34;Bob&#34;, None)
+    x.set_living(False)
+    self.assertFalse(x.living)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.CharacterTests.test_4add_item"><code class="name flex">
+<span>def <span class="ident">test_4add_item</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the add_item method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_4add_item(self):
+    &#34;&#34;&#34;Test for the add_item method.
+    &#34;&#34;&#34;
+    x = Character(&#34;Bob&#34;, None)
+    Item.load_items()
+    item = Item(random.choice(Item.ITEMS))
+    self.assertFalse(x.inventory)
+    x.add_item(item)
+    self.assertTrue(x.inventory)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.CharacterTests.test_5drop_item"><code class="name flex">
+<span>def <span class="ident">test_5drop_item</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the drop_item method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_5drop_item(self):
+    &#34;&#34;&#34;Test for the drop_item method.
+    &#34;&#34;&#34;
+    x = Character(&#34;Bob&#34;, None)
+    Item.load_items()
+    item = Item(random.choice(Item.ITEMS))
+    self.assertFalse(x.inventory)
+    x.add_item(item)
+    x.drop_item(item)
+    self.assertFalse(x.inventory)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.CharacterTests.test_6lv_up"><code class="name flex">
+<span>def <span class="ident">test_6lv_up</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the lv_up method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_6lv_up(self):
+    &#34;&#34;&#34;Test for the lv_up method.
+    &#34;&#34;&#34;
+    x = Character(&#34;Bob&#34;, None)
+    x.stats[&#34;XP&#34;] += 11
+    x.lv_up()
+    self.assertEqual(x.stats[&#34;Level&#34;], 2)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.CharacterTests.test_7update_max_health"><code class="name flex">
+<span>def <span class="ident">test_7update_max_health</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the update_max_health method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_7update_max_health(self):
+    &#34;&#34;&#34;Test for the update_max_health method.
+    &#34;&#34;&#34;
+    x = Character(&#34;Bob&#34;, None)
+    x.stats[&#34;Health&#34;] += 11
+    x.update_max_health()
+    self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.CharacterTests.test_8update_health"><code class="name flex">
+<span>def <span class="ident">test_8update_health</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the update_health method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_8update_health(self):
+    &#34;&#34;&#34;Test for the update_health method.
+    &#34;&#34;&#34;
+    x = Character(&#34;Bob&#34;, None)
+    x.update_health(100)
+    self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.CharacterTests.test_9get_defense"><code class="name flex">
+<span>def <span class="ident">test_9get_defense</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the get_defense method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_9get_defense(self):
+    &#34;&#34;&#34;Test for the get_defense method.
+    &#34;&#34;&#34;
+    x = Character(&#34;Bob&#34;, None)
+    self.assertEqual(x.get_defense(), 0)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="rpg.Tests.character_tests.EnemyTests"><code class="flex name class">
+<span>class <span class="ident">EnemyTests</span></span>
+<span>(</span><span>methodName='runTest')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Testcase for the Enemy class.</p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class EnemyTests(unittest.TestCase):
+    &#34;&#34;&#34;Testcase for the Enemy class.
+    &#34;&#34;&#34;
+    def test_1enemy_init1(self):
+        &#34;&#34;&#34;Test for the Enemy instance initialization.
+        &#34;&#34;&#34;
+        x = Enemy(&#34;Bob&#34;, None, 1)
+        self.assertEqual(x.name, &#34;Bob&#34;)
+        self.assertTrue(x.stats[&#34;Strength&#34;] &gt;= 5)
+        self.assertTrue(x.stats[&#34;Dexterity&#34;] &gt;= 5)
+        self.assertTrue(x.stats[&#34;Vitality&#34;] &gt;= 5)
+        self.assertTrue(x.stats[&#34;Intelligence&#34;] &gt;= 5)
+        self.assertEqual(x.stats[&#34;Level&#34;], 1)
+        self.assertEqual(x.stats[&#34;XP&#34;], 0)
+        self.assertEqual(x.stats[&#34;Stat Points&#34;], 0)
+        self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+        self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+        self.assertFalse(x.inventory)
+        self.assertTrue(x.attack &gt; 0)
+        self.assertTrue(x.defense &gt; 0)
+        self.assertTrue(x.living)
+
+    def test_2enemy_init2(self):
+        &#34;&#34;&#34;Test for the instance attributes.
+        &#34;&#34;&#34;
+        x = Enemy(&#34;Bob&#34;, None, 10)
+        self.assertEqual(x.stats[&#34;Level&#34;], 10)
+        self.assertEqual(x.name, &#34;Bob&#34;)
+        self.assertTrue(x.stats[&#34;Strength&#34;] &gt; 5)
+        self.assertTrue(x.stats[&#34;Dexterity&#34;] &gt; 5)
+        self.assertTrue(x.stats[&#34;Vitality&#34;] &gt; 5)
+        self.assertTrue(x.stats[&#34;Intelligence&#34;] &gt; 5)
+        self.assertEqual(x.stats[&#34;XP&#34;], 0)
+        self.assertEqual(x.stats[&#34;Stat Points&#34;], 0)
+        self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+        self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+        self.assertFalse(x.inventory)
+        self.assertTrue(x.attack &gt; 0)
+        self.assertTrue(x.defense &gt; 0)
+        self.assertTrue(x.living)
+
+    def test_3take_damage(self):
+        &#34;&#34;&#34;Test for the take_damage method.
+        &#34;&#34;&#34;
+        enemy = Enemy(&#34;Bob&#34;, None, 10)
+        player = Player(&#34;Ded&#34;, None)
+        health = enemy.stats[&#34;Health&#34;]
+        enemy.take_damage(player)
+        while enemy.stats[&#34;Health&#34;] &gt;= health:
+            enemy.take_damage(player)
+        self.assertTrue(enemy.stats[&#34;Health&#34;] &lt; health)
+        player.unequip_item(player.equipment[&#34;Weapon&#34;])
+        player.damage = 0
+        enemy.take_damage(player)
+        self.assertTrue(enemy.stats[&#34;Health&#34;] &lt; health)
+
+    def test_4update_defense(self):
+        &#34;&#34;&#34;Test for the update_defense method.
+        &#34;&#34;&#34;
+        enemy = Enemy(&#34;Bob&#34;, None, 10)
+        defense = enemy.get_defense()
+        enemy.stats[&#34;Vitality&#34;] += 10
+        enemy.update_defense()
+        self.assertTrue(enemy.get_defense() &gt; defense)
+
+    def test_5update_attack(self):
+        &#34;&#34;&#34;Test for the update_attack method.
+        &#34;&#34;&#34;
+        enemy = Enemy(&#34;Bob&#34;, None, 10)
+        attack = enemy.get_attack()
+        enemy.stats[&#34;Strength&#34;] += 10
+        enemy.update_attack()
+        self.assertTrue(enemy.get_attack() &gt; attack)
+
+    def test_6update_stats(self):
+        &#34;&#34;&#34;Test for the update_stats method.
+        &#34;&#34;&#34;
+        enemy = Enemy(&#34;Bob&#34;, None, 1)
+        stat_sum = (enemy.stats[&#34;Strength&#34;] + enemy.stats[&#34;Dexterity&#34;] +
+                    enemy.stats[&#34;Vitality&#34;] + enemy.stats[&#34;Intelligence&#34;])
+        enemy.stats[&#34;Stat Points&#34;] += 10
+        enemy.update_stats()
+        final_stat_sum = (enemy.stats[&#34;Strength&#34;] + enemy.stats[&#34;Dexterity&#34;] +
+                          enemy.stats[&#34;Vitality&#34;] +
+                          enemy.stats[&#34;Intelligence&#34;])
+        self.assertTrue(final_stat_sum &gt; stat_sum)
+
+    def test_7randomize_action(self):
+        &#34;&#34;&#34;Test the randomize_action method&#34;&#34;&#34;
+        enemy = Enemy(&#34;Bob&#34;, None, 1)
+        enemy_action = enemy.action
+        while enemy_action == enemy.action:
+            enemy.randomize_action()
+        self.assertTrue(enemy.action != enemy_action)
+        self.assertTrue(enemy.action in enemy.actions)
+
+    def test_8set_action(self):
+        &#34;&#34;&#34;Test the set_action method&#34;&#34;&#34;
+        enemy = Enemy(&#34;Bob&#34;, None, 1)
+        enemy_actions = len(enemy.actions)
+        enemy.set_actions(&#34;dodge&#34;)
+        self.assertTrue(len(enemy.actions) &gt; enemy_actions)
+        self.assertTrue(&#34;dodge&#34; in enemy.actions)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>unittest.case.TestCase</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="rpg.Tests.character_tests.EnemyTests.test_1enemy_init1"><code class="name flex">
+<span>def <span class="ident">test_1enemy_init1</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the Enemy instance initialization.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_1enemy_init1(self):
+    &#34;&#34;&#34;Test for the Enemy instance initialization.
+    &#34;&#34;&#34;
+    x = Enemy(&#34;Bob&#34;, None, 1)
+    self.assertEqual(x.name, &#34;Bob&#34;)
+    self.assertTrue(x.stats[&#34;Strength&#34;] &gt;= 5)
+    self.assertTrue(x.stats[&#34;Dexterity&#34;] &gt;= 5)
+    self.assertTrue(x.stats[&#34;Vitality&#34;] &gt;= 5)
+    self.assertTrue(x.stats[&#34;Intelligence&#34;] &gt;= 5)
+    self.assertEqual(x.stats[&#34;Level&#34;], 1)
+    self.assertEqual(x.stats[&#34;XP&#34;], 0)
+    self.assertEqual(x.stats[&#34;Stat Points&#34;], 0)
+    self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+    self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+    self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+    self.assertFalse(x.inventory)
+    self.assertTrue(x.attack &gt; 0)
+    self.assertTrue(x.defense &gt; 0)
+    self.assertTrue(x.living)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.EnemyTests.test_2enemy_init2"><code class="name flex">
+<span>def <span class="ident">test_2enemy_init2</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the instance attributes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_2enemy_init2(self):
+    &#34;&#34;&#34;Test for the instance attributes.
+    &#34;&#34;&#34;
+    x = Enemy(&#34;Bob&#34;, None, 10)
+    self.assertEqual(x.stats[&#34;Level&#34;], 10)
+    self.assertEqual(x.name, &#34;Bob&#34;)
+    self.assertTrue(x.stats[&#34;Strength&#34;] &gt; 5)
+    self.assertTrue(x.stats[&#34;Dexterity&#34;] &gt; 5)
+    self.assertTrue(x.stats[&#34;Vitality&#34;] &gt; 5)
+    self.assertTrue(x.stats[&#34;Intelligence&#34;] &gt; 5)
+    self.assertEqual(x.stats[&#34;XP&#34;], 0)
+    self.assertEqual(x.stats[&#34;Stat Points&#34;], 0)
+    self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+    self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+    self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+    self.assertFalse(x.inventory)
+    self.assertTrue(x.attack &gt; 0)
+    self.assertTrue(x.defense &gt; 0)
+    self.assertTrue(x.living)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.EnemyTests.test_3take_damage"><code class="name flex">
+<span>def <span class="ident">test_3take_damage</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the take_damage method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_3take_damage(self):
+    &#34;&#34;&#34;Test for the take_damage method.
+    &#34;&#34;&#34;
+    enemy = Enemy(&#34;Bob&#34;, None, 10)
+    player = Player(&#34;Ded&#34;, None)
+    health = enemy.stats[&#34;Health&#34;]
+    enemy.take_damage(player)
+    while enemy.stats[&#34;Health&#34;] &gt;= health:
+        enemy.take_damage(player)
+    self.assertTrue(enemy.stats[&#34;Health&#34;] &lt; health)
+    player.unequip_item(player.equipment[&#34;Weapon&#34;])
+    player.damage = 0
+    enemy.take_damage(player)
+    self.assertTrue(enemy.stats[&#34;Health&#34;] &lt; health)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.EnemyTests.test_4update_defense"><code class="name flex">
+<span>def <span class="ident">test_4update_defense</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the update_defense method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_4update_defense(self):
+    &#34;&#34;&#34;Test for the update_defense method.
+    &#34;&#34;&#34;
+    enemy = Enemy(&#34;Bob&#34;, None, 10)
+    defense = enemy.get_defense()
+    enemy.stats[&#34;Vitality&#34;] += 10
+    enemy.update_defense()
+    self.assertTrue(enemy.get_defense() &gt; defense)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.EnemyTests.test_5update_attack"><code class="name flex">
+<span>def <span class="ident">test_5update_attack</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the update_attack method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_5update_attack(self):
+    &#34;&#34;&#34;Test for the update_attack method.
+    &#34;&#34;&#34;
+    enemy = Enemy(&#34;Bob&#34;, None, 10)
+    attack = enemy.get_attack()
+    enemy.stats[&#34;Strength&#34;] += 10
+    enemy.update_attack()
+    self.assertTrue(enemy.get_attack() &gt; attack)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.EnemyTests.test_6update_stats"><code class="name flex">
+<span>def <span class="ident">test_6update_stats</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the update_stats method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_6update_stats(self):
+    &#34;&#34;&#34;Test for the update_stats method.
+    &#34;&#34;&#34;
+    enemy = Enemy(&#34;Bob&#34;, None, 1)
+    stat_sum = (enemy.stats[&#34;Strength&#34;] + enemy.stats[&#34;Dexterity&#34;] +
+                enemy.stats[&#34;Vitality&#34;] + enemy.stats[&#34;Intelligence&#34;])
+    enemy.stats[&#34;Stat Points&#34;] += 10
+    enemy.update_stats()
+    final_stat_sum = (enemy.stats[&#34;Strength&#34;] + enemy.stats[&#34;Dexterity&#34;] +
+                      enemy.stats[&#34;Vitality&#34;] +
+                      enemy.stats[&#34;Intelligence&#34;])
+    self.assertTrue(final_stat_sum &gt; stat_sum)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.EnemyTests.test_7randomize_action"><code class="name flex">
+<span>def <span class="ident">test_7randomize_action</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test the randomize_action method</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_7randomize_action(self):
+    &#34;&#34;&#34;Test the randomize_action method&#34;&#34;&#34;
+    enemy = Enemy(&#34;Bob&#34;, None, 1)
+    enemy_action = enemy.action
+    while enemy_action == enemy.action:
+        enemy.randomize_action()
+    self.assertTrue(enemy.action != enemy_action)
+    self.assertTrue(enemy.action in enemy.actions)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.EnemyTests.test_8set_action"><code class="name flex">
+<span>def <span class="ident">test_8set_action</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test the set_action method</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_8set_action(self):
+    &#34;&#34;&#34;Test the set_action method&#34;&#34;&#34;
+    enemy = Enemy(&#34;Bob&#34;, None, 1)
+    enemy_actions = len(enemy.actions)
+    enemy.set_actions(&#34;dodge&#34;)
+    self.assertTrue(len(enemy.actions) &gt; enemy_actions)
+    self.assertTrue(&#34;dodge&#34; in enemy.actions)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="rpg.Tests.character_tests.PlayerTests"><code class="flex name class">
+<span>class <span class="ident">PlayerTests</span></span>
+<span>(</span><span>methodName='runTest')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Testcase for the Player class.</p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PlayerTests(unittest.TestCase):
+    &#34;&#34;&#34;Testcase for the Player class.
+    &#34;&#34;&#34;
+    def test_1player_init1(self):
+        &#34;&#34;&#34;Test that the Player initializes correctly.
+        &#34;&#34;&#34;
+        x = Player(&#34;Bob&#34;, None)
+        self.assertEqual(x.name, &#34;Bob&#34;)
+        self.assertEqual(x.stats[&#34;Strength&#34;], 5)
+        self.assertEqual(x.stats[&#34;Dexterity&#34;], 5)
+        self.assertEqual(x.stats[&#34;Vitality&#34;], 5)
+        self.assertEqual(x.stats[&#34;Intelligence&#34;], 5)
+        self.assertEqual(x.stats[&#34;Level&#34;], 1)
+        self.assertEqual(x.stats[&#34;XP&#34;], 0)
+        self.assertEqual(x.stats[&#34;Stat Points&#34;], 5)
+        self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+        self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+        self.assertEqual(x.stats[&#34;Medkits&#34;], 5)
+        self.assertFalse(x.inventory)
+        self.assertIsInstance(x.equipment[&#34;Head&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Chest&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Arms&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Legs&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Feet&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Weapon&#34;], Item)
+        self.assertTrue(x.attack &gt; 0)
+        self.assertTrue(x.defense &gt; 0)
+        self.assertTrue(x.living)
+
+    def test_2player_init2(self):
+        &#34;&#34;&#34;Test that the Player&#39;s instance attributes are correct.
+        &#34;&#34;&#34;
+        x = Player(&#34;Default&#34;, {&#34;Strength&#34;: 5, &#34;Dexterity&#34;: 5, &#34;Vitality&#34;: 5,
+                   &#34;Intelligence&#34;: 5, &#34;Level&#34;: 1, &#34;XP&#34;: 0, &#34;Stat Points&#34;: 5,
+                               &#34;Credits&#34;: 0})
+        self.assertEqual(x.name, &#34;Default&#34;)
+        self.assertEqual(x.stats[&#34;Strength&#34;], 5)
+        self.assertEqual(x.stats[&#34;Dexterity&#34;], 5)
+        self.assertEqual(x.stats[&#34;Vitality&#34;], 5)
+        self.assertEqual(x.stats[&#34;Intelligence&#34;], 5)
+        self.assertEqual(x.stats[&#34;Level&#34;], 1)
+        self.assertEqual(x.stats[&#34;XP&#34;], 0)
+        self.assertEqual(x.stats[&#34;Stat Points&#34;], 5)
+        self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+        self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+        self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+        self.assertEqual(x.stats[&#34;Medkits&#34;], 5)
+        self.assertFalse(x.inventory)
+        self.assertIsInstance(x.equipment[&#34;Head&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Chest&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Arms&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Legs&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Feet&#34;], Item)
+        self.assertIsInstance(x.equipment[&#34;Weapon&#34;], Item)
+        self.assertTrue(x.attack &gt; 0)
+        self.assertTrue(x.defense &gt; 0)
+        self.assertTrue(x.living)
+
+    def test3_equip_item_real(self):
+        &#34;&#34;&#34;Test for the equip_item method with various Item instances.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        x = Item(random.choice(Item.ITEMS))
+        while x.stats[&#34;type&#34;] != &#34;Weapon&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Weapon&#34;], x)
+
+        while x.stats[&#34;type&#34;] != &#34;Head&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Head&#34;], x)
+
+        while x.stats[&#34;type&#34;] != &#34;Arms&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Arms&#34;], x)
+
+        while x.stats[&#34;type&#34;] != &#34;Chest&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Chest&#34;], x)
+
+        while x.stats[&#34;type&#34;] != &#34;Legs&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Legs&#34;], x)
+
+        while x.stats[&#34;type&#34;] != &#34;Feet&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Feet&#34;], x)
+
+    def test4_equip_item_none_item(self):
+        &#34;&#34;&#34;Test for the equip_item method if the Item&#39;s have a name of &#34;None&#34;.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        x = Item([&#34;Weapon&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Weapon&#34;] = x
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Weapon&#34;], x)
+
+        x = Item([&#34;Head&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Head&#34;] = x
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Head&#34;], x)
+
+        x = Item([&#34;Chest&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Chest&#34;] = x
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Chest&#34;], x)
+
+        x = Item([&#34;Arms&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Arms&#34;] = x
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Arms&#34;], x)
+
+        x = Item([&#34;Legs&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Legs&#34;] = x
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Legs&#34;], x)
+
+        x = Item([&#34;Feet&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Feet&#34;] = x
+        player.add_item(x)
+        player.equip_item(x)
+        self.assertEqual(player.equipment[&#34;Feet&#34;], x)
+
+    def test_5unequip_item_real(self):
+        &#34;&#34;&#34;Test for the unequip_item method with various Item instances.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        x = player.equipment[&#34;Weapon&#34;]
+        player.unequip_item(x)
+        unequipped = None
+        for item in player.inventory:
+            if item == x:
+                unequipped = item
+        self.assertEqual(x, unequipped)
+
+        x = player.equipment[&#34;Head&#34;]
+        player.unequip_item(x)
+        unequipped = None
+        for item in player.inventory:
+            if item == x:
+                unequipped = item
+        self.assertEqual(x, unequipped)
+
+        x = player.equipment[&#34;Arms&#34;]
+        player.unequip_item(x)
+        unequipped = None
+        for item in player.inventory:
+            if item == x:
+                unequipped = item
+        self.assertEqual(x, unequipped)
+
+        x = player.equipment[&#34;Chest&#34;]
+        player.unequip_item(x)
+        unequipped = None
+        for item in player.inventory:
+            if item == x:
+                unequipped = item
+        self.assertEqual(x, unequipped)
+
+        x = player.equipment[&#34;Legs&#34;]
+        player.unequip_item(x)
+        unequipped = None
+        for item in player.inventory:
+            if item == x:
+                unequipped = item
+        self.assertEqual(x, unequipped)
+
+        x = player.equipment[&#34;Feet&#34;]
+        player.unequip_item(x)
+        unequipped = None
+        for item in player.inventory:
+            if item == x:
+                unequipped = item
+        self.assertEqual(x, unequipped)
+
+    def test_6unequip_item_none(self):
+        &#34;&#34;&#34;Test for the unequip_item method if the Items have the name &#34;None&#34;.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        x = Item([&#34;Weapon&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Weapon&#34;] = x
+        player.equip_item(x)
+        player.unequip_item(x)
+        self.assertEqual(player.inventory, [])
+
+        x = Item([&#34;Head&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Head&#34;] = x
+        player.equip_item(x)
+        player.unequip_item(x)
+        self.assertFalse(player.inventory)
+
+        x = Item([&#34;Chest&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Chest&#34;] = x
+        player.equip_item(x)
+        player.unequip_item(x)
+        self.assertFalse(player.inventory)
+
+        x = Item([&#34;Arms&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Arms&#34;] = x
+        player.equip_item(x)
+        player.unequip_item(x)
+        self.assertFalse(player.inventory)
+
+        x = Item([&#34;Legs&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Legs&#34;] = x
+        player.equip_item(x)
+        player.unequip_item(x)
+        self.assertFalse(player.inventory)
+
+        x = Item([&#34;Feet&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+        player.equipment[&#34;Feet&#34;] = x
+        player.equip_item(x)
+        player.unequip_item(x)
+        self.assertFalse(player.inventory)
+
+    def test_7use_medkits(self):
+        &#34;&#34;&#34;Test for the use_medkits method.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        player.use_medkits()
+        self.assertEqual(player.stats[&#34;Medkits&#34;], 4)
+        player.stats[&#34;Health&#34;] = 1
+        player.use_medkits()
+        self.assertTrue(player.stats[&#34;Health&#34;] &gt; 1)
+        player.stats[&#34;Medkits&#34;] = 0
+        player.use_medkits()
+        self.assertEqual(player.stats[&#34;Medkits&#34;], 0)
+
+    def test_8get_medkits(self):
+        &#34;&#34;&#34;Test for the medkits property.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        self.assertEqual(player.med_kits, 5)
+
+    def test_9set_medkits(self):
+        &#34;&#34;&#34;Test for the medkits setter.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        player.med_kits = -1
+        self.assertEqual(player.med_kits, 4)
+
+        player.med_kits = -100
+        self.assertEqual(player.med_kits, 0)
+
+    def test_10change_name(self):
+        &#34;&#34;&#34;Test for the change_name method.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        player.change_name(&#34;SD&#34;)
+        self.assertEqual(player.name, &#34;SD&#34;)
+
+    def test_11update_defense(self):
+        &#34;&#34;&#34;Test for the update_defense method.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        defense = player.get_defense()
+        player.stats[&#34;Vitality&#34;] += 5
+        player.update_defense()
+        self.assertTrue(player.get_defense() &gt; defense)
+
+    def test_12update_attack(self):
+        &#34;&#34;&#34;Test for the update_attack method.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        attack = player.get_attack()
+        player.stats[&#34;Strength&#34;] += 5
+        player.update_attack()
+        self.assertTrue(player.get_attack() &gt; attack)
+
+    def test_13take_damage(self):
+        &#34;&#34;&#34;Test for the take_damage method.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        health = player.stats[&#34;Health&#34;]
+        x = player.take_damage(player)
+        while x != 0:
+            x = player.take_damage(player)
+            player.update_health(x)
+        self.assertEqual(x, 0)
+        while player.stats[&#34;Health&#34;] &gt; 0:
+            player.take_damage(player)
+            self.assertTrue(player.stats[&#34;Health&#34;] &lt; health)
+
+    def test_14take_damage_killed(self):
+        &#34;&#34;&#34;Test that the take_damage method sets the Player&#39;s status to be dead.
+        &#34;&#34;&#34;
+        player = Player(&#34;Bob&#34;, None)
+        player.stats[&#34;Health&#34;] = 1
+        while player.living is True:
+            player.take_damage(player)
+        self.assertFalse(player.living)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>unittest.case.TestCase</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="rpg.Tests.character_tests.PlayerTests.test3_equip_item_real"><code class="name flex">
+<span>def <span class="ident">test3_equip_item_real</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the equip_item method with various Item instances.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test3_equip_item_real(self):
+    &#34;&#34;&#34;Test for the equip_item method with various Item instances.
+    &#34;&#34;&#34;
+    player = Player(&#34;Bob&#34;, None)
+    x = Item(random.choice(Item.ITEMS))
+    while x.stats[&#34;type&#34;] != &#34;Weapon&#34;:
+        x = Item(random.choice(Item.ITEMS))
+    player.add_item(x)
+    player.equip_item(x)
+    self.assertEqual(player.equipment[&#34;Weapon&#34;], x)
+
+    while x.stats[&#34;type&#34;] != &#34;Head&#34;:
+        x = Item(random.choice(Item.ITEMS))
+    player.add_item(x)
+    player.equip_item(x)
+    self.assertEqual(player.equipment[&#34;Head&#34;], x)
+
+    while x.stats[&#34;type&#34;] != &#34;Arms&#34;:
+        x = Item(random.choice(Item.ITEMS))
+    player.add_item(x)
+    player.equip_item(x)
+    self.assertEqual(player.equipment[&#34;Arms&#34;], x)
+
+    while x.stats[&#34;type&#34;] != &#34;Chest&#34;:
+        x = Item(random.choice(Item.ITEMS))
+    player.add_item(x)
+    player.equip_item(x)
+    self.assertEqual(player.equipment[&#34;Chest&#34;], x)
+
+    while x.stats[&#34;type&#34;] != &#34;Legs&#34;:
+        x = Item(random.choice(Item.ITEMS))
+    player.add_item(x)
+    player.equip_item(x)
+    self.assertEqual(player.equipment[&#34;Legs&#34;], x)
+
+    while x.stats[&#34;type&#34;] != &#34;Feet&#34;:
+        x = Item(random.choice(Item.ITEMS))
+    player.add_item(x)
+    player.equip_item(x)
+    self.assertEqual(player.equipment[&#34;Feet&#34;], x)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.PlayerTests.test4_equip_item_none_item"><code class="name flex">
+<span>def <span class="ident">test4_equip_item_none_item</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the equip_item method if the Item's have a name of "None".</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test4_equip_item_none_item(self):
+    &#34;&#34;&#34;Test for the equip_item method if the Item&#39;s have a name of &#34;None&#34;.
+    &#34;&#34;&#34;
+    player = Player(&#34;Bob&#34;, None)
+    x = Item([&#34;Weapon&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+    player.equipment[&#34;Weapon&#34;] = x
+    player.add_item(x)
+    player.equip_item(x)
+    self.assertEqual(player.equipment[&#34;Weapon&#34;], x)
+
+    x = Item([&#34;Head&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+    player.equipment[&#34;Head&#34;] = x
+    player.add_item(x)
+    player.equip_item(x)
+    self.assertEqual(player.equipment[&#34;Head&#34;], x)
+
+    x = Item([&#34;Chest&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+    player.equipment[&#34;Chest&#34;] = x
+    player.add_item(x)
+    player.equip_item(x)
+    self.assertEqual(player.equipment[&#34;Chest&#34;], x)
+
+    x = Item([&#34;Arms&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+    player.equipment[&#34;Arms&#34;] = x
+    player.add_item(x)
+    player.equip_item(x)
+    self.assertEqual(player.equipment[&#34;Arms&#34;], x)
+
+    x = Item([&#34;Legs&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+    player.equipment[&#34;Legs&#34;] = x
+    player.add_item(x)
+    player.equip_item(x)
+    self.assertEqual(player.equipment[&#34;Legs&#34;], x)
+
+    x = Item([&#34;Feet&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+    player.equipment[&#34;Feet&#34;] = x
+    player.add_item(x)
+    player.equip_item(x)
+    self.assertEqual(player.equipment[&#34;Feet&#34;], x)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.PlayerTests.test_10change_name"><code class="name flex">
+<span>def <span class="ident">test_10change_name</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the change_name method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_10change_name(self):
+    &#34;&#34;&#34;Test for the change_name method.
+    &#34;&#34;&#34;
+    player = Player(&#34;Bob&#34;, None)
+    player.change_name(&#34;SD&#34;)
+    self.assertEqual(player.name, &#34;SD&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.PlayerTests.test_11update_defense"><code class="name flex">
+<span>def <span class="ident">test_11update_defense</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the update_defense method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_11update_defense(self):
+    &#34;&#34;&#34;Test for the update_defense method.
+    &#34;&#34;&#34;
+    player = Player(&#34;Bob&#34;, None)
+    defense = player.get_defense()
+    player.stats[&#34;Vitality&#34;] += 5
+    player.update_defense()
+    self.assertTrue(player.get_defense() &gt; defense)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.PlayerTests.test_12update_attack"><code class="name flex">
+<span>def <span class="ident">test_12update_attack</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the update_attack method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_12update_attack(self):
+    &#34;&#34;&#34;Test for the update_attack method.
+    &#34;&#34;&#34;
+    player = Player(&#34;Bob&#34;, None)
+    attack = player.get_attack()
+    player.stats[&#34;Strength&#34;] += 5
+    player.update_attack()
+    self.assertTrue(player.get_attack() &gt; attack)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.PlayerTests.test_13take_damage"><code class="name flex">
+<span>def <span class="ident">test_13take_damage</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the take_damage method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_13take_damage(self):
+    &#34;&#34;&#34;Test for the take_damage method.
+    &#34;&#34;&#34;
+    player = Player(&#34;Bob&#34;, None)
+    health = player.stats[&#34;Health&#34;]
+    x = player.take_damage(player)
+    while x != 0:
+        x = player.take_damage(player)
+        player.update_health(x)
+    self.assertEqual(x, 0)
+    while player.stats[&#34;Health&#34;] &gt; 0:
+        player.take_damage(player)
+        self.assertTrue(player.stats[&#34;Health&#34;] &lt; health)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.PlayerTests.test_14take_damage_killed"><code class="name flex">
+<span>def <span class="ident">test_14take_damage_killed</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test that the take_damage method sets the Player's status to be dead.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_14take_damage_killed(self):
+    &#34;&#34;&#34;Test that the take_damage method sets the Player&#39;s status to be dead.
+    &#34;&#34;&#34;
+    player = Player(&#34;Bob&#34;, None)
+    player.stats[&#34;Health&#34;] = 1
+    while player.living is True:
+        player.take_damage(player)
+    self.assertFalse(player.living)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.PlayerTests.test_1player_init1"><code class="name flex">
+<span>def <span class="ident">test_1player_init1</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test that the Player initializes correctly.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_1player_init1(self):
+    &#34;&#34;&#34;Test that the Player initializes correctly.
+    &#34;&#34;&#34;
+    x = Player(&#34;Bob&#34;, None)
+    self.assertEqual(x.name, &#34;Bob&#34;)
+    self.assertEqual(x.stats[&#34;Strength&#34;], 5)
+    self.assertEqual(x.stats[&#34;Dexterity&#34;], 5)
+    self.assertEqual(x.stats[&#34;Vitality&#34;], 5)
+    self.assertEqual(x.stats[&#34;Intelligence&#34;], 5)
+    self.assertEqual(x.stats[&#34;Level&#34;], 1)
+    self.assertEqual(x.stats[&#34;XP&#34;], 0)
+    self.assertEqual(x.stats[&#34;Stat Points&#34;], 5)
+    self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+    self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+    self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+    self.assertEqual(x.stats[&#34;Medkits&#34;], 5)
+    self.assertFalse(x.inventory)
+    self.assertIsInstance(x.equipment[&#34;Head&#34;], Item)
+    self.assertIsInstance(x.equipment[&#34;Chest&#34;], Item)
+    self.assertIsInstance(x.equipment[&#34;Arms&#34;], Item)
+    self.assertIsInstance(x.equipment[&#34;Legs&#34;], Item)
+    self.assertIsInstance(x.equipment[&#34;Feet&#34;], Item)
+    self.assertIsInstance(x.equipment[&#34;Weapon&#34;], Item)
+    self.assertTrue(x.attack &gt; 0)
+    self.assertTrue(x.defense &gt; 0)
+    self.assertTrue(x.living)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.PlayerTests.test_2player_init2"><code class="name flex">
+<span>def <span class="ident">test_2player_init2</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test that the Player's instance attributes are correct.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_2player_init2(self):
+    &#34;&#34;&#34;Test that the Player&#39;s instance attributes are correct.
+    &#34;&#34;&#34;
+    x = Player(&#34;Default&#34;, {&#34;Strength&#34;: 5, &#34;Dexterity&#34;: 5, &#34;Vitality&#34;: 5,
+               &#34;Intelligence&#34;: 5, &#34;Level&#34;: 1, &#34;XP&#34;: 0, &#34;Stat Points&#34;: 5,
+                           &#34;Credits&#34;: 0})
+    self.assertEqual(x.name, &#34;Default&#34;)
+    self.assertEqual(x.stats[&#34;Strength&#34;], 5)
+    self.assertEqual(x.stats[&#34;Dexterity&#34;], 5)
+    self.assertEqual(x.stats[&#34;Vitality&#34;], 5)
+    self.assertEqual(x.stats[&#34;Intelligence&#34;], 5)
+    self.assertEqual(x.stats[&#34;Level&#34;], 1)
+    self.assertEqual(x.stats[&#34;XP&#34;], 0)
+    self.assertEqual(x.stats[&#34;Stat Points&#34;], 5)
+    self.assertEqual(x.stats[&#34;Credits&#34;], 0)
+    self.assertEqual(x.stats[&#34;Max Health&#34;], 20 + (5 * (x.stats[&#34;Vitality&#34;] + x.stats[&#34;Level&#34;])))
+    self.assertEqual(x.stats[&#34;Health&#34;], x.stats[&#34;Max Health&#34;])
+    self.assertEqual(x.stats[&#34;Medkits&#34;], 5)
+    self.assertFalse(x.inventory)
+    self.assertIsInstance(x.equipment[&#34;Head&#34;], Item)
+    self.assertIsInstance(x.equipment[&#34;Chest&#34;], Item)
+    self.assertIsInstance(x.equipment[&#34;Arms&#34;], Item)
+    self.assertIsInstance(x.equipment[&#34;Legs&#34;], Item)
+    self.assertIsInstance(x.equipment[&#34;Feet&#34;], Item)
+    self.assertIsInstance(x.equipment[&#34;Weapon&#34;], Item)
+    self.assertTrue(x.attack &gt; 0)
+    self.assertTrue(x.defense &gt; 0)
+    self.assertTrue(x.living)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.PlayerTests.test_5unequip_item_real"><code class="name flex">
+<span>def <span class="ident">test_5unequip_item_real</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the unequip_item method with various Item instances.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_5unequip_item_real(self):
+    &#34;&#34;&#34;Test for the unequip_item method with various Item instances.
+    &#34;&#34;&#34;
+    player = Player(&#34;Bob&#34;, None)
+    x = player.equipment[&#34;Weapon&#34;]
+    player.unequip_item(x)
+    unequipped = None
+    for item in player.inventory:
+        if item == x:
+            unequipped = item
+    self.assertEqual(x, unequipped)
+
+    x = player.equipment[&#34;Head&#34;]
+    player.unequip_item(x)
+    unequipped = None
+    for item in player.inventory:
+        if item == x:
+            unequipped = item
+    self.assertEqual(x, unequipped)
+
+    x = player.equipment[&#34;Arms&#34;]
+    player.unequip_item(x)
+    unequipped = None
+    for item in player.inventory:
+        if item == x:
+            unequipped = item
+    self.assertEqual(x, unequipped)
+
+    x = player.equipment[&#34;Chest&#34;]
+    player.unequip_item(x)
+    unequipped = None
+    for item in player.inventory:
+        if item == x:
+            unequipped = item
+    self.assertEqual(x, unequipped)
+
+    x = player.equipment[&#34;Legs&#34;]
+    player.unequip_item(x)
+    unequipped = None
+    for item in player.inventory:
+        if item == x:
+            unequipped = item
+    self.assertEqual(x, unequipped)
+
+    x = player.equipment[&#34;Feet&#34;]
+    player.unequip_item(x)
+    unequipped = None
+    for item in player.inventory:
+        if item == x:
+            unequipped = item
+    self.assertEqual(x, unequipped)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.PlayerTests.test_6unequip_item_none"><code class="name flex">
+<span>def <span class="ident">test_6unequip_item_none</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the unequip_item method if the Items have the name "None".</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_6unequip_item_none(self):
+    &#34;&#34;&#34;Test for the unequip_item method if the Items have the name &#34;None&#34;.
+    &#34;&#34;&#34;
+    player = Player(&#34;Bob&#34;, None)
+    x = Item([&#34;Weapon&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+    player.equipment[&#34;Weapon&#34;] = x
+    player.equip_item(x)
+    player.unequip_item(x)
+    self.assertEqual(player.inventory, [])
+
+    x = Item([&#34;Head&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+    player.equipment[&#34;Head&#34;] = x
+    player.equip_item(x)
+    player.unequip_item(x)
+    self.assertFalse(player.inventory)
+
+    x = Item([&#34;Chest&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+    player.equipment[&#34;Chest&#34;] = x
+    player.equip_item(x)
+    player.unequip_item(x)
+    self.assertFalse(player.inventory)
+
+    x = Item([&#34;Arms&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+    player.equipment[&#34;Arms&#34;] = x
+    player.equip_item(x)
+    player.unequip_item(x)
+    self.assertFalse(player.inventory)
+
+    x = Item([&#34;Legs&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+    player.equipment[&#34;Legs&#34;] = x
+    player.equip_item(x)
+    player.unequip_item(x)
+    self.assertFalse(player.inventory)
+
+    x = Item([&#34;Feet&#34;, &#34;None&#34;, 0, 0, 0, 0.8])
+    player.equipment[&#34;Feet&#34;] = x
+    player.equip_item(x)
+    player.unequip_item(x)
+    self.assertFalse(player.inventory)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.PlayerTests.test_7use_medkits"><code class="name flex">
+<span>def <span class="ident">test_7use_medkits</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the use_medkits method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_7use_medkits(self):
+    &#34;&#34;&#34;Test for the use_medkits method.
+    &#34;&#34;&#34;
+    player = Player(&#34;Bob&#34;, None)
+    player.use_medkits()
+    self.assertEqual(player.stats[&#34;Medkits&#34;], 4)
+    player.stats[&#34;Health&#34;] = 1
+    player.use_medkits()
+    self.assertTrue(player.stats[&#34;Health&#34;] &gt; 1)
+    player.stats[&#34;Medkits&#34;] = 0
+    player.use_medkits()
+    self.assertEqual(player.stats[&#34;Medkits&#34;], 0)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.PlayerTests.test_8get_medkits"><code class="name flex">
+<span>def <span class="ident">test_8get_medkits</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the medkits property.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_8get_medkits(self):
+    &#34;&#34;&#34;Test for the medkits property.
+    &#34;&#34;&#34;
+    player = Player(&#34;Bob&#34;, None)
+    self.assertEqual(player.med_kits, 5)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Tests.character_tests.PlayerTests.test_9set_medkits"><code class="name flex">
+<span>def <span class="ident">test_9set_medkits</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test for the medkits setter.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_9set_medkits(self):
+    &#34;&#34;&#34;Test for the medkits setter.
+    &#34;&#34;&#34;
+    player = Player(&#34;Bob&#34;, None)
+    player.med_kits = -1
+    self.assertEqual(player.med_kits, 4)
+
+    player.med_kits = -100
+    self.assertEqual(player.med_kits, 0)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="rpg.Tests" href="index.html">rpg.Tests</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="rpg.Tests.character_tests.CharacterTests" href="#rpg.Tests.character_tests.CharacterTests">CharacterTests</a></code></h4>
+<ul class="">
+<li><code><a title="rpg.Tests.character_tests.CharacterTests.test_10get_attack" href="#rpg.Tests.character_tests.CharacterTests.test_10get_attack">test_10get_attack</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.CharacterTests.test_11defend_action" href="#rpg.Tests.character_tests.CharacterTests.test_11defend_action">test_11defend_action</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.CharacterTests.test_1character_init" href="#rpg.Tests.character_tests.CharacterTests.test_1character_init">test_1character_init</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.CharacterTests.test_2character_init2" href="#rpg.Tests.character_tests.CharacterTests.test_2character_init2">test_2character_init2</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.CharacterTests.test_3set_living" href="#rpg.Tests.character_tests.CharacterTests.test_3set_living">test_3set_living</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.CharacterTests.test_4add_item" href="#rpg.Tests.character_tests.CharacterTests.test_4add_item">test_4add_item</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.CharacterTests.test_5drop_item" href="#rpg.Tests.character_tests.CharacterTests.test_5drop_item">test_5drop_item</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.CharacterTests.test_6lv_up" href="#rpg.Tests.character_tests.CharacterTests.test_6lv_up">test_6lv_up</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.CharacterTests.test_7update_max_health" href="#rpg.Tests.character_tests.CharacterTests.test_7update_max_health">test_7update_max_health</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.CharacterTests.test_8update_health" href="#rpg.Tests.character_tests.CharacterTests.test_8update_health">test_8update_health</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.CharacterTests.test_9get_defense" href="#rpg.Tests.character_tests.CharacterTests.test_9get_defense">test_9get_defense</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rpg.Tests.character_tests.EnemyTests" href="#rpg.Tests.character_tests.EnemyTests">EnemyTests</a></code></h4>
+<ul class="">
+<li><code><a title="rpg.Tests.character_tests.EnemyTests.test_1enemy_init1" href="#rpg.Tests.character_tests.EnemyTests.test_1enemy_init1">test_1enemy_init1</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.EnemyTests.test_2enemy_init2" href="#rpg.Tests.character_tests.EnemyTests.test_2enemy_init2">test_2enemy_init2</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.EnemyTests.test_3take_damage" href="#rpg.Tests.character_tests.EnemyTests.test_3take_damage">test_3take_damage</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.EnemyTests.test_4update_defense" href="#rpg.Tests.character_tests.EnemyTests.test_4update_defense">test_4update_defense</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.EnemyTests.test_5update_attack" href="#rpg.Tests.character_tests.EnemyTests.test_5update_attack">test_5update_attack</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.EnemyTests.test_6update_stats" href="#rpg.Tests.character_tests.EnemyTests.test_6update_stats">test_6update_stats</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.EnemyTests.test_7randomize_action" href="#rpg.Tests.character_tests.EnemyTests.test_7randomize_action">test_7randomize_action</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.EnemyTests.test_8set_action" href="#rpg.Tests.character_tests.EnemyTests.test_8set_action">test_8set_action</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rpg.Tests.character_tests.PlayerTests" href="#rpg.Tests.character_tests.PlayerTests">PlayerTests</a></code></h4>
+<ul class="">
+<li><code><a title="rpg.Tests.character_tests.PlayerTests.test3_equip_item_real" href="#rpg.Tests.character_tests.PlayerTests.test3_equip_item_real">test3_equip_item_real</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.PlayerTests.test4_equip_item_none_item" href="#rpg.Tests.character_tests.PlayerTests.test4_equip_item_none_item">test4_equip_item_none_item</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.PlayerTests.test_10change_name" href="#rpg.Tests.character_tests.PlayerTests.test_10change_name">test_10change_name</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.PlayerTests.test_11update_defense" href="#rpg.Tests.character_tests.PlayerTests.test_11update_defense">test_11update_defense</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.PlayerTests.test_12update_attack" href="#rpg.Tests.character_tests.PlayerTests.test_12update_attack">test_12update_attack</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.PlayerTests.test_13take_damage" href="#rpg.Tests.character_tests.PlayerTests.test_13take_damage">test_13take_damage</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.PlayerTests.test_14take_damage_killed" href="#rpg.Tests.character_tests.PlayerTests.test_14take_damage_killed">test_14take_damage_killed</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.PlayerTests.test_1player_init1" href="#rpg.Tests.character_tests.PlayerTests.test_1player_init1">test_1player_init1</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.PlayerTests.test_2player_init2" href="#rpg.Tests.character_tests.PlayerTests.test_2player_init2">test_2player_init2</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.PlayerTests.test_5unequip_item_real" href="#rpg.Tests.character_tests.PlayerTests.test_5unequip_item_real">test_5unequip_item_real</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.PlayerTests.test_6unequip_item_none" href="#rpg.Tests.character_tests.PlayerTests.test_6unequip_item_none">test_6unequip_item_none</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.PlayerTests.test_7use_medkits" href="#rpg.Tests.character_tests.PlayerTests.test_7use_medkits">test_7use_medkits</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.PlayerTests.test_8get_medkits" href="#rpg.Tests.character_tests.PlayerTests.test_8get_medkits">test_8get_medkits</a></code></li>
+<li><code><a title="rpg.Tests.character_tests.PlayerTests.test_9set_medkits" href="#rpg.Tests.character_tests.PlayerTests.test_9set_medkits">test_9set_medkits</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

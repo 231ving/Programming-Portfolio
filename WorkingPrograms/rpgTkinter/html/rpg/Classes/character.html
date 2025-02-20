@@ -1,0 +1,1434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>rpg.Classes.character API documentation</title>
+<meta name="description" content="The Character Module. Contains the generic Character class, the Player class,
+and the Enemy class." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>rpg.Classes.character</code></h1>
+</header>
+<section id="section-intro">
+<p>The Character Module. Contains the generic Character class, the Player class,
+and the Enemy class.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+The Character Module. Contains the generic Character class, the Player class,
+ and the Enemy class.
+&#34;&#34;&#34;
+
+import random
+
+from Classes.item import Item
+
+if not Item.ITEMS:
+    Item.load_items()
+
+
+class Character:
+    &#34;&#34;&#34;The generic Character class.
+     Used as a parent for the more specialized Player and Enemy classes.
+    &#34;&#34;&#34;
+    def __init__(self, name: str, stats=None):
+        &#34;&#34;&#34;Creates the character.
+        Args:
+            name (str):
+            stats (None | dict): None gets the default stats below.
+             A dictionary lets you make a character of a higher level.
+        &#34;&#34;&#34;
+        if stats is None:
+            stats = {&#34;Strength&#34;: 5, &#34;Dexterity&#34;: 5, &#34;Vitality&#34;: 5,
+                     &#34;Intelligence&#34;: 5, &#34;Level&#34;: 1, &#34;XP&#34;: 0, &#34;Stat Points&#34;: 5,
+                     &#34;Credits&#34;: 0}
+        self.name = name
+        self.inventory = []
+        self.stats = stats
+        self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;]
+                                              + self.stats[&#34;Level&#34;]))
+        self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
+        self.attack = 0  # Pull item attack + character strength?
+        self.defense = 0  # Pull item defense + character vitality?
+        self.living = True
+
+    def set_living(self, _bool):
+        &#34;&#34;&#34;Setter for the living attribute.
+        Args:
+            _bool (bool): Boolean value for the character&#39;s living status.
+        &#34;&#34;&#34;
+        self.living = _bool
+
+    def add_item(self, item: Item):
+        &#34;&#34;&#34;Adds an Item to the character&#39;s inventory.
+        Args:
+            item (Item): Requires an Item object.
+        &#34;&#34;&#34;
+        self.inventory.append(item)
+
+    def drop_item(self, item: Item):
+        &#34;&#34;&#34;Removes an Item from the character&#39;s inventory.
+        Args:
+            item (Item): Requires an Item object.
+        &#34;&#34;&#34;
+        self.inventory.remove(item)
+
+    # Upgrade stats by stat and amount
+    def upgrade_stats(self, stat, amount):
+        &#34;&#34;&#34;Method to upgrade a character&#39;s stats.
+        Args:
+            stat (str): The stat to increase.
+            amount (int): How much to increase the stat by.
+        &#34;&#34;&#34;
+        if self.stats[&#34;Stat Points&#34;] &gt; 0:
+            self.stats[stat] += amount
+            self.stats[&#34;Stat Points&#34;] -= amount
+            if stat == &#34;Vitality&#34;:
+                self.update_max_health()
+                self.update_health(5 * amount)
+
+    def lv_up(self):
+        &#34;&#34;&#34;Tries to level up the character if they have enough XP.
+        Adds unassigned stat points if they do.
+        &#34;&#34;&#34;
+        if self.stats[&#34;XP&#34;] &gt;= (self.stats[&#34;Level&#34;] * 10):
+            self.stats[&#34;XP&#34;] -= self.stats[&#34;Level&#34;] * 10
+            self.stats[&#34;Level&#34;] += 1
+            self.stats[&#34;Stat Points&#34;] += 5
+
+    def update_max_health(self):
+        &#34;&#34;&#34;Recalculates the character&#39;s Max Health.&#34;&#34;&#34;
+        self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;]
+                                              + self.stats[&#34;Level&#34;]))
+        if self.stats[&#34;Health&#34;] &gt; self.stats[&#34;Max Health&#34;]:
+            self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
+
+    def update_health(self, amount: int):
+        &#34;&#34;&#34;Changes the character&#39;s current Health by amount.
+        Args:
+            amount (int): How much to change the character&#39;s Health by.
+        &#34;&#34;&#34;
+        self.stats[&#34;Health&#34;] += amount
+        if self.stats[&#34;Health&#34;] &gt; self.stats[&#34;Max Health&#34;]:
+            self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
+
+    def get_defense(self):
+        &#34;&#34;&#34;Getter for the character&#39;s defense attribute.
+        Returns:
+            defense (int): The character&#39;s defense, including
+             equipment bonuses.
+        &#34;&#34;&#34;
+        return self.defense
+
+    def get_attack(self):
+        &#34;&#34;&#34;Getter for the character&#39;s attack attribute.
+                Returns:
+                    attack (int): The character&#39;s attack, including
+                     weapon bonuses.
+                &#34;&#34;&#34;
+        return self.attack
+
+    def defend_action(self):
+        &#34;&#34;&#34;Method to increase character&#39;s defense.
+        &#34;&#34;&#34;
+        self.defense = int(self.defense * 1.5)
+
+
+class Player(Character):
+    &#34;&#34;&#34;Child class of Character. Specialized to be the player character.
+    Adds medkits for healing and the ability to use equipment.
+    &#34;&#34;&#34;
+    def __init__(self, name: str, stats: dict):
+        &#34;&#34;&#34;Same idea as the parent Character class.
+        &#34;&#34;&#34;
+        super().__init__(name, stats)
+        self.stats[&#34;Medkits&#34;] = 5
+
+        self.equipment = {}
+        x = Item(random.choice(Item.ITEMS))
+        while x.stats[&#34;type&#34;] != &#34;Weapon&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        self.equipment[&#34;Weapon&#34;] = x
+        while x.stats[&#34;type&#34;] != &#34;Head&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        self.equipment[&#34;Head&#34;] = x
+        while x.stats[&#34;type&#34;] != &#34;Arms&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        self.equipment[&#34;Arms&#34;] = x
+        while x.stats[&#34;type&#34;] != &#34;Chest&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        self.equipment[&#34;Chest&#34;] = x
+        while x.stats[&#34;type&#34;] != &#34;Legs&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        self.equipment[&#34;Legs&#34;] = x
+        while x.stats[&#34;type&#34;] != &#34;Feet&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        self.equipment[&#34;Feet&#34;] = x
+        self.update_attack()
+        self.update_defense()
+
+    def equip_item(self, item: Item):
+        &#34;&#34;&#34;Method for the Player to equip an item from their inventory.
+        Args:
+            item (Item): The item to be equipped from the Player&#39;s inventory.
+        &#34;&#34;&#34;
+        if item in self.inventory:
+            for item_type in [&#34;Weapon&#34;, &#34;Head&#34;, &#34;Chest&#34;,
+                              &#34;Arms&#34;, &#34;Legs&#34;, &#34;Feet&#34;]:
+                if item.stats[&#34;type&#34;] == item_type:
+                    if self.equipment[item_type].stats[&#34;name&#34;] == &#34;None&#34;:
+                        self.equipment[item_type] = item
+                    else:
+                        tmp = self.equipment[item_type]
+                        self.equipment[item_type] = item
+                        self.add_item(tmp)
+            self.inventory.remove(item)
+            self.update_attack()
+            self.update_defense()
+
+    def unequip_item(self, item: Item):
+        &#34;&#34;&#34;Method for the Player to unequip an item from their equipment
+         and place it into their inventory.
+        Args:
+            item (Item): The item to be unequipped from the Player&#39;s equipment.
+        &#34;&#34;&#34;
+        for item_type in [&#34;Weapon&#34;, &#34;Head&#34;, &#34;Chest&#34;, &#34;Arms&#34;, &#34;Legs&#34;, &#34;Feet&#34;]:
+            if item.stats[&#34;type&#34;] == item_type:
+                if item.stats[&#34;name&#34;] != &#34;None&#34;:
+                    self.add_item((self.equipment[item_type]))
+                self.equipment[item_type] = Item([item_type, &#34;None&#34;, 0,
+                                                  0, 0, 0.8])
+        self.update_attack()
+        self.update_defense()
+
+    def use_medkits(self):
+        &#34;&#34;&#34;Method to heal by spending a medkit.
+        Returns:
+            amt (int): The amount the medkit healed the Player for. 0 if no
+             medkit was used.
+        &#34;&#34;&#34;
+        amt = 0
+        if self.med_kits &gt; 0:
+            self.med_kits = -1
+            amt = self.stats[&#34;Intelligence&#34;] + self.stats[&#34;Level&#34;] + 20
+            tmp = self.stats[&#34;Health&#34;] + amt
+            if tmp &gt;= self.stats[&#34;Max Health&#34;]:
+                amt = self.stats[&#34;Max Health&#34;] - self.stats[&#34;Health&#34;]
+                self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
+            else:
+                self.stats[&#34;Health&#34;] = tmp
+            print(self.name + &#34; used a med kit and healed for &#34; + str(amt)
+                  + &#34; health.&#34;)
+        else:
+            print(&#34;No med kits left.&#34;)
+        return amt
+
+    @property
+    def med_kits(self) -&gt; int:
+        &#34;&#34;&#34;Getter for the Player&#39;s medkits.
+        Returns:
+            stats[&#34;Medkits&#34;] (int): The number of medkits the Player has.
+        &#34;&#34;&#34;
+        return self.stats[&#34;Medkits&#34;]
+
+    @med_kits.setter
+    def med_kits(self, change: int):
+        &#34;&#34;&#34;Changes the number of medkits by change.
+        Args:
+            change (int): How much the medkits are being changed by.
+        &#34;&#34;&#34;
+        self.stats[&#34;Medkits&#34;] += change
+        if self.stats[&#34;Medkits&#34;] &lt; 0:
+            self.stats[&#34;Medkits&#34;] = 0
+
+    def change_name(self, name):
+        &#34;&#34;&#34;Method to change the Player&#39;s name.
+        Returns:
+            name (str): The player&#39;s new name.
+        &#34;&#34;&#34;
+        self.name = name
+
+    def update_defense(self):
+        &#34;&#34;&#34;Updates the Player&#39;s defense attribute.
+        &#34;&#34;&#34;
+        self.defense = int((self.stats[&#34;Vitality&#34;] + self.stats[&#34;Level&#34;]) / 3)
+        for equipment in self.equipment.values():
+            self.defense += equipment.stats[&#34;defense&#34;]
+
+    def update_attack(self):
+        &#34;&#34;&#34;Updates the Player&#39;s attack attribute.
+        &#34;&#34;&#34;
+        self.attack = int((self.stats[&#34;Strength&#34;] + self.stats[&#34;Level&#34;]) / 3)
+        for equipment in self.equipment.values():
+            self.attack += equipment.stats[&#34;damage&#34;]
+
+    def take_damage(self, attacker: Character):
+        &#34;&#34;&#34;Method used when a Player takes damage.
+        Args:
+            attacker (Character): The Character object that is attacking
+             the Player.
+        &#34;&#34;&#34;
+        damage = attacker.get_attack() - self.get_defense() / 3
+        damage = max(int(damage), 1)
+        attacker_hit_chance = (random.randint(1, 100) + damage +
+                               attacker.stats[&#34;Dexterity&#34;]
+                               + attacker.stats[&#34;Level&#34;])
+        defender_dodge_chance = (random.randint(1, 100) + damage +
+                                 self.stats[&#34;Dexterity&#34;] + self.stats[&#34;Level&#34;])
+        if attacker_hit_chance &gt; defender_dodge_chance:
+            self.stats[&#34;Health&#34;] -= int(damage)
+        else:
+            damage = 0
+
+        # Set state of character
+        if self.stats[&#34;Health&#34;] &lt;= 0:
+            self.set_living(False)
+        return damage
+
+
+class Enemy(Character):
+    &#34;&#34;&#34;Child of the Character class. Specialzed for enemies specifically.
+    Allows for enemies&#39; stats to scale based on an input level.
+    &#34;&#34;&#34;
+    def __init__(self, name: str, stats: dict, enemy_lv: int):
+        &#34;&#34;&#34;Creates the Enemy object.
+        New Args:
+            enemy_lv (int): The level the enemy is scaled to.
+        &#34;&#34;&#34;
+        super().__init__(name, stats)
+        self.stats[&#34;Level&#34;] = enemy_lv
+        self.stats[&#34;Stat Points&#34;] = self.stats[&#34;Level&#34;] * 5
+        self.action = &#34;nothing&#34;
+        self.actions = [&#34;attack&#34;, &#34;defend&#34;, &#34;nothing&#34;]
+        self.update_stats()
+        self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
+        self.update_attack()
+        self.update_defense()
+        self.randomize_action()
+
+    def take_damage(self, attacker: Player):
+        &#34;&#34;&#34;Method for the Enemy to take damage.
+        Returns:
+            attacker (Player): Player instance that is attacking.
+        &#34;&#34;&#34;
+        item = attacker.equipment[&#34;Weapon&#34;]
+        damage = (item.get_damage_dealt(self) + attacker.get_attack()
+                  - self.get_defense() / 2)
+        damage = max(int(damage), 1)
+        attacker_hit_chance = (random.randint(1, 100) + damage +
+                               attacker.stats[&#34;Dexterity&#34;]
+                               + attacker.stats[&#34;Level&#34;])
+        defender_dodge_chance = (random.randint(1, 100) + damage +
+                                 self.stats[&#34;Dexterity&#34;] + self.stats[&#34;Level&#34;])
+        if attacker_hit_chance &gt; defender_dodge_chance:
+            self.stats[&#34;Health&#34;] -= int(damage)
+        else:
+            damage = 0
+        self.stats[&#34;Health&#34;] -= damage
+        return damage
+
+    def update_defense(self):
+        &#34;&#34;&#34;Updates the Enemy&#39;s defense attribute.
+        &#34;&#34;&#34;
+        self.defense = int((self.stats[&#34;Vitality&#34;] / 3) + self.stats[&#34;Level&#34;])
+
+    def update_attack(self):
+        &#34;&#34;&#34;Updates the Enemy&#39;s defense attribute.
+        &#34;&#34;&#34;
+        self.attack = int((self.stats[&#34;Strength&#34;] / 3) + self.stats[&#34;Level&#34;])
+
+    def update_stats(self):
+        &#34;&#34;&#34;Randomly increases the Enemy&#39;s stats until they&#39;re out
+         of Stat Points.
+        &#34;&#34;&#34;
+        while self.stats[&#34;Stat Points&#34;] &gt;= 1:
+            stat = random.choice([&#39;Strength&#39;, &#39;Dexterity&#39;,
+                                  &#39;Vitality&#39;, &#39;Intelligence&#39;])
+            self.upgrade_stats(stat, 1)
+
+    def randomize_action(self):
+        &#34;&#34;&#34;Randomize the Enemy instance&#39;s chosen action.
+        &#34;&#34;&#34;
+        self.action = random.choice(self.actions)
+
+    def set_actions(self, action: str):
+        &#34;&#34;&#34;Adds new action to the Enemy instance&#39;s choices.
+        Args:
+            action (str): The action to be added. Action functionality is not
+             guaranteed without a corresponding method.
+        &#34;&#34;&#34;
+        if isinstance(action, str):
+            self.actions.append(action)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="rpg.Classes.character.Character"><code class="flex name class">
+<span>class <span class="ident">Character</span></span>
+<span>(</span><span>name: str, stats=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The generic Character class.
+Used as a parent for the more specialized Player and Enemy classes.</p>
+<p>Creates the character.</p>
+<h2 id="args">Args</h2>
+<p>name (str):
+stats (None | dict): None gets the default stats below.
+A dictionary lets you make a character of a higher level.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Character:
+    &#34;&#34;&#34;The generic Character class.
+     Used as a parent for the more specialized Player and Enemy classes.
+    &#34;&#34;&#34;
+    def __init__(self, name: str, stats=None):
+        &#34;&#34;&#34;Creates the character.
+        Args:
+            name (str):
+            stats (None | dict): None gets the default stats below.
+             A dictionary lets you make a character of a higher level.
+        &#34;&#34;&#34;
+        if stats is None:
+            stats = {&#34;Strength&#34;: 5, &#34;Dexterity&#34;: 5, &#34;Vitality&#34;: 5,
+                     &#34;Intelligence&#34;: 5, &#34;Level&#34;: 1, &#34;XP&#34;: 0, &#34;Stat Points&#34;: 5,
+                     &#34;Credits&#34;: 0}
+        self.name = name
+        self.inventory = []
+        self.stats = stats
+        self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;]
+                                              + self.stats[&#34;Level&#34;]))
+        self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
+        self.attack = 0  # Pull item attack + character strength?
+        self.defense = 0  # Pull item defense + character vitality?
+        self.living = True
+
+    def set_living(self, _bool):
+        &#34;&#34;&#34;Setter for the living attribute.
+        Args:
+            _bool (bool): Boolean value for the character&#39;s living status.
+        &#34;&#34;&#34;
+        self.living = _bool
+
+    def add_item(self, item: Item):
+        &#34;&#34;&#34;Adds an Item to the character&#39;s inventory.
+        Args:
+            item (Item): Requires an Item object.
+        &#34;&#34;&#34;
+        self.inventory.append(item)
+
+    def drop_item(self, item: Item):
+        &#34;&#34;&#34;Removes an Item from the character&#39;s inventory.
+        Args:
+            item (Item): Requires an Item object.
+        &#34;&#34;&#34;
+        self.inventory.remove(item)
+
+    # Upgrade stats by stat and amount
+    def upgrade_stats(self, stat, amount):
+        &#34;&#34;&#34;Method to upgrade a character&#39;s stats.
+        Args:
+            stat (str): The stat to increase.
+            amount (int): How much to increase the stat by.
+        &#34;&#34;&#34;
+        if self.stats[&#34;Stat Points&#34;] &gt; 0:
+            self.stats[stat] += amount
+            self.stats[&#34;Stat Points&#34;] -= amount
+            if stat == &#34;Vitality&#34;:
+                self.update_max_health()
+                self.update_health(5 * amount)
+
+    def lv_up(self):
+        &#34;&#34;&#34;Tries to level up the character if they have enough XP.
+        Adds unassigned stat points if they do.
+        &#34;&#34;&#34;
+        if self.stats[&#34;XP&#34;] &gt;= (self.stats[&#34;Level&#34;] * 10):
+            self.stats[&#34;XP&#34;] -= self.stats[&#34;Level&#34;] * 10
+            self.stats[&#34;Level&#34;] += 1
+            self.stats[&#34;Stat Points&#34;] += 5
+
+    def update_max_health(self):
+        &#34;&#34;&#34;Recalculates the character&#39;s Max Health.&#34;&#34;&#34;
+        self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;]
+                                              + self.stats[&#34;Level&#34;]))
+        if self.stats[&#34;Health&#34;] &gt; self.stats[&#34;Max Health&#34;]:
+            self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
+
+    def update_health(self, amount: int):
+        &#34;&#34;&#34;Changes the character&#39;s current Health by amount.
+        Args:
+            amount (int): How much to change the character&#39;s Health by.
+        &#34;&#34;&#34;
+        self.stats[&#34;Health&#34;] += amount
+        if self.stats[&#34;Health&#34;] &gt; self.stats[&#34;Max Health&#34;]:
+            self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
+
+    def get_defense(self):
+        &#34;&#34;&#34;Getter for the character&#39;s defense attribute.
+        Returns:
+            defense (int): The character&#39;s defense, including
+             equipment bonuses.
+        &#34;&#34;&#34;
+        return self.defense
+
+    def get_attack(self):
+        &#34;&#34;&#34;Getter for the character&#39;s attack attribute.
+                Returns:
+                    attack (int): The character&#39;s attack, including
+                     weapon bonuses.
+                &#34;&#34;&#34;
+        return self.attack
+
+    def defend_action(self):
+        &#34;&#34;&#34;Method to increase character&#39;s defense.
+        &#34;&#34;&#34;
+        self.defense = int(self.defense * 1.5)</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="rpg.Classes.character.Enemy" href="#rpg.Classes.character.Enemy">Enemy</a></li>
+<li><a title="rpg.Classes.character.Player" href="#rpg.Classes.character.Player">Player</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="rpg.Classes.character.Character.add_item"><code class="name flex">
+<span>def <span class="ident">add_item</span></span>(<span>self, item: Classes.item.Item)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Adds an Item to the character's inventory.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>item</code></strong> :&ensp;<code>Item</code></dt>
+<dd>Requires an Item object.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_item(self, item: Item):
+    &#34;&#34;&#34;Adds an Item to the character&#39;s inventory.
+    Args:
+        item (Item): Requires an Item object.
+    &#34;&#34;&#34;
+    self.inventory.append(item)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Character.defend_action"><code class="name flex">
+<span>def <span class="ident">defend_action</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to increase character's defense.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def defend_action(self):
+    &#34;&#34;&#34;Method to increase character&#39;s defense.
+    &#34;&#34;&#34;
+    self.defense = int(self.defense * 1.5)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Character.drop_item"><code class="name flex">
+<span>def <span class="ident">drop_item</span></span>(<span>self, item: Classes.item.Item)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Removes an Item from the character's inventory.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>item</code></strong> :&ensp;<code>Item</code></dt>
+<dd>Requires an Item object.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drop_item(self, item: Item):
+    &#34;&#34;&#34;Removes an Item from the character&#39;s inventory.
+    Args:
+        item (Item): Requires an Item object.
+    &#34;&#34;&#34;
+    self.inventory.remove(item)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Character.get_attack"><code class="name flex">
+<span>def <span class="ident">get_attack</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Getter for the character's attack attribute.</p>
+<h2 id="returns">Returns</h2>
+<p>attack (int): The character's attack, including
+weapon bonuses.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_attack(self):
+    &#34;&#34;&#34;Getter for the character&#39;s attack attribute.
+            Returns:
+                attack (int): The character&#39;s attack, including
+                 weapon bonuses.
+            &#34;&#34;&#34;
+    return self.attack</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Character.get_defense"><code class="name flex">
+<span>def <span class="ident">get_defense</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Getter for the character's defense attribute.</p>
+<h2 id="returns">Returns</h2>
+<p>defense (int): The character's defense, including
+equipment bonuses.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_defense(self):
+    &#34;&#34;&#34;Getter for the character&#39;s defense attribute.
+    Returns:
+        defense (int): The character&#39;s defense, including
+         equipment bonuses.
+    &#34;&#34;&#34;
+    return self.defense</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Character.lv_up"><code class="name flex">
+<span>def <span class="ident">lv_up</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Tries to level up the character if they have enough XP.
+Adds unassigned stat points if they do.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def lv_up(self):
+    &#34;&#34;&#34;Tries to level up the character if they have enough XP.
+    Adds unassigned stat points if they do.
+    &#34;&#34;&#34;
+    if self.stats[&#34;XP&#34;] &gt;= (self.stats[&#34;Level&#34;] * 10):
+        self.stats[&#34;XP&#34;] -= self.stats[&#34;Level&#34;] * 10
+        self.stats[&#34;Level&#34;] += 1
+        self.stats[&#34;Stat Points&#34;] += 5</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Character.set_living"><code class="name flex">
+<span>def <span class="ident">set_living</span></span>(<span>self, _bool)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Setter for the living attribute.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>_bool</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Boolean value for the character's living status.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_living(self, _bool):
+    &#34;&#34;&#34;Setter for the living attribute.
+    Args:
+        _bool (bool): Boolean value for the character&#39;s living status.
+    &#34;&#34;&#34;
+    self.living = _bool</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Character.update_health"><code class="name flex">
+<span>def <span class="ident">update_health</span></span>(<span>self, amount: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Changes the character's current Health by amount.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>amount</code></strong> :&ensp;<code>int</code></dt>
+<dd>How much to change the character's Health by.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_health(self, amount: int):
+    &#34;&#34;&#34;Changes the character&#39;s current Health by amount.
+    Args:
+        amount (int): How much to change the character&#39;s Health by.
+    &#34;&#34;&#34;
+    self.stats[&#34;Health&#34;] += amount
+    if self.stats[&#34;Health&#34;] &gt; self.stats[&#34;Max Health&#34;]:
+        self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Character.update_max_health"><code class="name flex">
+<span>def <span class="ident">update_max_health</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Recalculates the character's Max Health.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_max_health(self):
+    &#34;&#34;&#34;Recalculates the character&#39;s Max Health.&#34;&#34;&#34;
+    self.stats[&#34;Max Health&#34;] = 20 + (5 * (self.stats[&#34;Vitality&#34;]
+                                          + self.stats[&#34;Level&#34;]))
+    if self.stats[&#34;Health&#34;] &gt; self.stats[&#34;Max Health&#34;]:
+        self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Character.upgrade_stats"><code class="name flex">
+<span>def <span class="ident">upgrade_stats</span></span>(<span>self, stat, amount)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to upgrade a character's stats.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>stat</code></strong> :&ensp;<code>str</code></dt>
+<dd>The stat to increase.</dd>
+<dt><strong><code>amount</code></strong> :&ensp;<code>int</code></dt>
+<dd>How much to increase the stat by.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def upgrade_stats(self, stat, amount):
+    &#34;&#34;&#34;Method to upgrade a character&#39;s stats.
+    Args:
+        stat (str): The stat to increase.
+        amount (int): How much to increase the stat by.
+    &#34;&#34;&#34;
+    if self.stats[&#34;Stat Points&#34;] &gt; 0:
+        self.stats[stat] += amount
+        self.stats[&#34;Stat Points&#34;] -= amount
+        if stat == &#34;Vitality&#34;:
+            self.update_max_health()
+            self.update_health(5 * amount)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="rpg.Classes.character.Enemy"><code class="flex name class">
+<span>class <span class="ident">Enemy</span></span>
+<span>(</span><span>name: str, stats: dict, enemy_lv: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Child of the Character class. Specialzed for enemies specifically.
+Allows for enemies' stats to scale based on an input level.</p>
+<p>Creates the Enemy object.
+New Args:
+enemy_lv (int): The level the enemy is scaled to.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Enemy(Character):
+    &#34;&#34;&#34;Child of the Character class. Specialzed for enemies specifically.
+    Allows for enemies&#39; stats to scale based on an input level.
+    &#34;&#34;&#34;
+    def __init__(self, name: str, stats: dict, enemy_lv: int):
+        &#34;&#34;&#34;Creates the Enemy object.
+        New Args:
+            enemy_lv (int): The level the enemy is scaled to.
+        &#34;&#34;&#34;
+        super().__init__(name, stats)
+        self.stats[&#34;Level&#34;] = enemy_lv
+        self.stats[&#34;Stat Points&#34;] = self.stats[&#34;Level&#34;] * 5
+        self.action = &#34;nothing&#34;
+        self.actions = [&#34;attack&#34;, &#34;defend&#34;, &#34;nothing&#34;]
+        self.update_stats()
+        self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
+        self.update_attack()
+        self.update_defense()
+        self.randomize_action()
+
+    def take_damage(self, attacker: Player):
+        &#34;&#34;&#34;Method for the Enemy to take damage.
+        Returns:
+            attacker (Player): Player instance that is attacking.
+        &#34;&#34;&#34;
+        item = attacker.equipment[&#34;Weapon&#34;]
+        damage = (item.get_damage_dealt(self) + attacker.get_attack()
+                  - self.get_defense() / 2)
+        damage = max(int(damage), 1)
+        attacker_hit_chance = (random.randint(1, 100) + damage +
+                               attacker.stats[&#34;Dexterity&#34;]
+                               + attacker.stats[&#34;Level&#34;])
+        defender_dodge_chance = (random.randint(1, 100) + damage +
+                                 self.stats[&#34;Dexterity&#34;] + self.stats[&#34;Level&#34;])
+        if attacker_hit_chance &gt; defender_dodge_chance:
+            self.stats[&#34;Health&#34;] -= int(damage)
+        else:
+            damage = 0
+        self.stats[&#34;Health&#34;] -= damage
+        return damage
+
+    def update_defense(self):
+        &#34;&#34;&#34;Updates the Enemy&#39;s defense attribute.
+        &#34;&#34;&#34;
+        self.defense = int((self.stats[&#34;Vitality&#34;] / 3) + self.stats[&#34;Level&#34;])
+
+    def update_attack(self):
+        &#34;&#34;&#34;Updates the Enemy&#39;s defense attribute.
+        &#34;&#34;&#34;
+        self.attack = int((self.stats[&#34;Strength&#34;] / 3) + self.stats[&#34;Level&#34;])
+
+    def update_stats(self):
+        &#34;&#34;&#34;Randomly increases the Enemy&#39;s stats until they&#39;re out
+         of Stat Points.
+        &#34;&#34;&#34;
+        while self.stats[&#34;Stat Points&#34;] &gt;= 1:
+            stat = random.choice([&#39;Strength&#39;, &#39;Dexterity&#39;,
+                                  &#39;Vitality&#39;, &#39;Intelligence&#39;])
+            self.upgrade_stats(stat, 1)
+
+    def randomize_action(self):
+        &#34;&#34;&#34;Randomize the Enemy instance&#39;s chosen action.
+        &#34;&#34;&#34;
+        self.action = random.choice(self.actions)
+
+    def set_actions(self, action: str):
+        &#34;&#34;&#34;Adds new action to the Enemy instance&#39;s choices.
+        Args:
+            action (str): The action to be added. Action functionality is not
+             guaranteed without a corresponding method.
+        &#34;&#34;&#34;
+        if isinstance(action, str):
+            self.actions.append(action)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="rpg.Classes.character.Character" href="#rpg.Classes.character.Character">Character</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="rpg.Classes.character.Enemy.randomize_action"><code class="name flex">
+<span>def <span class="ident">randomize_action</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Randomize the Enemy instance's chosen action.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def randomize_action(self):
+    &#34;&#34;&#34;Randomize the Enemy instance&#39;s chosen action.
+    &#34;&#34;&#34;
+    self.action = random.choice(self.actions)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Enemy.set_actions"><code class="name flex">
+<span>def <span class="ident">set_actions</span></span>(<span>self, action: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Adds new action to the Enemy instance's choices.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>action</code></strong> :&ensp;<code>str</code></dt>
+<dd>The action to be added. Action functionality is not</dd>
+</dl>
+<p>guaranteed without a corresponding method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_actions(self, action: str):
+    &#34;&#34;&#34;Adds new action to the Enemy instance&#39;s choices.
+    Args:
+        action (str): The action to be added. Action functionality is not
+         guaranteed without a corresponding method.
+    &#34;&#34;&#34;
+    if isinstance(action, str):
+        self.actions.append(action)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Enemy.take_damage"><code class="name flex">
+<span>def <span class="ident">take_damage</span></span>(<span>self, attacker: <a title="rpg.Classes.character.Player" href="#rpg.Classes.character.Player">Player</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method for the Enemy to take damage.</p>
+<h2 id="returns">Returns</h2>
+<p>attacker (Player): Player instance that is attacking.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def take_damage(self, attacker: Player):
+    &#34;&#34;&#34;Method for the Enemy to take damage.
+    Returns:
+        attacker (Player): Player instance that is attacking.
+    &#34;&#34;&#34;
+    item = attacker.equipment[&#34;Weapon&#34;]
+    damage = (item.get_damage_dealt(self) + attacker.get_attack()
+              - self.get_defense() / 2)
+    damage = max(int(damage), 1)
+    attacker_hit_chance = (random.randint(1, 100) + damage +
+                           attacker.stats[&#34;Dexterity&#34;]
+                           + attacker.stats[&#34;Level&#34;])
+    defender_dodge_chance = (random.randint(1, 100) + damage +
+                             self.stats[&#34;Dexterity&#34;] + self.stats[&#34;Level&#34;])
+    if attacker_hit_chance &gt; defender_dodge_chance:
+        self.stats[&#34;Health&#34;] -= int(damage)
+    else:
+        damage = 0
+    self.stats[&#34;Health&#34;] -= damage
+    return damage</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Enemy.update_attack"><code class="name flex">
+<span>def <span class="ident">update_attack</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Updates the Enemy's defense attribute.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_attack(self):
+    &#34;&#34;&#34;Updates the Enemy&#39;s defense attribute.
+    &#34;&#34;&#34;
+    self.attack = int((self.stats[&#34;Strength&#34;] / 3) + self.stats[&#34;Level&#34;])</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Enemy.update_defense"><code class="name flex">
+<span>def <span class="ident">update_defense</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Updates the Enemy's defense attribute.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_defense(self):
+    &#34;&#34;&#34;Updates the Enemy&#39;s defense attribute.
+    &#34;&#34;&#34;
+    self.defense = int((self.stats[&#34;Vitality&#34;] / 3) + self.stats[&#34;Level&#34;])</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Enemy.update_stats"><code class="name flex">
+<span>def <span class="ident">update_stats</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Randomly increases the Enemy's stats until they're out
+of Stat Points.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_stats(self):
+    &#34;&#34;&#34;Randomly increases the Enemy&#39;s stats until they&#39;re out
+     of Stat Points.
+    &#34;&#34;&#34;
+    while self.stats[&#34;Stat Points&#34;] &gt;= 1:
+        stat = random.choice([&#39;Strength&#39;, &#39;Dexterity&#39;,
+                              &#39;Vitality&#39;, &#39;Intelligence&#39;])
+        self.upgrade_stats(stat, 1)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="rpg.Classes.character.Character" href="#rpg.Classes.character.Character">Character</a></b></code>:
+<ul class="hlist">
+<li><code><a title="rpg.Classes.character.Character.add_item" href="#rpg.Classes.character.Character.add_item">add_item</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.defend_action" href="#rpg.Classes.character.Character.defend_action">defend_action</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.drop_item" href="#rpg.Classes.character.Character.drop_item">drop_item</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.get_attack" href="#rpg.Classes.character.Character.get_attack">get_attack</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.get_defense" href="#rpg.Classes.character.Character.get_defense">get_defense</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.lv_up" href="#rpg.Classes.character.Character.lv_up">lv_up</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.set_living" href="#rpg.Classes.character.Character.set_living">set_living</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.update_health" href="#rpg.Classes.character.Character.update_health">update_health</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.update_max_health" href="#rpg.Classes.character.Character.update_max_health">update_max_health</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.upgrade_stats" href="#rpg.Classes.character.Character.upgrade_stats">upgrade_stats</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="rpg.Classes.character.Player"><code class="flex name class">
+<span>class <span class="ident">Player</span></span>
+<span>(</span><span>name: str, stats: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Child class of Character. Specialized to be the player character.
+Adds medkits for healing and the ability to use equipment.</p>
+<p>Same idea as the parent Character class.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Player(Character):
+    &#34;&#34;&#34;Child class of Character. Specialized to be the player character.
+    Adds medkits for healing and the ability to use equipment.
+    &#34;&#34;&#34;
+    def __init__(self, name: str, stats: dict):
+        &#34;&#34;&#34;Same idea as the parent Character class.
+        &#34;&#34;&#34;
+        super().__init__(name, stats)
+        self.stats[&#34;Medkits&#34;] = 5
+
+        self.equipment = {}
+        x = Item(random.choice(Item.ITEMS))
+        while x.stats[&#34;type&#34;] != &#34;Weapon&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        self.equipment[&#34;Weapon&#34;] = x
+        while x.stats[&#34;type&#34;] != &#34;Head&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        self.equipment[&#34;Head&#34;] = x
+        while x.stats[&#34;type&#34;] != &#34;Arms&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        self.equipment[&#34;Arms&#34;] = x
+        while x.stats[&#34;type&#34;] != &#34;Chest&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        self.equipment[&#34;Chest&#34;] = x
+        while x.stats[&#34;type&#34;] != &#34;Legs&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        self.equipment[&#34;Legs&#34;] = x
+        while x.stats[&#34;type&#34;] != &#34;Feet&#34;:
+            x = Item(random.choice(Item.ITEMS))
+        self.equipment[&#34;Feet&#34;] = x
+        self.update_attack()
+        self.update_defense()
+
+    def equip_item(self, item: Item):
+        &#34;&#34;&#34;Method for the Player to equip an item from their inventory.
+        Args:
+            item (Item): The item to be equipped from the Player&#39;s inventory.
+        &#34;&#34;&#34;
+        if item in self.inventory:
+            for item_type in [&#34;Weapon&#34;, &#34;Head&#34;, &#34;Chest&#34;,
+                              &#34;Arms&#34;, &#34;Legs&#34;, &#34;Feet&#34;]:
+                if item.stats[&#34;type&#34;] == item_type:
+                    if self.equipment[item_type].stats[&#34;name&#34;] == &#34;None&#34;:
+                        self.equipment[item_type] = item
+                    else:
+                        tmp = self.equipment[item_type]
+                        self.equipment[item_type] = item
+                        self.add_item(tmp)
+            self.inventory.remove(item)
+            self.update_attack()
+            self.update_defense()
+
+    def unequip_item(self, item: Item):
+        &#34;&#34;&#34;Method for the Player to unequip an item from their equipment
+         and place it into their inventory.
+        Args:
+            item (Item): The item to be unequipped from the Player&#39;s equipment.
+        &#34;&#34;&#34;
+        for item_type in [&#34;Weapon&#34;, &#34;Head&#34;, &#34;Chest&#34;, &#34;Arms&#34;, &#34;Legs&#34;, &#34;Feet&#34;]:
+            if item.stats[&#34;type&#34;] == item_type:
+                if item.stats[&#34;name&#34;] != &#34;None&#34;:
+                    self.add_item((self.equipment[item_type]))
+                self.equipment[item_type] = Item([item_type, &#34;None&#34;, 0,
+                                                  0, 0, 0.8])
+        self.update_attack()
+        self.update_defense()
+
+    def use_medkits(self):
+        &#34;&#34;&#34;Method to heal by spending a medkit.
+        Returns:
+            amt (int): The amount the medkit healed the Player for. 0 if no
+             medkit was used.
+        &#34;&#34;&#34;
+        amt = 0
+        if self.med_kits &gt; 0:
+            self.med_kits = -1
+            amt = self.stats[&#34;Intelligence&#34;] + self.stats[&#34;Level&#34;] + 20
+            tmp = self.stats[&#34;Health&#34;] + amt
+            if tmp &gt;= self.stats[&#34;Max Health&#34;]:
+                amt = self.stats[&#34;Max Health&#34;] - self.stats[&#34;Health&#34;]
+                self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
+            else:
+                self.stats[&#34;Health&#34;] = tmp
+            print(self.name + &#34; used a med kit and healed for &#34; + str(amt)
+                  + &#34; health.&#34;)
+        else:
+            print(&#34;No med kits left.&#34;)
+        return amt
+
+    @property
+    def med_kits(self) -&gt; int:
+        &#34;&#34;&#34;Getter for the Player&#39;s medkits.
+        Returns:
+            stats[&#34;Medkits&#34;] (int): The number of medkits the Player has.
+        &#34;&#34;&#34;
+        return self.stats[&#34;Medkits&#34;]
+
+    @med_kits.setter
+    def med_kits(self, change: int):
+        &#34;&#34;&#34;Changes the number of medkits by change.
+        Args:
+            change (int): How much the medkits are being changed by.
+        &#34;&#34;&#34;
+        self.stats[&#34;Medkits&#34;] += change
+        if self.stats[&#34;Medkits&#34;] &lt; 0:
+            self.stats[&#34;Medkits&#34;] = 0
+
+    def change_name(self, name):
+        &#34;&#34;&#34;Method to change the Player&#39;s name.
+        Returns:
+            name (str): The player&#39;s new name.
+        &#34;&#34;&#34;
+        self.name = name
+
+    def update_defense(self):
+        &#34;&#34;&#34;Updates the Player&#39;s defense attribute.
+        &#34;&#34;&#34;
+        self.defense = int((self.stats[&#34;Vitality&#34;] + self.stats[&#34;Level&#34;]) / 3)
+        for equipment in self.equipment.values():
+            self.defense += equipment.stats[&#34;defense&#34;]
+
+    def update_attack(self):
+        &#34;&#34;&#34;Updates the Player&#39;s attack attribute.
+        &#34;&#34;&#34;
+        self.attack = int((self.stats[&#34;Strength&#34;] + self.stats[&#34;Level&#34;]) / 3)
+        for equipment in self.equipment.values():
+            self.attack += equipment.stats[&#34;damage&#34;]
+
+    def take_damage(self, attacker: Character):
+        &#34;&#34;&#34;Method used when a Player takes damage.
+        Args:
+            attacker (Character): The Character object that is attacking
+             the Player.
+        &#34;&#34;&#34;
+        damage = attacker.get_attack() - self.get_defense() / 3
+        damage = max(int(damage), 1)
+        attacker_hit_chance = (random.randint(1, 100) + damage +
+                               attacker.stats[&#34;Dexterity&#34;]
+                               + attacker.stats[&#34;Level&#34;])
+        defender_dodge_chance = (random.randint(1, 100) + damage +
+                                 self.stats[&#34;Dexterity&#34;] + self.stats[&#34;Level&#34;])
+        if attacker_hit_chance &gt; defender_dodge_chance:
+            self.stats[&#34;Health&#34;] -= int(damage)
+        else:
+            damage = 0
+
+        # Set state of character
+        if self.stats[&#34;Health&#34;] &lt;= 0:
+            self.set_living(False)
+        return damage</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="rpg.Classes.character.Character" href="#rpg.Classes.character.Character">Character</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="rpg.Classes.character.Player.med_kits"><code class="name">var <span class="ident">med_kits</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Getter for the Player's medkits.</p>
+<h2 id="returns">Returns</h2>
+<p>stats["Medkits"] (int): The number of medkits the Player has.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def med_kits(self) -&gt; int:
+    &#34;&#34;&#34;Getter for the Player&#39;s medkits.
+    Returns:
+        stats[&#34;Medkits&#34;] (int): The number of medkits the Player has.
+    &#34;&#34;&#34;
+    return self.stats[&#34;Medkits&#34;]</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="rpg.Classes.character.Player.change_name"><code class="name flex">
+<span>def <span class="ident">change_name</span></span>(<span>self, name)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to change the Player's name.</p>
+<h2 id="returns">Returns</h2>
+<p>name (str): The player's new name.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def change_name(self, name):
+    &#34;&#34;&#34;Method to change the Player&#39;s name.
+    Returns:
+        name (str): The player&#39;s new name.
+    &#34;&#34;&#34;
+    self.name = name</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Player.equip_item"><code class="name flex">
+<span>def <span class="ident">equip_item</span></span>(<span>self, item: Classes.item.Item)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method for the Player to equip an item from their inventory.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>item</code></strong> :&ensp;<code>Item</code></dt>
+<dd>The item to be equipped from the Player's inventory.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def equip_item(self, item: Item):
+    &#34;&#34;&#34;Method for the Player to equip an item from their inventory.
+    Args:
+        item (Item): The item to be equipped from the Player&#39;s inventory.
+    &#34;&#34;&#34;
+    if item in self.inventory:
+        for item_type in [&#34;Weapon&#34;, &#34;Head&#34;, &#34;Chest&#34;,
+                          &#34;Arms&#34;, &#34;Legs&#34;, &#34;Feet&#34;]:
+            if item.stats[&#34;type&#34;] == item_type:
+                if self.equipment[item_type].stats[&#34;name&#34;] == &#34;None&#34;:
+                    self.equipment[item_type] = item
+                else:
+                    tmp = self.equipment[item_type]
+                    self.equipment[item_type] = item
+                    self.add_item(tmp)
+        self.inventory.remove(item)
+        self.update_attack()
+        self.update_defense()</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Player.take_damage"><code class="name flex">
+<span>def <span class="ident">take_damage</span></span>(<span>self, attacker: <a title="rpg.Classes.character.Character" href="#rpg.Classes.character.Character">Character</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method used when a Player takes damage.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>attacker</code></strong> :&ensp;<code><a title="rpg.Classes.character.Character" href="#rpg.Classes.character.Character">Character</a></code></dt>
+<dd>The Character object that is attacking</dd>
+</dl>
+<p>the Player.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def take_damage(self, attacker: Character):
+    &#34;&#34;&#34;Method used when a Player takes damage.
+    Args:
+        attacker (Character): The Character object that is attacking
+         the Player.
+    &#34;&#34;&#34;
+    damage = attacker.get_attack() - self.get_defense() / 3
+    damage = max(int(damage), 1)
+    attacker_hit_chance = (random.randint(1, 100) + damage +
+                           attacker.stats[&#34;Dexterity&#34;]
+                           + attacker.stats[&#34;Level&#34;])
+    defender_dodge_chance = (random.randint(1, 100) + damage +
+                             self.stats[&#34;Dexterity&#34;] + self.stats[&#34;Level&#34;])
+    if attacker_hit_chance &gt; defender_dodge_chance:
+        self.stats[&#34;Health&#34;] -= int(damage)
+    else:
+        damage = 0
+
+    # Set state of character
+    if self.stats[&#34;Health&#34;] &lt;= 0:
+        self.set_living(False)
+    return damage</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Player.unequip_item"><code class="name flex">
+<span>def <span class="ident">unequip_item</span></span>(<span>self, item: Classes.item.Item)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method for the Player to unequip an item from their equipment
+and place it into their inventory.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>item</code></strong> :&ensp;<code>Item</code></dt>
+<dd>The item to be unequipped from the Player's equipment.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def unequip_item(self, item: Item):
+    &#34;&#34;&#34;Method for the Player to unequip an item from their equipment
+     and place it into their inventory.
+    Args:
+        item (Item): The item to be unequipped from the Player&#39;s equipment.
+    &#34;&#34;&#34;
+    for item_type in [&#34;Weapon&#34;, &#34;Head&#34;, &#34;Chest&#34;, &#34;Arms&#34;, &#34;Legs&#34;, &#34;Feet&#34;]:
+        if item.stats[&#34;type&#34;] == item_type:
+            if item.stats[&#34;name&#34;] != &#34;None&#34;:
+                self.add_item((self.equipment[item_type]))
+            self.equipment[item_type] = Item([item_type, &#34;None&#34;, 0,
+                                              0, 0, 0.8])
+    self.update_attack()
+    self.update_defense()</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Player.update_attack"><code class="name flex">
+<span>def <span class="ident">update_attack</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Updates the Player's attack attribute.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_attack(self):
+    &#34;&#34;&#34;Updates the Player&#39;s attack attribute.
+    &#34;&#34;&#34;
+    self.attack = int((self.stats[&#34;Strength&#34;] + self.stats[&#34;Level&#34;]) / 3)
+    for equipment in self.equipment.values():
+        self.attack += equipment.stats[&#34;damage&#34;]</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Player.update_defense"><code class="name flex">
+<span>def <span class="ident">update_defense</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Updates the Player's defense attribute.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_defense(self):
+    &#34;&#34;&#34;Updates the Player&#39;s defense attribute.
+    &#34;&#34;&#34;
+    self.defense = int((self.stats[&#34;Vitality&#34;] + self.stats[&#34;Level&#34;]) / 3)
+    for equipment in self.equipment.values():
+        self.defense += equipment.stats[&#34;defense&#34;]</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.character.Player.use_medkits"><code class="name flex">
+<span>def <span class="ident">use_medkits</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to heal by spending a medkit.</p>
+<h2 id="returns">Returns</h2>
+<p>amt (int): The amount the medkit healed the Player for. 0 if no
+medkit was used.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def use_medkits(self):
+    &#34;&#34;&#34;Method to heal by spending a medkit.
+    Returns:
+        amt (int): The amount the medkit healed the Player for. 0 if no
+         medkit was used.
+    &#34;&#34;&#34;
+    amt = 0
+    if self.med_kits &gt; 0:
+        self.med_kits = -1
+        amt = self.stats[&#34;Intelligence&#34;] + self.stats[&#34;Level&#34;] + 20
+        tmp = self.stats[&#34;Health&#34;] + amt
+        if tmp &gt;= self.stats[&#34;Max Health&#34;]:
+            amt = self.stats[&#34;Max Health&#34;] - self.stats[&#34;Health&#34;]
+            self.stats[&#34;Health&#34;] = self.stats[&#34;Max Health&#34;]
+        else:
+            self.stats[&#34;Health&#34;] = tmp
+        print(self.name + &#34; used a med kit and healed for &#34; + str(amt)
+              + &#34; health.&#34;)
+    else:
+        print(&#34;No med kits left.&#34;)
+    return amt</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="rpg.Classes.character.Character" href="#rpg.Classes.character.Character">Character</a></b></code>:
+<ul class="hlist">
+<li><code><a title="rpg.Classes.character.Character.add_item" href="#rpg.Classes.character.Character.add_item">add_item</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.defend_action" href="#rpg.Classes.character.Character.defend_action">defend_action</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.drop_item" href="#rpg.Classes.character.Character.drop_item">drop_item</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.get_attack" href="#rpg.Classes.character.Character.get_attack">get_attack</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.get_defense" href="#rpg.Classes.character.Character.get_defense">get_defense</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.lv_up" href="#rpg.Classes.character.Character.lv_up">lv_up</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.set_living" href="#rpg.Classes.character.Character.set_living">set_living</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.update_health" href="#rpg.Classes.character.Character.update_health">update_health</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.update_max_health" href="#rpg.Classes.character.Character.update_max_health">update_max_health</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.upgrade_stats" href="#rpg.Classes.character.Character.upgrade_stats">upgrade_stats</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="rpg.Classes" href="index.html">rpg.Classes</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="rpg.Classes.character.Character" href="#rpg.Classes.character.Character">Character</a></code></h4>
+<ul class="two-column">
+<li><code><a title="rpg.Classes.character.Character.add_item" href="#rpg.Classes.character.Character.add_item">add_item</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.defend_action" href="#rpg.Classes.character.Character.defend_action">defend_action</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.drop_item" href="#rpg.Classes.character.Character.drop_item">drop_item</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.get_attack" href="#rpg.Classes.character.Character.get_attack">get_attack</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.get_defense" href="#rpg.Classes.character.Character.get_defense">get_defense</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.lv_up" href="#rpg.Classes.character.Character.lv_up">lv_up</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.set_living" href="#rpg.Classes.character.Character.set_living">set_living</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.update_health" href="#rpg.Classes.character.Character.update_health">update_health</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.update_max_health" href="#rpg.Classes.character.Character.update_max_health">update_max_health</a></code></li>
+<li><code><a title="rpg.Classes.character.Character.upgrade_stats" href="#rpg.Classes.character.Character.upgrade_stats">upgrade_stats</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rpg.Classes.character.Enemy" href="#rpg.Classes.character.Enemy">Enemy</a></code></h4>
+<ul class="two-column">
+<li><code><a title="rpg.Classes.character.Enemy.randomize_action" href="#rpg.Classes.character.Enemy.randomize_action">randomize_action</a></code></li>
+<li><code><a title="rpg.Classes.character.Enemy.set_actions" href="#rpg.Classes.character.Enemy.set_actions">set_actions</a></code></li>
+<li><code><a title="rpg.Classes.character.Enemy.take_damage" href="#rpg.Classes.character.Enemy.take_damage">take_damage</a></code></li>
+<li><code><a title="rpg.Classes.character.Enemy.update_attack" href="#rpg.Classes.character.Enemy.update_attack">update_attack</a></code></li>
+<li><code><a title="rpg.Classes.character.Enemy.update_defense" href="#rpg.Classes.character.Enemy.update_defense">update_defense</a></code></li>
+<li><code><a title="rpg.Classes.character.Enemy.update_stats" href="#rpg.Classes.character.Enemy.update_stats">update_stats</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rpg.Classes.character.Player" href="#rpg.Classes.character.Player">Player</a></code></h4>
+<ul class="two-column">
+<li><code><a title="rpg.Classes.character.Player.change_name" href="#rpg.Classes.character.Player.change_name">change_name</a></code></li>
+<li><code><a title="rpg.Classes.character.Player.equip_item" href="#rpg.Classes.character.Player.equip_item">equip_item</a></code></li>
+<li><code><a title="rpg.Classes.character.Player.med_kits" href="#rpg.Classes.character.Player.med_kits">med_kits</a></code></li>
+<li><code><a title="rpg.Classes.character.Player.take_damage" href="#rpg.Classes.character.Player.take_damage">take_damage</a></code></li>
+<li><code><a title="rpg.Classes.character.Player.unequip_item" href="#rpg.Classes.character.Player.unequip_item">unequip_item</a></code></li>
+<li><code><a title="rpg.Classes.character.Player.update_attack" href="#rpg.Classes.character.Player.update_attack">update_attack</a></code></li>
+<li><code><a title="rpg.Classes.character.Player.update_defense" href="#rpg.Classes.character.Player.update_defense">update_defense</a></code></li>
+<li><code><a title="rpg.Classes.character.Player.use_medkits" href="#rpg.Classes.character.Player.use_medkits">use_medkits</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

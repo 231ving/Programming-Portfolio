@@ -1,0 +1,2193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>rpg.Classes.GUI.main_gui API documentation</title>
+<meta name="description" content="Module containing the MainGUI class." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>rpg.Classes.GUI.main_gui</code></h1>
+</header>
+<section id="section-intro">
+<p>Module containing the MainGUI class.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Module containing the MainGUI class.
+&#34;&#34;&#34;
+
+from functools import partial
+import tkinter as tk
+from PIL import ImageTk, Image
+from Classes.GUI.button import Button
+from Classes.GUI.character_gui import CharacterGUI
+from Classes.GUI.inventory_gui import InventoryGUI
+from Classes.text_printer import TextPrinter
+
+import customtkinter
+
+
+class MainGUI(tk.Tk):
+    &#34;&#34;&#34;Class involving the main game window.
+    &#34;&#34;&#34;
+
+    # Default size of the window.
+    def __init__(self, player, game_handler):
+        &#34;&#34;&#34;Creates the instance.
+        Args:
+            player: The player instance
+            game_handler: The game_handler instance.
+        &#34;&#34;&#34;
+        super().__init__()
+        self.title(&#34;Spaceship Game&#34;)
+        self.geometry(&#39;1300x900&#39;)  # Window size is provided by user.
+        self.resizable(False, False)
+        self.minsize(800, 500)  # Minimum size of the window, can be maximized.
+        self.iconbitmap(&#39;Images/LevelOne/SpaceShip.ico&#39;)
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+        self.screen_width = 1300
+        self.screen_height = 900
+        self.player = player
+        self.game_handler = game_handler
+        self.game_handler.set_gui(self)
+        self.ready = True
+        self.bg = None
+        self.bg_canvas = None
+        self.is_game_started = False
+
+        # self.create_intro_screen1()
+        self.create_main_screen()
+        self.mainloop()
+
+    def createText(self, msg: str, x: int, y: int,
+                   font: tuple[str, int] = (&#34;Time New Romans&#34;, 20),
+                   color: str = &#39;black&#39;, anchor: str = &#34;center&#34;,
+                   tags: str = None, width: int = None, shadow: bool = False,
+                   justify=&#34;left&#34;):
+        &#34;&#34;&#34;Creates text using custom formatting
+        Args:
+            msg: The message to print
+            x: The x-location
+            y: The y-position
+            font: The font style and size
+            color: The font color
+            anchor: Where to anchor the text to
+            tags: The tag string to refer it by
+            width: The width of the textbox
+            shadow: Whether to have a background shadow or not
+            justify: How to align the text
+
+        &#34;&#34;&#34;
+        if shadow:
+            self.bg_canvas.create_text(x-5, y+5, text=msg, font=font,
+                                       fill=&#34;black&#34;, anchor=anchor, tags=tags,
+                                       width=width)
+        self.bg_canvas.create_text(x, y, text=msg, font=font, fill=color,
+                                   anchor=anchor, tags=tags, width=width,
+                                   justify=justify)
+
+    def clearGUI(self, img):
+        &#34;&#34;&#34;Clears the gui of existing elements
+        Args:
+            img: The image to replace the destroyed screen by
+        &#34;&#34;&#34;
+        if self.bg_canvas is not None:
+            self.bg_canvas.destroy()
+        self.bg_canvas = tk.Canvas(self, width=self.screen_width,
+                                   height=self.screen_height)
+        self.bg_canvas.pack(fill=&#39;both&#39;, expand=True)
+        self.img = Image.open(img).resize((self.screen_width,
+                                           self.screen_height))
+        self.image = ImageTk.PhotoImage(self.img)
+        self.bg_canvas.create_image(0, 0, image=self.image, anchor=&#39;nw&#39;)
+
+    def create_main_screen(self):
+        &#34;&#34;&#34;Creates the main screen graphics.
+        &#34;&#34;&#34;
+        self.clearGUI(&#34;Images/download.jpg&#34;)
+
+        self.createText(&#34;Space Adventure RPG&#34;, self.screen_width//2, 200,
+                        font=(&#34;Arial&#34;, 80), color=&#34;white&#34;)
+
+        Button(self, &#34;New Game&#34;, self.create_intro_screen1,
+               self.screen_width//2 - 100, 500, font=(&#34;Arial&#34;, 40),
+               hcolor=&#34;#ff6700&#34;, width=250)
+
+        if not self.game_handler.is_save_empty():
+            Button(self, &#34;Load Game&#34;, self.load_game,
+                   self.screen_width//2 - 100, 600, font=(&#34;Arial&#34;, 40),
+                   hcolor=&#34;#FF00FF&#34;, width=250, tags=&#34;load&#34;)
+
+    def load_game(self):
+        &#34;&#34;&#34;Loads the game from the save file.
+        &#34;&#34;&#34;
+        self.game_handler.load_game()
+
+    def save_game(self):
+        &#34;&#34;&#34;Saves current game data to a save file.
+        &#34;&#34;&#34;
+        self.game_handler.save_game()
+
+    def create_intro_screen1(self):
+        &#34;&#34;&#34;Creates the title screen.&#34;&#34;&#34;
+
+        # Delete save file
+        self.game_handler.clear_save_file()
+
+        self.game_handler.clear_save_file()
+        self.clearGUI(&#39;Images/LevelOne/bg2.jpeg&#39;)
+        self.createText(&#34;Are You Ready For a New Adventure?&#34;,
+                        self.screen_width // 2, self.screen_height // 2,
+                        font=&#34;Time_New_Roman 45&#34;, color=&#39;white&#39;, shadow=True)
+        self.user_name = tk.Label(self, text=&#39;User Name:&#39;,
+                                  font=&#39;Time_New_Roman 15&#39;)
+        self.user_name_window = self.bg_canvas.create_window(30, 100,
+                                                             anchor=&#39;sw&#39;,
+                                                             window=self.user_name, tags=&#34;Login_Text&#34;)
+        self.user_name_entry = tk.Entry(self, font=&#39;Time_New_Roman 20&#39;)
+        self.bg_canvas.create_window(150, 100, anchor=&#39;sw&#39;,
+                                     window=self.user_name_entry,
+                                     tags=&#34;Login Button&#34;)
+
+        Button(self, &#34;Start Game&#34;, self.create_intro_screen2, 30, 200)
+        Button(self, &#34;Exit&#34;, self.destroy, self.width-200, self.height-100,
+               font=(&#34;Times&#34;, 30))
+
+    def create_intro_screen2(self):
+        &#34;&#34;&#34;Destroys the title screen and Creates the game intro screen.&#34;&#34;&#34;
+        self.clearGUI(&#39;Images/LevelOne/bg.jpg&#39;)
+        self.name = self.user_name_entry.get() or &#34;Default&#34;
+        self.player.change_name(self.name)
+        self.createText(
+            &#34;You are a new  Space Janitor sent to&#34;
+            &#34; salvage the numerous asteroids and ship&#34;
+            &#34; wrecks that pollute space.&#34;
+            f&#34;\n\nWelcome, {self.name} to being a&#34;
+            f&#34; Space Janitor.\nRise to the top.&#34;,
+            self.width//2, self.height-700, font=(&#34;Times New Romans&#34;, 20),
+            color=&#34;white&#34;, shadow=True
+        )
+        Button(self, &#34;Click Here to Continue&#34;, self.create_intro_screen3,
+               self.width//2, self.height-300, anchor=&#34;center&#34;)
+
+    def printPlayerStats(self):
+        &#34;&#34;&#34;Prints player stats.
+        &#34;&#34;&#34;
+        self.bg_canvas.delete(&#34;stats&#34;)
+        self.createText(
+            f&#34;{self.player.name}&#39;s Stats:\n\nHealth:&#34;
+            f&#34;{self.player.stats[&#39;Health&#39;]}/{self.player.stats[&#39;Max Health&#39;]}&#34;
+            + &#34;&#34;.join([f&#39;\n\n{stat[0:3]}: {self.player.stats[stat]}&#39;
+                       for stat in [&#34;Strength&#34;, &#34;Dexterity&#34;,
+                                    &#34;Vitality&#34;, &#34;Intelligence&#34;]]) +
+            f&#34;\n\nFree Points: {self.player.stats[&#39;Stat Points&#39;]}\n\n&#34;
+            f&#34;Min: 3, Max: 12&#34;,
+            self.width//2, self.height - 600,
+            font=(&#34;Time New Romans&#34;, 22), color=&#34;white&#34;, justify=&#34;center&#34;,
+            tags=&#34;stats&#34;
+        )
+
+    def update_init_stats(self, stat: str, amount: int):
+        &#34;&#34;&#34;Method that affects the Player&#39;s stats.
+        Args:
+            stat (str): The stat to change.
+            amount (int): How much to change the stat by.
+             Increases only if the Player has unassigned Stat Points.
+        &#34;&#34;&#34;
+        if amount == -1:
+            if self.player.stats[stat] &gt; 3:
+                self.player.stats[stat] += amount
+                self.player.stats[&#34;Stat Points&#34;] += -amount
+        elif self.player.stats[&#34;Stat Points&#34;] &gt;= 1:
+            if self.player.stats[stat] &lt; 12:
+                self.player.upgrade_stats(stat, amount)
+        self.player.update_max_health()
+        self.player.stats[&#34;Health&#34;] = self.player.stats[&#34;Max Health&#34;]
+        self.printPlayerStats()
+
+    def create_intro_screen3(self):
+        &#34;&#34;&#34;Creates the character creation screen after deleting the intro
+         screen text.&#34;&#34;&#34;
+        self.clearGUI(&#39;Images/LevelOne/bg.jpg&#39;)
+        Button(self, &#34;Start Game&#34;, self.create_main_gui, self.width//2,
+               self.height-300, anchor=&#34;center&#34;)
+        self.printPlayerStats()
+
+        for i, stat in enumerate([&#34;Strength&#34;, &#34;Dexterity&#34;,
+                                  &#34;Vitality&#34;, &#34;Intelligence&#34;]):
+            cmd = lambda s, n: lambda: self.update_init_stats(s, n)
+
+            Button(self, &#34;-&#34;, cmd(stat, -1), self.width//2 + 70,
+                   self.height - 700 + 70 * i,
+                   width=1, height=1, font=(&#34;Time New Romans&#34;, 20),
+                   anchor=&#34;center&#34;, padding=5)
+            Button(self, &#34;+&#34;, cmd(stat, 1), self.width//2 + 100,
+                   self.height - 700 + 70 * i,
+                   width=1, height=1, font=(&#34;Time New Romans&#34;, 20),
+                   anchor=&#34;center&#34;, padding=5)
+
+    def create_main_gui(self):
+        &#34;&#34;&#34;Deletes the character screen and makes the main screen.
+        &#34;&#34;&#34;
+        self.start_game()
+        from Classes.game_handler import GameHandler
+        # To import the Level counter from GameHandler
+        self.lvl_counter = GameHandler.counter
+        self.is_game_started = True
+
+        self.clearGUI(&#39;Images/LevelOne/HallWay.png&#39;)
+
+        menu_image = Image.open(&#39;Images/LevelOne/info_bg.png&#39;).resize((350,
+                                                                       210))
+        self.menu_bg = ImageTk.PhotoImage(menu_image)
+
+        self.image_border = Image.open(&#39;Images/Items/Button_image.png&#39;).resize((650, 270))
+        self.border = ImageTk.PhotoImage(self.image_border)
+
+        if self.lvl_counter == 1:
+
+            self.original_image = Image.open(&#39;Images/LevelOneMap/Main.jpg&#39;).resize((400, 500))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+
+        elif self.lvl_counter == 2:
+            self.original_image = Image.open(&#39;Images/LevelTwoMap/Level2.jpg&#39;).resize((400, 500))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+
+        elif self.lvl_counter == 3:
+            self.original_image = Image.open(&#39;Images/Level3/LevelThreeMap/Level_3.jpg&#39;).resize((400, 500))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+
+        # Create Canvas and Images
+        self.bg_canvas.create_image(self.screen_width - 1280,
+                                    self.screen_width - 1280,
+                                    image=self.bg, anchor=&#39;nw&#39;)
+        self.bg_canvas.create_image(self.screen_width - 1400,
+                                    self.screen_height - 360,
+                                    image=self.border, anchor=&#39;nw&#39;)
+        self.bg_canvas.create_image(self.screen_width - 1250,
+                                    self.screen_height - 330,
+                                    image=self.menu_bg, anchor=&#39;nw&#39;)
+        self.createText(f&#34;{self.name}&#39;s Stats&#34;, 120, 590, font=(&#34;Time_New_Roman&#34;, 20, &#34;bold&#34;),
+                        color=&#34;white&#34;, anchor=&#34;w&#34;)
+
+        Button(self, &#34;Character\nDetails&#34;, self.open_character_gui,
+               self.screen_width - 1210, self.screen_height - 275, anchor=&#34;nw&#34;,
+               width=50, color=&#34;#faa19b&#34;, hcolor=&#34;#f06b62&#34;)
+        Button(self, &#34;Inventory\nDetails&#34;, self.open_inventory_gui,
+               self.screen_width - 1060, self.screen_height - 275, anchor=&#34;nw&#34;,
+               width=50, color=&#34;#faa19b&#34;, hcolor=&#34;#f06b62&#34;)
+        Button(self, &#34;Exit&#34;, self.destroy, 20, self.screen_height - 50,
+               anchor=&#34;w&#34;, font=(&#34;Calibri&#34;, 20))
+
+        self.createText(&#34;\nYou are ready to start cleaning up&#34;
+                        &#34; the wreckage. Which wreckage should you&#34;
+                        &#34; visit first? Choose a location on the map.\n&#34;,
+                        450, 350, font=(&#34;Times New Roman&#34;, 17), color=&#34;white&#34;,
+                        anchor=&#34;w&#34;, tags=&#34;game_text&#34;, width=500)
+        self.createText(&#34;Choose Next Location&#34;, 1010, 400, font=(&#34;Time_New_Roman&#34;, 20),
+                        color=&#34;white&#34;, anchor=&#34;w&#34;)
+
+        # Button(self, &#34;Load Game&#34;, self.load_game, self.screen_width - 180, 80,
+        #        font=(&#34;Arial&#34;, 20))
+        # Button(self, &#34;Save Game&#34;, self.save_game, self.screen_width - 180, 130,
+        #        font=(&#34;Arial&#34;, 20))
+
+        self.display_buttons()
+
+    def start_game(self):
+        &#34;&#34;&#34;Start the game and load available rooms.
+        &#34;&#34;&#34;
+        self.text_printer = TextPrinter(self)
+        self.ready = True
+        self.map = self.game_handler.get_map()
+        self.player = self.game_handler.player
+        self.name = self.game_handler.player.name
+        self.game_handler.enter_room(self.map.get_current_room())
+
+    def display_buttons(self):
+        &#34;&#34;&#34;Display available rooms to interact with.
+        &#34;&#34;&#34;
+        self.button_frame = tk.Frame(self.bg_canvas, bg=&#39;#023552&#39;,
+                                     borderwidth=3, highlightcolor=&#34;white&#34;,
+                                     highlightthickness=4)
+        self.button_frame.place(relwidth=0.20, relheight=0.4,
+                                relx=0.77, rely=0.5)
+
+        self.button_image = Image.open(&#39;Images/Items/Button_image.png&#39;).resize((500, 450))
+        self.button_background = ImageTk.PhotoImage(self.button_image)
+        self.bg_canvas.create_image(self.width - 420, self.height - 495, image=self.button_background,
+                                    anchor=&#39;nw&#39;)
+
+        for adjacent_room in self.map.get_current_room().get_adjacent_rooms():
+            test = lambda room: lambda: self.handle_button_input(room)
+            button_text = adjacent_room.name
+
+            color = &#34;#f69697&#34; if adjacent_room.cleared else &#34;#FFFFFF&#34;
+
+            button = customtkinter.CTkButton(
+                self.button_frame, width=200, height=3, font=(&#34;Calibri&#34;, 15),
+                text_color=&#34;black&#34;, text=button_text,
+                command=test(adjacent_room), fg_color=color
+            )
+            button.pack(pady=5)
+
+    def handle_button_input(self, room):
+        &#34;&#34;&#34;Enters the Room instance and changes the map image to the
+         appropriate one.
+        Args:
+            room (Room): The Room instance just entered.
+        &#34;&#34;&#34;
+        if self.ready and self.player.living and self.map.current_room.cleared:
+            self.change_map_image(room)
+            self.game_handler.enter_room(room)
+
+    def change_map_image(self, room):
+        &#34;&#34;&#34;Changes the minimap to the new image.
+        Args:
+            room (Room): The Room instance with the associated image.
+        &#34;&#34;&#34;
+        self.original_image = Image.open(room.map_image_path).resize((400,
+                                                                      500))
+        self.bg = ImageTk.PhotoImage(self.original_image)
+        self.bg_canvas.create_image(self.screen_width - 1280,
+                                    self.screen_width - 1280, image=self.bg,
+                                    anchor=&#39;nw&#39;)
+
+    def animate_text(self, text_id, text):
+        &#34;&#34;&#34;Prints text to the MainGUI
+    .
+        Args:
+            text_id (str): The text_box to print to.
+            text (str): The text to print.
+        &#34;&#34;&#34;
+        self.text_printer.animate_text(text, text_id, tk.END)
+
+    def enter_repeated_room(self, room):
+        &#34;&#34;&#34;Prints text when entering a previously cleared room.
+        Args:
+            room (Room): The already cleared room.
+        &#34;&#34;&#34;
+        self.text_printer.animate_text(f&#34;\n{room} has already been entered.\n&#34;,
+                                       &#34;game_text&#34;, tk.END)
+
+    def enter_chest_room(self, room):
+        &#34;&#34;&#34;Prints text when entering a ChestRoom.
+        Args:
+            room (ChestRoom): The ChestRoom instance to enter.
+        &#34;&#34;&#34;
+        self.text_printer.animate_text(f&#34;\nYou have entered {room} which&#34;
+                                       f&#34; contains a chest.\n&#34;, &#34;game_text&#34;,
+                                       tk.END)
+
+    def enter_shop_room(self, room):
+        &#34;&#34;&#34;Prints text when entering a ShopRoom.
+        Args:
+            room (ShopRoom): The ShopRoom instance to enter.
+        &#34;&#34;&#34;
+        self.text_printer.animate_text(f&#34;\nYou have entered {room} which&#34;
+                                       f&#34; contains a shop.\n&#34;, &#34;game_text&#34;,
+                                       tk.END)
+
+    def enter_combat_room(self, room):
+        &#34;&#34;&#34;Prints text when entering a CombatRoom.
+        Args:
+            room (CombatRoom): The CombatRoom instance to enter.
+        &#34;&#34;&#34;
+        self.text_printer.animate_text(f&#34;\nYou have entered {room} which&#34;
+                                       f&#34; contains combat.\n&#34;, &#34;game_text&#34;,
+                                       tk.END)
+
+    def enter_boss_room(self, room):
+        &#34;&#34;&#34;Prints text when entering a BossRoom.
+        Args:
+            room (BossRoom): The BossRoom instance to enter.
+        &#34;&#34;&#34;
+        self.text_printer.animate_text(f&#34;\n You have entered {room} which is&#34;
+                                       f&#34; the boss room.\n&#34;, &#34;game_text&#34;,
+                                       tk.END)
+
+    def exit_boss_room(self):
+        &#34;&#34;&#34;Prints text when exiting a BossRoom.
+        &#34;&#34;&#34;
+        if not self.player.living:
+            return
+
+        self.text_printer.animate_text(&#34;\nCongratulations for beating the&#34;
+                                       &#34; boss!\n&#34;, &#34;game_text&#34;, tk.END)
+
+        # Display End Game Button
+        Button(self, &#34;End Game&#34;, partial(self.game_handler.end_game, True),
+               self.width-100, 300, anchor=&#34;e&#34;, width=10, font=(&#34;Calibri&#34;, 16),
+               height=2)
+
+        # Display Text
+        self.bg_canvas.create_text(1010, 235, width=300, font=(&#39;Arial&#39;, 20),
+                                   fill=&#34;#FFFFFF&#34;, anchor=&#34;w&#34;,
+                                   text=&#34;Move to Next Round&#34;)
+
+    def exit_room(self, room):
+        &#34;&#34;&#34;Prints text when exiting a Room.
+        Args:
+            room (Room): The Room instance that was just cleared.
+        &#34;&#34;&#34;
+        self.text_printer.animate_text(f&#34;\nYou have exited {room}.\n&#34;,
+                                       &#34;game_text&#34;, tk.END)
+
+    def exit_combat_room(self, room):
+        &#34;&#34;&#34;Prints text when exiting a CombatRoom.
+        Args:
+            room (CombatRoom): The CombatRoom instance that was just cleared.
+        &#34;&#34;&#34;
+        if self.player.living:
+            self.text_printer.animate_text(f&#34;\nYou have beaten the enemies&#34;
+                                           f&#34; in {room}.\n&#34;, &#34;game_text&#34;,
+                                           tk.END)
+        else:
+            self.game_handler.end_game(False)
+
+    def open_inventory_gui(self):
+        &#34;&#34;&#34;Opens an InventoryGUI instance.
+        &#34;&#34;&#34;
+        if (self.ready and self.map.get_current_room().get_cleared()
+                and self.player.living):
+            self.ready = False
+            self.map.get_current_room().clear_room(False)
+            InventoryGUI(self.player, self.map.get_current_room(), self)
+
+    def open_character_gui(self):
+        &#34;&#34;&#34;Opens a CharacterGUI instance.
+        &#34;&#34;&#34;
+        print(&#34;clicking character&#34;)
+        print(f&#34;ready: {self.ready}, current:&#34;
+              f&#34; {self.map.get_current_room().get_cleared()}&#34;)
+        print(f&#34;living: {self.player.living}&#34;)
+        if (self.ready and self.map.get_current_room().get_cleared()
+                and self.player.living):
+            self.ready = False
+            self.map.get_current_room().clear_room(False)
+            CharacterGUI(self.player, self.map.get_current_room(), self)
+
+    def display_game_lost_gui(self, total_time, enemies_killed, rooms_entered):
+        &#34;&#34;&#34;The screen that shows when you lose the game.
+        Args:
+            total_time (int): The total time spent.
+            enemies_killed (int): The number of enemies killed.
+            rooms_entered (int): The number of rooms entered.
+        &#34;&#34;&#34;
+
+        # Clear previous window
+        self.bg_canvas.destroy()
+
+        # Import Map Background
+        img = Image.open(&#39;Images/LevelOne/GameOver.png&#39;).resize((self.screen_width, self.screen_height))
+        self.img = ImageTk.PhotoImage(img)
+
+        # Create canvas and background
+        self.bg_canvas = tk.Canvas(self, width=self.screen_width,
+                                   height=self.screen_height)
+        self.bg_canvas.pack(fill=&#39;both&#39;, expand=True)
+        self.bg_canvas.create_image(0, 0, image=self.img, anchor=&#39;nw&#39;)
+
+        # Heading
+        self.bg_canvas.create_text(self.width / 2, self.height / 5 - 100,
+                                   font=(&#39;Calibri&#39;, 50), fill=&#34;#ffffff&#34;,
+                                   justify=&#34;center&#34;, text=&#34;You have died!&#34;)
+        # Subheading
+        self.bg_canvas.create_text(self.width / 2, self.height / 5,
+                                   font=(&#39;Calibri&#39;, 35), fill=&#34;#ffffff&#34;,
+                                   justify=&#34;center&#34;,
+                                   text=&#34;You have failed to eradicate all the&#34;
+                                   &#34; monsters in the wreckages.&#34;)
+
+        # Final stats
+        self.bg_canvas.create_text(300, self.height / 4 + 275,
+                                   font=(&#39;Calibri&#39;, 25), fill=&#34;#ffffff&#34;,
+                                   justify=&#34;left&#34;,
+                                   text=f&#39;{self.player.name}\&#39;s Stats:\n\n&#39; +
+                                        f&#39;Total Time (s): {total_time}.\n&#39; +
+                                        f&#39;Enemies Slain: {enemies_killed}.\n&#39; +
+                                        f&#39;Rooms Entered: {rooms_entered}.\n&#39; +
+                                        f&#39;Max Health: &#39;
+                                        f&#39;{self.player.stats[&#34;Max Health&#34;]}.\n&#39;
+                                        + f&#39;Strength:&#39;
+                                        f&#39; {self.player.stats[&#34;Strength&#34;]}.\n&#39;
+                                        + f&#39;Dexterity:&#39;
+                                        f&#39; {self.player.stats[&#34;Dexterity&#34;]}.\n&#39;
+                                        + f&#39;Vitality:&#39;
+                                        f&#39; {self.player.stats[&#34;Vitality&#34;]}.\n&#39;
+                                        + f&#39;Intelligence: &#39;
+                                        f&#39;{self.player.stats[&#34;Intelligence&#34;]}.&#39;
+                                   )
+
+        Button(self, &#34;Retry?&#34;, self.game_handler.start_new_game, 700,
+               self.screen_height//2, anchor=&#34;nw&#34;, width=8, height=3,
+               font=(&#34;Calibri&#34;, 20))
+        Button(self, &#34;Exit&#34;, self.destroy, 550, self.screen_height//2,
+               anchor=&#34;w&#34;, width=8, height=3, font=(&#34;Calibri&#34;, 20))
+
+    def display_game_won_gui(self, total_time, enemies_killed, rooms_entered):
+        &#34;&#34;&#34;The screen that shows when you win the game.
+        Args:
+            total_time (ChestRoom): The ChestRoom instance to enter.
+            enemies_killed (int): The number of enemies killed.
+            rooms_entered (int): The number of rooms entered.
+        &#34;&#34;&#34;
+        # Clear previous window
+        self.bg_canvas.destroy()
+
+        # Import Map Background
+        img = Image.open(&#39;Images/LevelOne/GameWon.png&#39;).resize(
+            (self.screen_width, self.screen_height))
+        self.img = ImageTk.PhotoImage(img)
+
+        # Create canvas and background
+        self.bg_canvas = tk.Canvas(self, width=self.screen_width,
+                                   height=self.screen_height)
+        self.bg_canvas.pack(fill=&#39;both&#39;, expand=True)
+        self.bg_canvas.create_image(0, 0, image=self.img, anchor=&#39;nw&#39;)
+
+        # Heading
+        self.bg_canvas.create_text(self.width / 2, self.height / 5 - 100,
+                                   font=(&#39;Calibri&#39;, 50), fill=&#34;#ffffff&#34;,
+                                   justify=&#34;center&#34;, text=&#34;You have won!&#34;)
+        # Subheading
+        self.bg_canvas.create_text(self.width / 2, self.height / 5,
+                                   font=(&#39;Calibri&#39;, 30), fill=&#34;#ffffff&#34;,
+                                   justify=&#34;center&#34;,
+                                   text=&#34;You have successfully eradicated all&#34;
+                                   &#34; the monsters in the wreckages.&#34;)
+
+        # Final stats
+        self.bg_canvas.create_text(300, self.height / 4 + 275,
+                                   font=(&#39;Calibri&#39;, 25), fill=&#34;#ffffff&#34;,
+                                   justify=&#34;left&#34;,
+                                   text=f&#39;{self.player.name}\&#39;s Stats:\n\n&#39; +
+                                        f&#39;Total Time (s): {total_time}.\n&#39; +
+                                        f&#39;Enemies Slain: {enemies_killed}.\n&#39;
+                                        + f&#39;Rooms Entered: {rooms_entered}.\n&#39;
+                                        + f&#39;Max Health: &#39;
+                                        f&#39;{self.player.stats[&#34;Max Health&#34;]}.\n&#39;
+                                        + f&#39;Strength:&#39;
+                                        f&#39; {self.player.stats[&#34;Strength&#34;]}.\n&#39;
+                                        + f&#39;Dexterity:&#39;
+                                        f&#39; {self.player.stats[&#34;Dexterity&#34;]}.\n&#39;
+                                        + f&#39;Vitality:&#39;
+                                        f&#39; {self.player.stats[&#34;Vitality&#34;]}.\n&#39;
+                                        + f&#39;Intelligence: &#39;
+                                        f&#39;{self.player.stats[&#34;Intelligence&#34;]}.&#39;
+                                   )
+
+        Button(self, &#34;Continue&#34;, self.game_handler.start_next_map, 700,
+               self.screen_height//2, anchor=&#34;nw&#34;, width=8, height=3,
+               font=(&#34;Calibri&#34;, 20))
+        Button(self, &#34;Exit&#34;, self.destroy, 550, self.screen_height//2,
+
+               anchor=&#34;w&#34;, width=8, height=3, font=(&#34;Calibri&#34;, 20))
+        
+    def destroy(self):
+        if self.is_game_started and self.player.living:
+            self.game_handler.save_game()
+        super().destroy()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI"><code class="flex name class">
+<span>class <span class="ident">MainGUI</span></span>
+<span>(</span><span>player, game_handler)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class involving the main game window.</p>
+<p>Creates the instance.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>player</code></strong></dt>
+<dd>The player instance</dd>
+<dt><strong><code>game_handler</code></strong></dt>
+<dd>The game_handler instance.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MainGUI(tk.Tk):
+    &#34;&#34;&#34;Class involving the main game window.
+    &#34;&#34;&#34;
+
+    # Default size of the window.
+    def __init__(self, player, game_handler):
+        &#34;&#34;&#34;Creates the instance.
+        Args:
+            player: The player instance
+            game_handler: The game_handler instance.
+        &#34;&#34;&#34;
+        super().__init__()
+        self.title(&#34;Spaceship Game&#34;)
+        self.geometry(&#39;1300x900&#39;)  # Window size is provided by user.
+        self.resizable(False, False)
+        self.minsize(800, 500)  # Minimum size of the window, can be maximized.
+        self.iconbitmap(&#39;Images/LevelOne/SpaceShip.ico&#39;)
+        self.width = self.winfo_width()
+        self.height = self.winfo_height()
+        self.screen_width = 1300
+        self.screen_height = 900
+        self.player = player
+        self.game_handler = game_handler
+        self.game_handler.set_gui(self)
+        self.ready = True
+        self.bg = None
+        self.bg_canvas = None
+        self.is_game_started = False
+
+        # self.create_intro_screen1()
+        self.create_main_screen()
+        self.mainloop()
+
+    def createText(self, msg: str, x: int, y: int,
+                   font: tuple[str, int] = (&#34;Time New Romans&#34;, 20),
+                   color: str = &#39;black&#39;, anchor: str = &#34;center&#34;,
+                   tags: str = None, width: int = None, shadow: bool = False,
+                   justify=&#34;left&#34;):
+        &#34;&#34;&#34;Creates text using custom formatting
+        Args:
+            msg: The message to print
+            x: The x-location
+            y: The y-position
+            font: The font style and size
+            color: The font color
+            anchor: Where to anchor the text to
+            tags: The tag string to refer it by
+            width: The width of the textbox
+            shadow: Whether to have a background shadow or not
+            justify: How to align the text
+
+        &#34;&#34;&#34;
+        if shadow:
+            self.bg_canvas.create_text(x-5, y+5, text=msg, font=font,
+                                       fill=&#34;black&#34;, anchor=anchor, tags=tags,
+                                       width=width)
+        self.bg_canvas.create_text(x, y, text=msg, font=font, fill=color,
+                                   anchor=anchor, tags=tags, width=width,
+                                   justify=justify)
+
+    def clearGUI(self, img):
+        &#34;&#34;&#34;Clears the gui of existing elements
+        Args:
+            img: The image to replace the destroyed screen by
+        &#34;&#34;&#34;
+        if self.bg_canvas is not None:
+            self.bg_canvas.destroy()
+        self.bg_canvas = tk.Canvas(self, width=self.screen_width,
+                                   height=self.screen_height)
+        self.bg_canvas.pack(fill=&#39;both&#39;, expand=True)
+        self.img = Image.open(img).resize((self.screen_width,
+                                           self.screen_height))
+        self.image = ImageTk.PhotoImage(self.img)
+        self.bg_canvas.create_image(0, 0, image=self.image, anchor=&#39;nw&#39;)
+
+    def create_main_screen(self):
+        &#34;&#34;&#34;Creates the main screen graphics.
+        &#34;&#34;&#34;
+        self.clearGUI(&#34;Images/download.jpg&#34;)
+
+        self.createText(&#34;Space Adventure RPG&#34;, self.screen_width//2, 200,
+                        font=(&#34;Arial&#34;, 80), color=&#34;white&#34;)
+
+        Button(self, &#34;New Game&#34;, self.create_intro_screen1,
+               self.screen_width//2 - 100, 500, font=(&#34;Arial&#34;, 40),
+               hcolor=&#34;#ff6700&#34;, width=250)
+
+        if not self.game_handler.is_save_empty():
+            Button(self, &#34;Load Game&#34;, self.load_game,
+                   self.screen_width//2 - 100, 600, font=(&#34;Arial&#34;, 40),
+                   hcolor=&#34;#FF00FF&#34;, width=250, tags=&#34;load&#34;)
+
+    def load_game(self):
+        &#34;&#34;&#34;Loads the game from the save file.
+        &#34;&#34;&#34;
+        self.game_handler.load_game()
+
+    def save_game(self):
+        &#34;&#34;&#34;Saves current game data to a save file.
+        &#34;&#34;&#34;
+        self.game_handler.save_game()
+
+    def create_intro_screen1(self):
+        &#34;&#34;&#34;Creates the title screen.&#34;&#34;&#34;
+
+        # Delete save file
+        self.game_handler.clear_save_file()
+
+        self.game_handler.clear_save_file()
+        self.clearGUI(&#39;Images/LevelOne/bg2.jpeg&#39;)
+        self.createText(&#34;Are You Ready For a New Adventure?&#34;,
+                        self.screen_width // 2, self.screen_height // 2,
+                        font=&#34;Time_New_Roman 45&#34;, color=&#39;white&#39;, shadow=True)
+        self.user_name = tk.Label(self, text=&#39;User Name:&#39;,
+                                  font=&#39;Time_New_Roman 15&#39;)
+        self.user_name_window = self.bg_canvas.create_window(30, 100,
+                                                             anchor=&#39;sw&#39;,
+                                                             window=self.user_name, tags=&#34;Login_Text&#34;)
+        self.user_name_entry = tk.Entry(self, font=&#39;Time_New_Roman 20&#39;)
+        self.bg_canvas.create_window(150, 100, anchor=&#39;sw&#39;,
+                                     window=self.user_name_entry,
+                                     tags=&#34;Login Button&#34;)
+
+        Button(self, &#34;Start Game&#34;, self.create_intro_screen2, 30, 200)
+        Button(self, &#34;Exit&#34;, self.destroy, self.width-200, self.height-100,
+               font=(&#34;Times&#34;, 30))
+
+    def create_intro_screen2(self):
+        &#34;&#34;&#34;Destroys the title screen and Creates the game intro screen.&#34;&#34;&#34;
+        self.clearGUI(&#39;Images/LevelOne/bg.jpg&#39;)
+        self.name = self.user_name_entry.get() or &#34;Default&#34;
+        self.player.change_name(self.name)
+        self.createText(
+            &#34;You are a new  Space Janitor sent to&#34;
+            &#34; salvage the numerous asteroids and ship&#34;
+            &#34; wrecks that pollute space.&#34;
+            f&#34;\n\nWelcome, {self.name} to being a&#34;
+            f&#34; Space Janitor.\nRise to the top.&#34;,
+            self.width//2, self.height-700, font=(&#34;Times New Romans&#34;, 20),
+            color=&#34;white&#34;, shadow=True
+        )
+        Button(self, &#34;Click Here to Continue&#34;, self.create_intro_screen3,
+               self.width//2, self.height-300, anchor=&#34;center&#34;)
+
+    def printPlayerStats(self):
+        &#34;&#34;&#34;Prints player stats.
+        &#34;&#34;&#34;
+        self.bg_canvas.delete(&#34;stats&#34;)
+        self.createText(
+            f&#34;{self.player.name}&#39;s Stats:\n\nHealth:&#34;
+            f&#34;{self.player.stats[&#39;Health&#39;]}/{self.player.stats[&#39;Max Health&#39;]}&#34;
+            + &#34;&#34;.join([f&#39;\n\n{stat[0:3]}: {self.player.stats[stat]}&#39;
+                       for stat in [&#34;Strength&#34;, &#34;Dexterity&#34;,
+                                    &#34;Vitality&#34;, &#34;Intelligence&#34;]]) +
+            f&#34;\n\nFree Points: {self.player.stats[&#39;Stat Points&#39;]}\n\n&#34;
+            f&#34;Min: 3, Max: 12&#34;,
+            self.width//2, self.height - 600,
+            font=(&#34;Time New Romans&#34;, 22), color=&#34;white&#34;, justify=&#34;center&#34;,
+            tags=&#34;stats&#34;
+        )
+
+    def update_init_stats(self, stat: str, amount: int):
+        &#34;&#34;&#34;Method that affects the Player&#39;s stats.
+        Args:
+            stat (str): The stat to change.
+            amount (int): How much to change the stat by.
+             Increases only if the Player has unassigned Stat Points.
+        &#34;&#34;&#34;
+        if amount == -1:
+            if self.player.stats[stat] &gt; 3:
+                self.player.stats[stat] += amount
+                self.player.stats[&#34;Stat Points&#34;] += -amount
+        elif self.player.stats[&#34;Stat Points&#34;] &gt;= 1:
+            if self.player.stats[stat] &lt; 12:
+                self.player.upgrade_stats(stat, amount)
+        self.player.update_max_health()
+        self.player.stats[&#34;Health&#34;] = self.player.stats[&#34;Max Health&#34;]
+        self.printPlayerStats()
+
+    def create_intro_screen3(self):
+        &#34;&#34;&#34;Creates the character creation screen after deleting the intro
+         screen text.&#34;&#34;&#34;
+        self.clearGUI(&#39;Images/LevelOne/bg.jpg&#39;)
+        Button(self, &#34;Start Game&#34;, self.create_main_gui, self.width//2,
+               self.height-300, anchor=&#34;center&#34;)
+        self.printPlayerStats()
+
+        for i, stat in enumerate([&#34;Strength&#34;, &#34;Dexterity&#34;,
+                                  &#34;Vitality&#34;, &#34;Intelligence&#34;]):
+            cmd = lambda s, n: lambda: self.update_init_stats(s, n)
+
+            Button(self, &#34;-&#34;, cmd(stat, -1), self.width//2 + 70,
+                   self.height - 700 + 70 * i,
+                   width=1, height=1, font=(&#34;Time New Romans&#34;, 20),
+                   anchor=&#34;center&#34;, padding=5)
+            Button(self, &#34;+&#34;, cmd(stat, 1), self.width//2 + 100,
+                   self.height - 700 + 70 * i,
+                   width=1, height=1, font=(&#34;Time New Romans&#34;, 20),
+                   anchor=&#34;center&#34;, padding=5)
+
+    def create_main_gui(self):
+        &#34;&#34;&#34;Deletes the character screen and makes the main screen.
+        &#34;&#34;&#34;
+        self.start_game()
+        from Classes.game_handler import GameHandler
+        # To import the Level counter from GameHandler
+        self.lvl_counter = GameHandler.counter
+        self.is_game_started = True
+
+        self.clearGUI(&#39;Images/LevelOne/HallWay.png&#39;)
+
+        menu_image = Image.open(&#39;Images/LevelOne/info_bg.png&#39;).resize((350,
+                                                                       210))
+        self.menu_bg = ImageTk.PhotoImage(menu_image)
+
+        self.image_border = Image.open(&#39;Images/Items/Button_image.png&#39;).resize((650, 270))
+        self.border = ImageTk.PhotoImage(self.image_border)
+
+        if self.lvl_counter == 1:
+
+            self.original_image = Image.open(&#39;Images/LevelOneMap/Main.jpg&#39;).resize((400, 500))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+
+        elif self.lvl_counter == 2:
+            self.original_image = Image.open(&#39;Images/LevelTwoMap/Level2.jpg&#39;).resize((400, 500))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+
+        elif self.lvl_counter == 3:
+            self.original_image = Image.open(&#39;Images/Level3/LevelThreeMap/Level_3.jpg&#39;).resize((400, 500))
+            self.bg = ImageTk.PhotoImage(self.original_image)
+
+        # Create Canvas and Images
+        self.bg_canvas.create_image(self.screen_width - 1280,
+                                    self.screen_width - 1280,
+                                    image=self.bg, anchor=&#39;nw&#39;)
+        self.bg_canvas.create_image(self.screen_width - 1400,
+                                    self.screen_height - 360,
+                                    image=self.border, anchor=&#39;nw&#39;)
+        self.bg_canvas.create_image(self.screen_width - 1250,
+                                    self.screen_height - 330,
+                                    image=self.menu_bg, anchor=&#39;nw&#39;)
+        self.createText(f&#34;{self.name}&#39;s Stats&#34;, 120, 590, font=(&#34;Time_New_Roman&#34;, 20, &#34;bold&#34;),
+                        color=&#34;white&#34;, anchor=&#34;w&#34;)
+
+        Button(self, &#34;Character\nDetails&#34;, self.open_character_gui,
+               self.screen_width - 1210, self.screen_height - 275, anchor=&#34;nw&#34;,
+               width=50, color=&#34;#faa19b&#34;, hcolor=&#34;#f06b62&#34;)
+        Button(self, &#34;Inventory\nDetails&#34;, self.open_inventory_gui,
+               self.screen_width - 1060, self.screen_height - 275, anchor=&#34;nw&#34;,
+               width=50, color=&#34;#faa19b&#34;, hcolor=&#34;#f06b62&#34;)
+        Button(self, &#34;Exit&#34;, self.destroy, 20, self.screen_height - 50,
+               anchor=&#34;w&#34;, font=(&#34;Calibri&#34;, 20))
+
+        self.createText(&#34;\nYou are ready to start cleaning up&#34;
+                        &#34; the wreckage. Which wreckage should you&#34;
+                        &#34; visit first? Choose a location on the map.\n&#34;,
+                        450, 350, font=(&#34;Times New Roman&#34;, 17), color=&#34;white&#34;,
+                        anchor=&#34;w&#34;, tags=&#34;game_text&#34;, width=500)
+        self.createText(&#34;Choose Next Location&#34;, 1010, 400, font=(&#34;Time_New_Roman&#34;, 20),
+                        color=&#34;white&#34;, anchor=&#34;w&#34;)
+
+        # Button(self, &#34;Load Game&#34;, self.load_game, self.screen_width - 180, 80,
+        #        font=(&#34;Arial&#34;, 20))
+        # Button(self, &#34;Save Game&#34;, self.save_game, self.screen_width - 180, 130,
+        #        font=(&#34;Arial&#34;, 20))
+
+        self.display_buttons()
+
+    def start_game(self):
+        &#34;&#34;&#34;Start the game and load available rooms.
+        &#34;&#34;&#34;
+        self.text_printer = TextPrinter(self)
+        self.ready = True
+        self.map = self.game_handler.get_map()
+        self.player = self.game_handler.player
+        self.name = self.game_handler.player.name
+        self.game_handler.enter_room(self.map.get_current_room())
+
+    def display_buttons(self):
+        &#34;&#34;&#34;Display available rooms to interact with.
+        &#34;&#34;&#34;
+        self.button_frame = tk.Frame(self.bg_canvas, bg=&#39;#023552&#39;,
+                                     borderwidth=3, highlightcolor=&#34;white&#34;,
+                                     highlightthickness=4)
+        self.button_frame.place(relwidth=0.20, relheight=0.4,
+                                relx=0.77, rely=0.5)
+
+        self.button_image = Image.open(&#39;Images/Items/Button_image.png&#39;).resize((500, 450))
+        self.button_background = ImageTk.PhotoImage(self.button_image)
+        self.bg_canvas.create_image(self.width - 420, self.height - 495, image=self.button_background,
+                                    anchor=&#39;nw&#39;)
+
+        for adjacent_room in self.map.get_current_room().get_adjacent_rooms():
+            test = lambda room: lambda: self.handle_button_input(room)
+            button_text = adjacent_room.name
+
+            color = &#34;#f69697&#34; if adjacent_room.cleared else &#34;#FFFFFF&#34;
+
+            button = customtkinter.CTkButton(
+                self.button_frame, width=200, height=3, font=(&#34;Calibri&#34;, 15),
+                text_color=&#34;black&#34;, text=button_text,
+                command=test(adjacent_room), fg_color=color
+            )
+            button.pack(pady=5)
+
+    def handle_button_input(self, room):
+        &#34;&#34;&#34;Enters the Room instance and changes the map image to the
+         appropriate one.
+        Args:
+            room (Room): The Room instance just entered.
+        &#34;&#34;&#34;
+        if self.ready and self.player.living and self.map.current_room.cleared:
+            self.change_map_image(room)
+            self.game_handler.enter_room(room)
+
+    def change_map_image(self, room):
+        &#34;&#34;&#34;Changes the minimap to the new image.
+        Args:
+            room (Room): The Room instance with the associated image.
+        &#34;&#34;&#34;
+        self.original_image = Image.open(room.map_image_path).resize((400,
+                                                                      500))
+        self.bg = ImageTk.PhotoImage(self.original_image)
+        self.bg_canvas.create_image(self.screen_width - 1280,
+                                    self.screen_width - 1280, image=self.bg,
+                                    anchor=&#39;nw&#39;)
+
+    def animate_text(self, text_id, text):
+        &#34;&#34;&#34;Prints text to the MainGUI
+    .
+        Args:
+            text_id (str): The text_box to print to.
+            text (str): The text to print.
+        &#34;&#34;&#34;
+        self.text_printer.animate_text(text, text_id, tk.END)
+
+    def enter_repeated_room(self, room):
+        &#34;&#34;&#34;Prints text when entering a previously cleared room.
+        Args:
+            room (Room): The already cleared room.
+        &#34;&#34;&#34;
+        self.text_printer.animate_text(f&#34;\n{room} has already been entered.\n&#34;,
+                                       &#34;game_text&#34;, tk.END)
+
+    def enter_chest_room(self, room):
+        &#34;&#34;&#34;Prints text when entering a ChestRoom.
+        Args:
+            room (ChestRoom): The ChestRoom instance to enter.
+        &#34;&#34;&#34;
+        self.text_printer.animate_text(f&#34;\nYou have entered {room} which&#34;
+                                       f&#34; contains a chest.\n&#34;, &#34;game_text&#34;,
+                                       tk.END)
+
+    def enter_shop_room(self, room):
+        &#34;&#34;&#34;Prints text when entering a ShopRoom.
+        Args:
+            room (ShopRoom): The ShopRoom instance to enter.
+        &#34;&#34;&#34;
+        self.text_printer.animate_text(f&#34;\nYou have entered {room} which&#34;
+                                       f&#34; contains a shop.\n&#34;, &#34;game_text&#34;,
+                                       tk.END)
+
+    def enter_combat_room(self, room):
+        &#34;&#34;&#34;Prints text when entering a CombatRoom.
+        Args:
+            room (CombatRoom): The CombatRoom instance to enter.
+        &#34;&#34;&#34;
+        self.text_printer.animate_text(f&#34;\nYou have entered {room} which&#34;
+                                       f&#34; contains combat.\n&#34;, &#34;game_text&#34;,
+                                       tk.END)
+
+    def enter_boss_room(self, room):
+        &#34;&#34;&#34;Prints text when entering a BossRoom.
+        Args:
+            room (BossRoom): The BossRoom instance to enter.
+        &#34;&#34;&#34;
+        self.text_printer.animate_text(f&#34;\n You have entered {room} which is&#34;
+                                       f&#34; the boss room.\n&#34;, &#34;game_text&#34;,
+                                       tk.END)
+
+    def exit_boss_room(self):
+        &#34;&#34;&#34;Prints text when exiting a BossRoom.
+        &#34;&#34;&#34;
+        if not self.player.living:
+            return
+
+        self.text_printer.animate_text(&#34;\nCongratulations for beating the&#34;
+                                       &#34; boss!\n&#34;, &#34;game_text&#34;, tk.END)
+
+        # Display End Game Button
+        Button(self, &#34;End Game&#34;, partial(self.game_handler.end_game, True),
+               self.width-100, 300, anchor=&#34;e&#34;, width=10, font=(&#34;Calibri&#34;, 16),
+               height=2)
+
+        # Display Text
+        self.bg_canvas.create_text(1010, 235, width=300, font=(&#39;Arial&#39;, 20),
+                                   fill=&#34;#FFFFFF&#34;, anchor=&#34;w&#34;,
+                                   text=&#34;Move to Next Round&#34;)
+
+    def exit_room(self, room):
+        &#34;&#34;&#34;Prints text when exiting a Room.
+        Args:
+            room (Room): The Room instance that was just cleared.
+        &#34;&#34;&#34;
+        self.text_printer.animate_text(f&#34;\nYou have exited {room}.\n&#34;,
+                                       &#34;game_text&#34;, tk.END)
+
+    def exit_combat_room(self, room):
+        &#34;&#34;&#34;Prints text when exiting a CombatRoom.
+        Args:
+            room (CombatRoom): The CombatRoom instance that was just cleared.
+        &#34;&#34;&#34;
+        if self.player.living:
+            self.text_printer.animate_text(f&#34;\nYou have beaten the enemies&#34;
+                                           f&#34; in {room}.\n&#34;, &#34;game_text&#34;,
+                                           tk.END)
+        else:
+            self.game_handler.end_game(False)
+
+    def open_inventory_gui(self):
+        &#34;&#34;&#34;Opens an InventoryGUI instance.
+        &#34;&#34;&#34;
+        if (self.ready and self.map.get_current_room().get_cleared()
+                and self.player.living):
+            self.ready = False
+            self.map.get_current_room().clear_room(False)
+            InventoryGUI(self.player, self.map.get_current_room(), self)
+
+    def open_character_gui(self):
+        &#34;&#34;&#34;Opens a CharacterGUI instance.
+        &#34;&#34;&#34;
+        print(&#34;clicking character&#34;)
+        print(f&#34;ready: {self.ready}, current:&#34;
+              f&#34; {self.map.get_current_room().get_cleared()}&#34;)
+        print(f&#34;living: {self.player.living}&#34;)
+        if (self.ready and self.map.get_current_room().get_cleared()
+                and self.player.living):
+            self.ready = False
+            self.map.get_current_room().clear_room(False)
+            CharacterGUI(self.player, self.map.get_current_room(), self)
+
+    def display_game_lost_gui(self, total_time, enemies_killed, rooms_entered):
+        &#34;&#34;&#34;The screen that shows when you lose the game.
+        Args:
+            total_time (int): The total time spent.
+            enemies_killed (int): The number of enemies killed.
+            rooms_entered (int): The number of rooms entered.
+        &#34;&#34;&#34;
+
+        # Clear previous window
+        self.bg_canvas.destroy()
+
+        # Import Map Background
+        img = Image.open(&#39;Images/LevelOne/GameOver.png&#39;).resize((self.screen_width, self.screen_height))
+        self.img = ImageTk.PhotoImage(img)
+
+        # Create canvas and background
+        self.bg_canvas = tk.Canvas(self, width=self.screen_width,
+                                   height=self.screen_height)
+        self.bg_canvas.pack(fill=&#39;both&#39;, expand=True)
+        self.bg_canvas.create_image(0, 0, image=self.img, anchor=&#39;nw&#39;)
+
+        # Heading
+        self.bg_canvas.create_text(self.width / 2, self.height / 5 - 100,
+                                   font=(&#39;Calibri&#39;, 50), fill=&#34;#ffffff&#34;,
+                                   justify=&#34;center&#34;, text=&#34;You have died!&#34;)
+        # Subheading
+        self.bg_canvas.create_text(self.width / 2, self.height / 5,
+                                   font=(&#39;Calibri&#39;, 35), fill=&#34;#ffffff&#34;,
+                                   justify=&#34;center&#34;,
+                                   text=&#34;You have failed to eradicate all the&#34;
+                                   &#34; monsters in the wreckages.&#34;)
+
+        # Final stats
+        self.bg_canvas.create_text(300, self.height / 4 + 275,
+                                   font=(&#39;Calibri&#39;, 25), fill=&#34;#ffffff&#34;,
+                                   justify=&#34;left&#34;,
+                                   text=f&#39;{self.player.name}\&#39;s Stats:\n\n&#39; +
+                                        f&#39;Total Time (s): {total_time}.\n&#39; +
+                                        f&#39;Enemies Slain: {enemies_killed}.\n&#39; +
+                                        f&#39;Rooms Entered: {rooms_entered}.\n&#39; +
+                                        f&#39;Max Health: &#39;
+                                        f&#39;{self.player.stats[&#34;Max Health&#34;]}.\n&#39;
+                                        + f&#39;Strength:&#39;
+                                        f&#39; {self.player.stats[&#34;Strength&#34;]}.\n&#39;
+                                        + f&#39;Dexterity:&#39;
+                                        f&#39; {self.player.stats[&#34;Dexterity&#34;]}.\n&#39;
+                                        + f&#39;Vitality:&#39;
+                                        f&#39; {self.player.stats[&#34;Vitality&#34;]}.\n&#39;
+                                        + f&#39;Intelligence: &#39;
+                                        f&#39;{self.player.stats[&#34;Intelligence&#34;]}.&#39;
+                                   )
+
+        Button(self, &#34;Retry?&#34;, self.game_handler.start_new_game, 700,
+               self.screen_height//2, anchor=&#34;nw&#34;, width=8, height=3,
+               font=(&#34;Calibri&#34;, 20))
+        Button(self, &#34;Exit&#34;, self.destroy, 550, self.screen_height//2,
+               anchor=&#34;w&#34;, width=8, height=3, font=(&#34;Calibri&#34;, 20))
+
+    def display_game_won_gui(self, total_time, enemies_killed, rooms_entered):
+        &#34;&#34;&#34;The screen that shows when you win the game.
+        Args:
+            total_time (ChestRoom): The ChestRoom instance to enter.
+            enemies_killed (int): The number of enemies killed.
+            rooms_entered (int): The number of rooms entered.
+        &#34;&#34;&#34;
+        # Clear previous window
+        self.bg_canvas.destroy()
+
+        # Import Map Background
+        img = Image.open(&#39;Images/LevelOne/GameWon.png&#39;).resize(
+            (self.screen_width, self.screen_height))
+        self.img = ImageTk.PhotoImage(img)
+
+        # Create canvas and background
+        self.bg_canvas = tk.Canvas(self, width=self.screen_width,
+                                   height=self.screen_height)
+        self.bg_canvas.pack(fill=&#39;both&#39;, expand=True)
+        self.bg_canvas.create_image(0, 0, image=self.img, anchor=&#39;nw&#39;)
+
+        # Heading
+        self.bg_canvas.create_text(self.width / 2, self.height / 5 - 100,
+                                   font=(&#39;Calibri&#39;, 50), fill=&#34;#ffffff&#34;,
+                                   justify=&#34;center&#34;, text=&#34;You have won!&#34;)
+        # Subheading
+        self.bg_canvas.create_text(self.width / 2, self.height / 5,
+                                   font=(&#39;Calibri&#39;, 30), fill=&#34;#ffffff&#34;,
+                                   justify=&#34;center&#34;,
+                                   text=&#34;You have successfully eradicated all&#34;
+                                   &#34; the monsters in the wreckages.&#34;)
+
+        # Final stats
+        self.bg_canvas.create_text(300, self.height / 4 + 275,
+                                   font=(&#39;Calibri&#39;, 25), fill=&#34;#ffffff&#34;,
+                                   justify=&#34;left&#34;,
+                                   text=f&#39;{self.player.name}\&#39;s Stats:\n\n&#39; +
+                                        f&#39;Total Time (s): {total_time}.\n&#39; +
+                                        f&#39;Enemies Slain: {enemies_killed}.\n&#39;
+                                        + f&#39;Rooms Entered: {rooms_entered}.\n&#39;
+                                        + f&#39;Max Health: &#39;
+                                        f&#39;{self.player.stats[&#34;Max Health&#34;]}.\n&#39;
+                                        + f&#39;Strength:&#39;
+                                        f&#39; {self.player.stats[&#34;Strength&#34;]}.\n&#39;
+                                        + f&#39;Dexterity:&#39;
+                                        f&#39; {self.player.stats[&#34;Dexterity&#34;]}.\n&#39;
+                                        + f&#39;Vitality:&#39;
+                                        f&#39; {self.player.stats[&#34;Vitality&#34;]}.\n&#39;
+                                        + f&#39;Intelligence: &#39;
+                                        f&#39;{self.player.stats[&#34;Intelligence&#34;]}.&#39;
+                                   )
+
+        Button(self, &#34;Continue&#34;, self.game_handler.start_next_map, 700,
+               self.screen_height//2, anchor=&#34;nw&#34;, width=8, height=3,
+               font=(&#34;Calibri&#34;, 20))
+        Button(self, &#34;Exit&#34;, self.destroy, 550, self.screen_height//2,
+
+               anchor=&#34;w&#34;, width=8, height=3, font=(&#34;Calibri&#34;, 20))
+        
+    def destroy(self):
+        if self.is_game_started and self.player.living:
+            self.game_handler.save_game()
+        super().destroy()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>tkinter.Tk</li>
+<li>tkinter.Misc</li>
+<li>tkinter.Wm</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.animate_text"><code class="name flex">
+<span>def <span class="ident">animate_text</span></span>(<span>self, text_id, text)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints text to the MainGUI
+.
+Args:
+text_id (str): The text_box to print to.
+text (str): The text to print.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def animate_text(self, text_id, text):
+    &#34;&#34;&#34;Prints text to the MainGUI
+.
+    Args:
+        text_id (str): The text_box to print to.
+        text (str): The text to print.
+    &#34;&#34;&#34;
+    self.text_printer.animate_text(text, text_id, tk.END)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.change_map_image"><code class="name flex">
+<span>def <span class="ident">change_map_image</span></span>(<span>self, room)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Changes the minimap to the new image.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>room</code></strong> :&ensp;<code>Room</code></dt>
+<dd>The Room instance with the associated image.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def change_map_image(self, room):
+    &#34;&#34;&#34;Changes the minimap to the new image.
+    Args:
+        room (Room): The Room instance with the associated image.
+    &#34;&#34;&#34;
+    self.original_image = Image.open(room.map_image_path).resize((400,
+                                                                  500))
+    self.bg = ImageTk.PhotoImage(self.original_image)
+    self.bg_canvas.create_image(self.screen_width - 1280,
+                                self.screen_width - 1280, image=self.bg,
+                                anchor=&#39;nw&#39;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.clearGUI"><code class="name flex">
+<span>def <span class="ident">clearGUI</span></span>(<span>self, img)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Clears the gui of existing elements</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>img</code></strong></dt>
+<dd>The image to replace the destroyed screen by</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clearGUI(self, img):
+    &#34;&#34;&#34;Clears the gui of existing elements
+    Args:
+        img: The image to replace the destroyed screen by
+    &#34;&#34;&#34;
+    if self.bg_canvas is not None:
+        self.bg_canvas.destroy()
+    self.bg_canvas = tk.Canvas(self, width=self.screen_width,
+                               height=self.screen_height)
+    self.bg_canvas.pack(fill=&#39;both&#39;, expand=True)
+    self.img = Image.open(img).resize((self.screen_width,
+                                       self.screen_height))
+    self.image = ImageTk.PhotoImage(self.img)
+    self.bg_canvas.create_image(0, 0, image=self.image, anchor=&#39;nw&#39;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.createText"><code class="name flex">
+<span>def <span class="ident">createText</span></span>(<span>self, msg: str, x: int, y: int, font: tuple[str, int] = ('Time New Romans', 20), color: str = 'black', anchor: str = 'center', tags: str = None, width: int = None, shadow: bool = False, justify='left')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates text using custom formatting</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>msg</code></strong></dt>
+<dd>The message to print</dd>
+<dt><strong><code>x</code></strong></dt>
+<dd>The x-location</dd>
+<dt><strong><code>y</code></strong></dt>
+<dd>The y-position</dd>
+<dt><strong><code>font</code></strong></dt>
+<dd>The font style and size</dd>
+<dt><strong><code>color</code></strong></dt>
+<dd>The font color</dd>
+<dt><strong><code>anchor</code></strong></dt>
+<dd>Where to anchor the text to</dd>
+<dt><strong><code>tags</code></strong></dt>
+<dd>The tag string to refer it by</dd>
+<dt><strong><code>width</code></strong></dt>
+<dd>The width of the textbox</dd>
+<dt><strong><code>shadow</code></strong></dt>
+<dd>Whether to have a background shadow or not</dd>
+<dt><strong><code>justify</code></strong></dt>
+<dd>How to align the text</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def createText(self, msg: str, x: int, y: int,
+               font: tuple[str, int] = (&#34;Time New Romans&#34;, 20),
+               color: str = &#39;black&#39;, anchor: str = &#34;center&#34;,
+               tags: str = None, width: int = None, shadow: bool = False,
+               justify=&#34;left&#34;):
+    &#34;&#34;&#34;Creates text using custom formatting
+    Args:
+        msg: The message to print
+        x: The x-location
+        y: The y-position
+        font: The font style and size
+        color: The font color
+        anchor: Where to anchor the text to
+        tags: The tag string to refer it by
+        width: The width of the textbox
+        shadow: Whether to have a background shadow or not
+        justify: How to align the text
+
+    &#34;&#34;&#34;
+    if shadow:
+        self.bg_canvas.create_text(x-5, y+5, text=msg, font=font,
+                                   fill=&#34;black&#34;, anchor=anchor, tags=tags,
+                                   width=width)
+    self.bg_canvas.create_text(x, y, text=msg, font=font, fill=color,
+                               anchor=anchor, tags=tags, width=width,
+                               justify=justify)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.create_intro_screen1"><code class="name flex">
+<span>def <span class="ident">create_intro_screen1</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates the title screen.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_intro_screen1(self):
+    &#34;&#34;&#34;Creates the title screen.&#34;&#34;&#34;
+
+    # Delete save file
+    self.game_handler.clear_save_file()
+
+    self.game_handler.clear_save_file()
+    self.clearGUI(&#39;Images/LevelOne/bg2.jpeg&#39;)
+    self.createText(&#34;Are You Ready For a New Adventure?&#34;,
+                    self.screen_width // 2, self.screen_height // 2,
+                    font=&#34;Time_New_Roman 45&#34;, color=&#39;white&#39;, shadow=True)
+    self.user_name = tk.Label(self, text=&#39;User Name:&#39;,
+                              font=&#39;Time_New_Roman 15&#39;)
+    self.user_name_window = self.bg_canvas.create_window(30, 100,
+                                                         anchor=&#39;sw&#39;,
+                                                         window=self.user_name, tags=&#34;Login_Text&#34;)
+    self.user_name_entry = tk.Entry(self, font=&#39;Time_New_Roman 20&#39;)
+    self.bg_canvas.create_window(150, 100, anchor=&#39;sw&#39;,
+                                 window=self.user_name_entry,
+                                 tags=&#34;Login Button&#34;)
+
+    Button(self, &#34;Start Game&#34;, self.create_intro_screen2, 30, 200)
+    Button(self, &#34;Exit&#34;, self.destroy, self.width-200, self.height-100,
+           font=(&#34;Times&#34;, 30))</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.create_intro_screen2"><code class="name flex">
+<span>def <span class="ident">create_intro_screen2</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Destroys the title screen and Creates the game intro screen.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_intro_screen2(self):
+    &#34;&#34;&#34;Destroys the title screen and Creates the game intro screen.&#34;&#34;&#34;
+    self.clearGUI(&#39;Images/LevelOne/bg.jpg&#39;)
+    self.name = self.user_name_entry.get() or &#34;Default&#34;
+    self.player.change_name(self.name)
+    self.createText(
+        &#34;You are a new  Space Janitor sent to&#34;
+        &#34; salvage the numerous asteroids and ship&#34;
+        &#34; wrecks that pollute space.&#34;
+        f&#34;\n\nWelcome, {self.name} to being a&#34;
+        f&#34; Space Janitor.\nRise to the top.&#34;,
+        self.width//2, self.height-700, font=(&#34;Times New Romans&#34;, 20),
+        color=&#34;white&#34;, shadow=True
+    )
+    Button(self, &#34;Click Here to Continue&#34;, self.create_intro_screen3,
+           self.width//2, self.height-300, anchor=&#34;center&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.create_intro_screen3"><code class="name flex">
+<span>def <span class="ident">create_intro_screen3</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates the character creation screen after deleting the intro
+screen text.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_intro_screen3(self):
+    &#34;&#34;&#34;Creates the character creation screen after deleting the intro
+     screen text.&#34;&#34;&#34;
+    self.clearGUI(&#39;Images/LevelOne/bg.jpg&#39;)
+    Button(self, &#34;Start Game&#34;, self.create_main_gui, self.width//2,
+           self.height-300, anchor=&#34;center&#34;)
+    self.printPlayerStats()
+
+    for i, stat in enumerate([&#34;Strength&#34;, &#34;Dexterity&#34;,
+                              &#34;Vitality&#34;, &#34;Intelligence&#34;]):
+        cmd = lambda s, n: lambda: self.update_init_stats(s, n)
+
+        Button(self, &#34;-&#34;, cmd(stat, -1), self.width//2 + 70,
+               self.height - 700 + 70 * i,
+               width=1, height=1, font=(&#34;Time New Romans&#34;, 20),
+               anchor=&#34;center&#34;, padding=5)
+        Button(self, &#34;+&#34;, cmd(stat, 1), self.width//2 + 100,
+               self.height - 700 + 70 * i,
+               width=1, height=1, font=(&#34;Time New Romans&#34;, 20),
+               anchor=&#34;center&#34;, padding=5)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.create_main_gui"><code class="name flex">
+<span>def <span class="ident">create_main_gui</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Deletes the character screen and makes the main screen.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_main_gui(self):
+    &#34;&#34;&#34;Deletes the character screen and makes the main screen.
+    &#34;&#34;&#34;
+    self.start_game()
+    from Classes.game_handler import GameHandler
+    # To import the Level counter from GameHandler
+    self.lvl_counter = GameHandler.counter
+    self.is_game_started = True
+
+    self.clearGUI(&#39;Images/LevelOne/HallWay.png&#39;)
+
+    menu_image = Image.open(&#39;Images/LevelOne/info_bg.png&#39;).resize((350,
+                                                                   210))
+    self.menu_bg = ImageTk.PhotoImage(menu_image)
+
+    self.image_border = Image.open(&#39;Images/Items/Button_image.png&#39;).resize((650, 270))
+    self.border = ImageTk.PhotoImage(self.image_border)
+
+    if self.lvl_counter == 1:
+
+        self.original_image = Image.open(&#39;Images/LevelOneMap/Main.jpg&#39;).resize((400, 500))
+        self.bg = ImageTk.PhotoImage(self.original_image)
+
+    elif self.lvl_counter == 2:
+        self.original_image = Image.open(&#39;Images/LevelTwoMap/Level2.jpg&#39;).resize((400, 500))
+        self.bg = ImageTk.PhotoImage(self.original_image)
+
+    elif self.lvl_counter == 3:
+        self.original_image = Image.open(&#39;Images/Level3/LevelThreeMap/Level_3.jpg&#39;).resize((400, 500))
+        self.bg = ImageTk.PhotoImage(self.original_image)
+
+    # Create Canvas and Images
+    self.bg_canvas.create_image(self.screen_width - 1280,
+                                self.screen_width - 1280,
+                                image=self.bg, anchor=&#39;nw&#39;)
+    self.bg_canvas.create_image(self.screen_width - 1400,
+                                self.screen_height - 360,
+                                image=self.border, anchor=&#39;nw&#39;)
+    self.bg_canvas.create_image(self.screen_width - 1250,
+                                self.screen_height - 330,
+                                image=self.menu_bg, anchor=&#39;nw&#39;)
+    self.createText(f&#34;{self.name}&#39;s Stats&#34;, 120, 590, font=(&#34;Time_New_Roman&#34;, 20, &#34;bold&#34;),
+                    color=&#34;white&#34;, anchor=&#34;w&#34;)
+
+    Button(self, &#34;Character\nDetails&#34;, self.open_character_gui,
+           self.screen_width - 1210, self.screen_height - 275, anchor=&#34;nw&#34;,
+           width=50, color=&#34;#faa19b&#34;, hcolor=&#34;#f06b62&#34;)
+    Button(self, &#34;Inventory\nDetails&#34;, self.open_inventory_gui,
+           self.screen_width - 1060, self.screen_height - 275, anchor=&#34;nw&#34;,
+           width=50, color=&#34;#faa19b&#34;, hcolor=&#34;#f06b62&#34;)
+    Button(self, &#34;Exit&#34;, self.destroy, 20, self.screen_height - 50,
+           anchor=&#34;w&#34;, font=(&#34;Calibri&#34;, 20))
+
+    self.createText(&#34;\nYou are ready to start cleaning up&#34;
+                    &#34; the wreckage. Which wreckage should you&#34;
+                    &#34; visit first? Choose a location on the map.\n&#34;,
+                    450, 350, font=(&#34;Times New Roman&#34;, 17), color=&#34;white&#34;,
+                    anchor=&#34;w&#34;, tags=&#34;game_text&#34;, width=500)
+    self.createText(&#34;Choose Next Location&#34;, 1010, 400, font=(&#34;Time_New_Roman&#34;, 20),
+                    color=&#34;white&#34;, anchor=&#34;w&#34;)
+
+    # Button(self, &#34;Load Game&#34;, self.load_game, self.screen_width - 180, 80,
+    #        font=(&#34;Arial&#34;, 20))
+    # Button(self, &#34;Save Game&#34;, self.save_game, self.screen_width - 180, 130,
+    #        font=(&#34;Arial&#34;, 20))
+
+    self.display_buttons()</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.create_main_screen"><code class="name flex">
+<span>def <span class="ident">create_main_screen</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates the main screen graphics.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_main_screen(self):
+    &#34;&#34;&#34;Creates the main screen graphics.
+    &#34;&#34;&#34;
+    self.clearGUI(&#34;Images/download.jpg&#34;)
+
+    self.createText(&#34;Space Adventure RPG&#34;, self.screen_width//2, 200,
+                    font=(&#34;Arial&#34;, 80), color=&#34;white&#34;)
+
+    Button(self, &#34;New Game&#34;, self.create_intro_screen1,
+           self.screen_width//2 - 100, 500, font=(&#34;Arial&#34;, 40),
+           hcolor=&#34;#ff6700&#34;, width=250)
+
+    if not self.game_handler.is_save_empty():
+        Button(self, &#34;Load Game&#34;, self.load_game,
+               self.screen_width//2 - 100, 600, font=(&#34;Arial&#34;, 40),
+               hcolor=&#34;#FF00FF&#34;, width=250, tags=&#34;load&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.destroy"><code class="name flex">
+<span>def <span class="ident">destroy</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Destroy this and all descendants widgets. This will
+end the application of this Tcl interpreter.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def destroy(self):
+    if self.is_game_started and self.player.living:
+        self.game_handler.save_game()
+    super().destroy()</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.display_buttons"><code class="name flex">
+<span>def <span class="ident">display_buttons</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display available rooms to interact with.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_buttons(self):
+    &#34;&#34;&#34;Display available rooms to interact with.
+    &#34;&#34;&#34;
+    self.button_frame = tk.Frame(self.bg_canvas, bg=&#39;#023552&#39;,
+                                 borderwidth=3, highlightcolor=&#34;white&#34;,
+                                 highlightthickness=4)
+    self.button_frame.place(relwidth=0.20, relheight=0.4,
+                            relx=0.77, rely=0.5)
+
+    self.button_image = Image.open(&#39;Images/Items/Button_image.png&#39;).resize((500, 450))
+    self.button_background = ImageTk.PhotoImage(self.button_image)
+    self.bg_canvas.create_image(self.width - 420, self.height - 495, image=self.button_background,
+                                anchor=&#39;nw&#39;)
+
+    for adjacent_room in self.map.get_current_room().get_adjacent_rooms():
+        test = lambda room: lambda: self.handle_button_input(room)
+        button_text = adjacent_room.name
+
+        color = &#34;#f69697&#34; if adjacent_room.cleared else &#34;#FFFFFF&#34;
+
+        button = customtkinter.CTkButton(
+            self.button_frame, width=200, height=3, font=(&#34;Calibri&#34;, 15),
+            text_color=&#34;black&#34;, text=button_text,
+            command=test(adjacent_room), fg_color=color
+        )
+        button.pack(pady=5)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.display_game_lost_gui"><code class="name flex">
+<span>def <span class="ident">display_game_lost_gui</span></span>(<span>self, total_time, enemies_killed, rooms_entered)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The screen that shows when you lose the game.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>total_time</code></strong> :&ensp;<code>int</code></dt>
+<dd>The total time spent.</dd>
+<dt><strong><code>enemies_killed</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of enemies killed.</dd>
+<dt><strong><code>rooms_entered</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of rooms entered.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_game_lost_gui(self, total_time, enemies_killed, rooms_entered):
+    &#34;&#34;&#34;The screen that shows when you lose the game.
+    Args:
+        total_time (int): The total time spent.
+        enemies_killed (int): The number of enemies killed.
+        rooms_entered (int): The number of rooms entered.
+    &#34;&#34;&#34;
+
+    # Clear previous window
+    self.bg_canvas.destroy()
+
+    # Import Map Background
+    img = Image.open(&#39;Images/LevelOne/GameOver.png&#39;).resize((self.screen_width, self.screen_height))
+    self.img = ImageTk.PhotoImage(img)
+
+    # Create canvas and background
+    self.bg_canvas = tk.Canvas(self, width=self.screen_width,
+                               height=self.screen_height)
+    self.bg_canvas.pack(fill=&#39;both&#39;, expand=True)
+    self.bg_canvas.create_image(0, 0, image=self.img, anchor=&#39;nw&#39;)
+
+    # Heading
+    self.bg_canvas.create_text(self.width / 2, self.height / 5 - 100,
+                               font=(&#39;Calibri&#39;, 50), fill=&#34;#ffffff&#34;,
+                               justify=&#34;center&#34;, text=&#34;You have died!&#34;)
+    # Subheading
+    self.bg_canvas.create_text(self.width / 2, self.height / 5,
+                               font=(&#39;Calibri&#39;, 35), fill=&#34;#ffffff&#34;,
+                               justify=&#34;center&#34;,
+                               text=&#34;You have failed to eradicate all the&#34;
+                               &#34; monsters in the wreckages.&#34;)
+
+    # Final stats
+    self.bg_canvas.create_text(300, self.height / 4 + 275,
+                               font=(&#39;Calibri&#39;, 25), fill=&#34;#ffffff&#34;,
+                               justify=&#34;left&#34;,
+                               text=f&#39;{self.player.name}\&#39;s Stats:\n\n&#39; +
+                                    f&#39;Total Time (s): {total_time}.\n&#39; +
+                                    f&#39;Enemies Slain: {enemies_killed}.\n&#39; +
+                                    f&#39;Rooms Entered: {rooms_entered}.\n&#39; +
+                                    f&#39;Max Health: &#39;
+                                    f&#39;{self.player.stats[&#34;Max Health&#34;]}.\n&#39;
+                                    + f&#39;Strength:&#39;
+                                    f&#39; {self.player.stats[&#34;Strength&#34;]}.\n&#39;
+                                    + f&#39;Dexterity:&#39;
+                                    f&#39; {self.player.stats[&#34;Dexterity&#34;]}.\n&#39;
+                                    + f&#39;Vitality:&#39;
+                                    f&#39; {self.player.stats[&#34;Vitality&#34;]}.\n&#39;
+                                    + f&#39;Intelligence: &#39;
+                                    f&#39;{self.player.stats[&#34;Intelligence&#34;]}.&#39;
+                               )
+
+    Button(self, &#34;Retry?&#34;, self.game_handler.start_new_game, 700,
+           self.screen_height//2, anchor=&#34;nw&#34;, width=8, height=3,
+           font=(&#34;Calibri&#34;, 20))
+    Button(self, &#34;Exit&#34;, self.destroy, 550, self.screen_height//2,
+           anchor=&#34;w&#34;, width=8, height=3, font=(&#34;Calibri&#34;, 20))</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.display_game_won_gui"><code class="name flex">
+<span>def <span class="ident">display_game_won_gui</span></span>(<span>self, total_time, enemies_killed, rooms_entered)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The screen that shows when you win the game.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>total_time</code></strong> :&ensp;<code>ChestRoom</code></dt>
+<dd>The ChestRoom instance to enter.</dd>
+<dt><strong><code>enemies_killed</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of enemies killed.</dd>
+<dt><strong><code>rooms_entered</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of rooms entered.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_game_won_gui(self, total_time, enemies_killed, rooms_entered):
+    &#34;&#34;&#34;The screen that shows when you win the game.
+    Args:
+        total_time (ChestRoom): The ChestRoom instance to enter.
+        enemies_killed (int): The number of enemies killed.
+        rooms_entered (int): The number of rooms entered.
+    &#34;&#34;&#34;
+    # Clear previous window
+    self.bg_canvas.destroy()
+
+    # Import Map Background
+    img = Image.open(&#39;Images/LevelOne/GameWon.png&#39;).resize(
+        (self.screen_width, self.screen_height))
+    self.img = ImageTk.PhotoImage(img)
+
+    # Create canvas and background
+    self.bg_canvas = tk.Canvas(self, width=self.screen_width,
+                               height=self.screen_height)
+    self.bg_canvas.pack(fill=&#39;both&#39;, expand=True)
+    self.bg_canvas.create_image(0, 0, image=self.img, anchor=&#39;nw&#39;)
+
+    # Heading
+    self.bg_canvas.create_text(self.width / 2, self.height / 5 - 100,
+                               font=(&#39;Calibri&#39;, 50), fill=&#34;#ffffff&#34;,
+                               justify=&#34;center&#34;, text=&#34;You have won!&#34;)
+    # Subheading
+    self.bg_canvas.create_text(self.width / 2, self.height / 5,
+                               font=(&#39;Calibri&#39;, 30), fill=&#34;#ffffff&#34;,
+                               justify=&#34;center&#34;,
+                               text=&#34;You have successfully eradicated all&#34;
+                               &#34; the monsters in the wreckages.&#34;)
+
+    # Final stats
+    self.bg_canvas.create_text(300, self.height / 4 + 275,
+                               font=(&#39;Calibri&#39;, 25), fill=&#34;#ffffff&#34;,
+                               justify=&#34;left&#34;,
+                               text=f&#39;{self.player.name}\&#39;s Stats:\n\n&#39; +
+                                    f&#39;Total Time (s): {total_time}.\n&#39; +
+                                    f&#39;Enemies Slain: {enemies_killed}.\n&#39;
+                                    + f&#39;Rooms Entered: {rooms_entered}.\n&#39;
+                                    + f&#39;Max Health: &#39;
+                                    f&#39;{self.player.stats[&#34;Max Health&#34;]}.\n&#39;
+                                    + f&#39;Strength:&#39;
+                                    f&#39; {self.player.stats[&#34;Strength&#34;]}.\n&#39;
+                                    + f&#39;Dexterity:&#39;
+                                    f&#39; {self.player.stats[&#34;Dexterity&#34;]}.\n&#39;
+                                    + f&#39;Vitality:&#39;
+                                    f&#39; {self.player.stats[&#34;Vitality&#34;]}.\n&#39;
+                                    + f&#39;Intelligence: &#39;
+                                    f&#39;{self.player.stats[&#34;Intelligence&#34;]}.&#39;
+                               )
+
+    Button(self, &#34;Continue&#34;, self.game_handler.start_next_map, 700,
+           self.screen_height//2, anchor=&#34;nw&#34;, width=8, height=3,
+           font=(&#34;Calibri&#34;, 20))
+    Button(self, &#34;Exit&#34;, self.destroy, 550, self.screen_height//2,
+
+           anchor=&#34;w&#34;, width=8, height=3, font=(&#34;Calibri&#34;, 20))</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.enter_boss_room"><code class="name flex">
+<span>def <span class="ident">enter_boss_room</span></span>(<span>self, room)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints text when entering a BossRoom.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>room</code></strong> :&ensp;<code>BossRoom</code></dt>
+<dd>The BossRoom instance to enter.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def enter_boss_room(self, room):
+    &#34;&#34;&#34;Prints text when entering a BossRoom.
+    Args:
+        room (BossRoom): The BossRoom instance to enter.
+    &#34;&#34;&#34;
+    self.text_printer.animate_text(f&#34;\n You have entered {room} which is&#34;
+                                   f&#34; the boss room.\n&#34;, &#34;game_text&#34;,
+                                   tk.END)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.enter_chest_room"><code class="name flex">
+<span>def <span class="ident">enter_chest_room</span></span>(<span>self, room)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints text when entering a ChestRoom.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>room</code></strong> :&ensp;<code>ChestRoom</code></dt>
+<dd>The ChestRoom instance to enter.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def enter_chest_room(self, room):
+    &#34;&#34;&#34;Prints text when entering a ChestRoom.
+    Args:
+        room (ChestRoom): The ChestRoom instance to enter.
+    &#34;&#34;&#34;
+    self.text_printer.animate_text(f&#34;\nYou have entered {room} which&#34;
+                                   f&#34; contains a chest.\n&#34;, &#34;game_text&#34;,
+                                   tk.END)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.enter_combat_room"><code class="name flex">
+<span>def <span class="ident">enter_combat_room</span></span>(<span>self, room)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints text when entering a CombatRoom.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>room</code></strong> :&ensp;<code>CombatRoom</code></dt>
+<dd>The CombatRoom instance to enter.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def enter_combat_room(self, room):
+    &#34;&#34;&#34;Prints text when entering a CombatRoom.
+    Args:
+        room (CombatRoom): The CombatRoom instance to enter.
+    &#34;&#34;&#34;
+    self.text_printer.animate_text(f&#34;\nYou have entered {room} which&#34;
+                                   f&#34; contains combat.\n&#34;, &#34;game_text&#34;,
+                                   tk.END)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.enter_repeated_room"><code class="name flex">
+<span>def <span class="ident">enter_repeated_room</span></span>(<span>self, room)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints text when entering a previously cleared room.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>room</code></strong> :&ensp;<code>Room</code></dt>
+<dd>The already cleared room.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def enter_repeated_room(self, room):
+    &#34;&#34;&#34;Prints text when entering a previously cleared room.
+    Args:
+        room (Room): The already cleared room.
+    &#34;&#34;&#34;
+    self.text_printer.animate_text(f&#34;\n{room} has already been entered.\n&#34;,
+                                   &#34;game_text&#34;, tk.END)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.enter_shop_room"><code class="name flex">
+<span>def <span class="ident">enter_shop_room</span></span>(<span>self, room)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints text when entering a ShopRoom.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>room</code></strong> :&ensp;<code>ShopRoom</code></dt>
+<dd>The ShopRoom instance to enter.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def enter_shop_room(self, room):
+    &#34;&#34;&#34;Prints text when entering a ShopRoom.
+    Args:
+        room (ShopRoom): The ShopRoom instance to enter.
+    &#34;&#34;&#34;
+    self.text_printer.animate_text(f&#34;\nYou have entered {room} which&#34;
+                                   f&#34; contains a shop.\n&#34;, &#34;game_text&#34;,
+                                   tk.END)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.exit_boss_room"><code class="name flex">
+<span>def <span class="ident">exit_boss_room</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints text when exiting a BossRoom.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def exit_boss_room(self):
+    &#34;&#34;&#34;Prints text when exiting a BossRoom.
+    &#34;&#34;&#34;
+    if not self.player.living:
+        return
+
+    self.text_printer.animate_text(&#34;\nCongratulations for beating the&#34;
+                                   &#34; boss!\n&#34;, &#34;game_text&#34;, tk.END)
+
+    # Display End Game Button
+    Button(self, &#34;End Game&#34;, partial(self.game_handler.end_game, True),
+           self.width-100, 300, anchor=&#34;e&#34;, width=10, font=(&#34;Calibri&#34;, 16),
+           height=2)
+
+    # Display Text
+    self.bg_canvas.create_text(1010, 235, width=300, font=(&#39;Arial&#39;, 20),
+                               fill=&#34;#FFFFFF&#34;, anchor=&#34;w&#34;,
+                               text=&#34;Move to Next Round&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.exit_combat_room"><code class="name flex">
+<span>def <span class="ident">exit_combat_room</span></span>(<span>self, room)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints text when exiting a CombatRoom.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>room</code></strong> :&ensp;<code>CombatRoom</code></dt>
+<dd>The CombatRoom instance that was just cleared.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def exit_combat_room(self, room):
+    &#34;&#34;&#34;Prints text when exiting a CombatRoom.
+    Args:
+        room (CombatRoom): The CombatRoom instance that was just cleared.
+    &#34;&#34;&#34;
+    if self.player.living:
+        self.text_printer.animate_text(f&#34;\nYou have beaten the enemies&#34;
+                                       f&#34; in {room}.\n&#34;, &#34;game_text&#34;,
+                                       tk.END)
+    else:
+        self.game_handler.end_game(False)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.exit_room"><code class="name flex">
+<span>def <span class="ident">exit_room</span></span>(<span>self, room)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints text when exiting a Room.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>room</code></strong> :&ensp;<code>Room</code></dt>
+<dd>The Room instance that was just cleared.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def exit_room(self, room):
+    &#34;&#34;&#34;Prints text when exiting a Room.
+    Args:
+        room (Room): The Room instance that was just cleared.
+    &#34;&#34;&#34;
+    self.text_printer.animate_text(f&#34;\nYou have exited {room}.\n&#34;,
+                                   &#34;game_text&#34;, tk.END)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.handle_button_input"><code class="name flex">
+<span>def <span class="ident">handle_button_input</span></span>(<span>self, room)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Enters the Room instance and changes the map image to the
+appropriate one.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>room</code></strong> :&ensp;<code>Room</code></dt>
+<dd>The Room instance just entered.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_button_input(self, room):
+    &#34;&#34;&#34;Enters the Room instance and changes the map image to the
+     appropriate one.
+    Args:
+        room (Room): The Room instance just entered.
+    &#34;&#34;&#34;
+    if self.ready and self.player.living and self.map.current_room.cleared:
+        self.change_map_image(room)
+        self.game_handler.enter_room(room)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.load_game"><code class="name flex">
+<span>def <span class="ident">load_game</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Loads the game from the save file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_game(self):
+    &#34;&#34;&#34;Loads the game from the save file.
+    &#34;&#34;&#34;
+    self.game_handler.load_game()</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.open_character_gui"><code class="name flex">
+<span>def <span class="ident">open_character_gui</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Opens a CharacterGUI instance.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def open_character_gui(self):
+    &#34;&#34;&#34;Opens a CharacterGUI instance.
+    &#34;&#34;&#34;
+    print(&#34;clicking character&#34;)
+    print(f&#34;ready: {self.ready}, current:&#34;
+          f&#34; {self.map.get_current_room().get_cleared()}&#34;)
+    print(f&#34;living: {self.player.living}&#34;)
+    if (self.ready and self.map.get_current_room().get_cleared()
+            and self.player.living):
+        self.ready = False
+        self.map.get_current_room().clear_room(False)
+        CharacterGUI(self.player, self.map.get_current_room(), self)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.open_inventory_gui"><code class="name flex">
+<span>def <span class="ident">open_inventory_gui</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Opens an InventoryGUI instance.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def open_inventory_gui(self):
+    &#34;&#34;&#34;Opens an InventoryGUI instance.
+    &#34;&#34;&#34;
+    if (self.ready and self.map.get_current_room().get_cleared()
+            and self.player.living):
+        self.ready = False
+        self.map.get_current_room().clear_room(False)
+        InventoryGUI(self.player, self.map.get_current_room(), self)</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.printPlayerStats"><code class="name flex">
+<span>def <span class="ident">printPlayerStats</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints player stats.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def printPlayerStats(self):
+    &#34;&#34;&#34;Prints player stats.
+    &#34;&#34;&#34;
+    self.bg_canvas.delete(&#34;stats&#34;)
+    self.createText(
+        f&#34;{self.player.name}&#39;s Stats:\n\nHealth:&#34;
+        f&#34;{self.player.stats[&#39;Health&#39;]}/{self.player.stats[&#39;Max Health&#39;]}&#34;
+        + &#34;&#34;.join([f&#39;\n\n{stat[0:3]}: {self.player.stats[stat]}&#39;
+                   for stat in [&#34;Strength&#34;, &#34;Dexterity&#34;,
+                                &#34;Vitality&#34;, &#34;Intelligence&#34;]]) +
+        f&#34;\n\nFree Points: {self.player.stats[&#39;Stat Points&#39;]}\n\n&#34;
+        f&#34;Min: 3, Max: 12&#34;,
+        self.width//2, self.height - 600,
+        font=(&#34;Time New Romans&#34;, 22), color=&#34;white&#34;, justify=&#34;center&#34;,
+        tags=&#34;stats&#34;
+    )</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.save_game"><code class="name flex">
+<span>def <span class="ident">save_game</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Saves current game data to a save file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_game(self):
+    &#34;&#34;&#34;Saves current game data to a save file.
+    &#34;&#34;&#34;
+    self.game_handler.save_game()</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.start_game"><code class="name flex">
+<span>def <span class="ident">start_game</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Start the game and load available rooms.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start_game(self):
+    &#34;&#34;&#34;Start the game and load available rooms.
+    &#34;&#34;&#34;
+    self.text_printer = TextPrinter(self)
+    self.ready = True
+    self.map = self.game_handler.get_map()
+    self.player = self.game_handler.player
+    self.name = self.game_handler.player.name
+    self.game_handler.enter_room(self.map.get_current_room())</code></pre>
+</details>
+</dd>
+<dt id="rpg.Classes.GUI.main_gui.MainGUI.update_init_stats"><code class="name flex">
+<span>def <span class="ident">update_init_stats</span></span>(<span>self, stat: str, amount: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method that affects the Player's stats.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>stat</code></strong> :&ensp;<code>str</code></dt>
+<dd>The stat to change.</dd>
+<dt><strong><code>amount</code></strong> :&ensp;<code>int</code></dt>
+<dd>How much to change the stat by.</dd>
+</dl>
+<p>Increases only if the Player has unassigned Stat Points.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_init_stats(self, stat: str, amount: int):
+    &#34;&#34;&#34;Method that affects the Player&#39;s stats.
+    Args:
+        stat (str): The stat to change.
+        amount (int): How much to change the stat by.
+         Increases only if the Player has unassigned Stat Points.
+    &#34;&#34;&#34;
+    if amount == -1:
+        if self.player.stats[stat] &gt; 3:
+            self.player.stats[stat] += amount
+            self.player.stats[&#34;Stat Points&#34;] += -amount
+    elif self.player.stats[&#34;Stat Points&#34;] &gt;= 1:
+        if self.player.stats[stat] &lt; 12:
+            self.player.upgrade_stats(stat, amount)
+    self.player.update_max_health()
+    self.player.stats[&#34;Health&#34;] = self.player.stats[&#34;Max Health&#34;]
+    self.printPlayerStats()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="rpg.Classes.GUI" href="index.html">rpg.Classes.GUI</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="rpg.Classes.GUI.main_gui.MainGUI" href="#rpg.Classes.GUI.main_gui.MainGUI">MainGUI</a></code></h4>
+<ul class="">
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.animate_text" href="#rpg.Classes.GUI.main_gui.MainGUI.animate_text">animate_text</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.change_map_image" href="#rpg.Classes.GUI.main_gui.MainGUI.change_map_image">change_map_image</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.clearGUI" href="#rpg.Classes.GUI.main_gui.MainGUI.clearGUI">clearGUI</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.createText" href="#rpg.Classes.GUI.main_gui.MainGUI.createText">createText</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.create_intro_screen1" href="#rpg.Classes.GUI.main_gui.MainGUI.create_intro_screen1">create_intro_screen1</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.create_intro_screen2" href="#rpg.Classes.GUI.main_gui.MainGUI.create_intro_screen2">create_intro_screen2</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.create_intro_screen3" href="#rpg.Classes.GUI.main_gui.MainGUI.create_intro_screen3">create_intro_screen3</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.create_main_gui" href="#rpg.Classes.GUI.main_gui.MainGUI.create_main_gui">create_main_gui</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.create_main_screen" href="#rpg.Classes.GUI.main_gui.MainGUI.create_main_screen">create_main_screen</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.destroy" href="#rpg.Classes.GUI.main_gui.MainGUI.destroy">destroy</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.display_buttons" href="#rpg.Classes.GUI.main_gui.MainGUI.display_buttons">display_buttons</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.display_game_lost_gui" href="#rpg.Classes.GUI.main_gui.MainGUI.display_game_lost_gui">display_game_lost_gui</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.display_game_won_gui" href="#rpg.Classes.GUI.main_gui.MainGUI.display_game_won_gui">display_game_won_gui</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.enter_boss_room" href="#rpg.Classes.GUI.main_gui.MainGUI.enter_boss_room">enter_boss_room</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.enter_chest_room" href="#rpg.Classes.GUI.main_gui.MainGUI.enter_chest_room">enter_chest_room</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.enter_combat_room" href="#rpg.Classes.GUI.main_gui.MainGUI.enter_combat_room">enter_combat_room</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.enter_repeated_room" href="#rpg.Classes.GUI.main_gui.MainGUI.enter_repeated_room">enter_repeated_room</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.enter_shop_room" href="#rpg.Classes.GUI.main_gui.MainGUI.enter_shop_room">enter_shop_room</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.exit_boss_room" href="#rpg.Classes.GUI.main_gui.MainGUI.exit_boss_room">exit_boss_room</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.exit_combat_room" href="#rpg.Classes.GUI.main_gui.MainGUI.exit_combat_room">exit_combat_room</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.exit_room" href="#rpg.Classes.GUI.main_gui.MainGUI.exit_room">exit_room</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.handle_button_input" href="#rpg.Classes.GUI.main_gui.MainGUI.handle_button_input">handle_button_input</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.load_game" href="#rpg.Classes.GUI.main_gui.MainGUI.load_game">load_game</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.open_character_gui" href="#rpg.Classes.GUI.main_gui.MainGUI.open_character_gui">open_character_gui</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.open_inventory_gui" href="#rpg.Classes.GUI.main_gui.MainGUI.open_inventory_gui">open_inventory_gui</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.printPlayerStats" href="#rpg.Classes.GUI.main_gui.MainGUI.printPlayerStats">printPlayerStats</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.save_game" href="#rpg.Classes.GUI.main_gui.MainGUI.save_game">save_game</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.start_game" href="#rpg.Classes.GUI.main_gui.MainGUI.start_game">start_game</a></code></li>
+<li><code><a title="rpg.Classes.GUI.main_gui.MainGUI.update_init_stats" href="#rpg.Classes.GUI.main_gui.MainGUI.update_init_stats">update_init_stats</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
